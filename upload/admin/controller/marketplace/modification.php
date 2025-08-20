@@ -32,7 +32,22 @@ class ControllerMarketplaceModification extends Controller {
                 $this->model_setting_modification->addModificationBackup($this->request->get['modification_id'], $modification);
             }
 
-            $this->model_setting_modification->editModification($this->request->get['modification_id'], $this->request->post);
+            $xml = html_entity_decode($this->request->post['xml'], ENT_QUOTES, 'UTF-8');
+			$meta = $this->parseMetaFromXml($xml);
+
+			$cur  = $this->model_setting_modification->getModification($this->request->get['modification_id']);
+
+			$data = array(
+				'name'    => !empty($this->request->post['name']) ? $this->request->post['name'] : ($meta['name'] ?: $cur['name']),
+				'code'    => $meta['code']    ?: $cur['code'],
+				'author'  => $meta['author']  ?: $cur['author'],
+				'version' => $meta['version'] ?: $cur['version'],
+				'link'    => $meta['link']    ?: $cur['link'],
+				'xml'     => $xml,
+				'status'  => isset($this->request->post['status']) ? (int)$this->request->post['status'] : (int)$cur['status'],
+			);
+
+			$this->model_setting_modification->editModification($this->request->get['modification_id'], $data);
 
             $this->session->data['success'] = $this->language->get('text_success');
 
@@ -77,7 +92,22 @@ class ControllerMarketplaceModification extends Controller {
             $url = '';
 
             if ($backup) {
-                $this->model_setting_modification->setModificationRestore($this->request->get['modification_id'], $backup['xml']);
+                $xml  = $backup['xml'];
+				$meta = $this->parseMetaFromXml($xml);
+				$cur  = $this->model_setting_modification->getModification($this->request->get['modification_id']);
+
+				$data = array(
+					'name'    => $meta['name']    ?: $cur['name'],
+					'code'    => $meta['code']    ?: $cur['code'],
+					'author'  => $meta['author']  ?: $cur['author'],
+					'version' => $meta['version'] ?: $cur['version'],
+					'link'    => $meta['link']    ?: $cur['link'],
+					'xml'     => $xml,
+					'status'  => (int)$cur['status']
+				);
+
+				$this->model_setting_modification->editModification($this->request->get['modification_id'], $data);
+
                 $this->refresh();
                 $this->response->redirect($this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $this->request->get['modification_id'] . $url, true));
             } else {
@@ -1242,4 +1272,26 @@ class ControllerMarketplaceModification extends Controller {
 
 		return !$this->error;
 	}
+	
+	private function parseMetaFromXml($xml) {
+		$meta = array('name'=>'', 'code'=>'', 'author'=>'', 'version'=>'', 'link'=>'');
+		if (!$xml) return $meta;
+
+		libxml_use_internal_errors(true);
+		$dom = new DOMDocument('1.0', 'UTF-8');
+		if ($dom->loadXml($xml)) {
+			$get = function($tag) use ($dom) {
+				$n = $dom->getElementsByTagName($tag)->item(0);
+				return $n ? trim($n->nodeValue) : '';
+			};
+			$meta['name']    = $get('name');
+			$meta['code']    = $get('code');
+			$meta['author']  = $get('author');
+			$meta['version'] = $get('version');
+			$meta['link']    = $get('link');
+		}
+		libxml_clear_errors();
+		return $meta;
+	}
+
 }
