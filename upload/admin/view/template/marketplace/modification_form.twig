@@ -41,7 +41,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-xml">{{entry_xml}}</label>
                 <div class="col-sm-10">
-                  <textarea  name="xml" placeholder="{{entry_xml}}" id="input-xml" class="form-control CodeMirror">{{xml}}</textarea>
+                  <textarea name="xml" placeholder="{{ entry_xml }}" id="input-xml" class="form-control CodeMirror">{{ xml|raw }}</textarea>
                 </div>
               </div>
             </div>

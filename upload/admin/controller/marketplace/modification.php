@@ -1315,9 +1315,9 @@ class ControllerMarketplaceModification extends Controller {
 		}
 
 		if (isset($this->request->post['xml'])) {
-			$data['xml'] = htmlentities(ltrim($this->request->post['xml'], "﻿"));
+			$data['xml'] = ltrim($this->request->post['xml'], "﻿");
 		} elseif ($modification) {
-			$data['xml'] = htmlentities(ltrim($modification['xml'], "﻿"));
+			$data['xml'] = ltrim($modification['xml'], "﻿");
 		} else {
 			$default_xml = <<<'XML'
 	<?xml version="1.0" encoding="utf-8"?>
