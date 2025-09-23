@@ -48,6 +48,7 @@ class SeoPro {
 		if(!empty($params)) {
 			$this->valide_get_param = $params;
 		}
+	}
 
 	public function prepareRoute($parts) {
 		if (!empty($parts) && is_array($parts)) {
