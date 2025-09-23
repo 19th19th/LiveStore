@@ -20,6 +20,12 @@
         </div>
       </div>
       <hr />
+		<div class="checkbox" style="margin:6px 0 10px;">
+		<label>
+			<input type="checkbox" id="check-all">
+			{{ text_select_all|default('Выделить всё') }}
+		</label>
+		</div>
       {% for image in images|batch(4) %}
       <div class="row">
         {% for image in image %}
@@ -238,4 +244,78 @@ $('#modal-image #button-delete').on('click', function(e) {
 		});
 	}
 });
+
+$('#modal-image').on('change', '#check-all', function () {
+  $('input[name="path[]"]').prop('checked', this.checked);
+});
+$('#modal-image').on('change', 'input[name="path[]"]', function () {
+  if (!this.checked) $('#check-all').prop('checked', false);
+  else if ($('input[name="path[]"]:not(:checked)').length === 0) $('#check-all').prop('checked', true);
+});
+
+$(document).on('keydown.fileman', function (e) {
+  if (e.key === 'Escape' && $('#modal-image').is(':visible')) {
+    $('#modal-image').modal('hide');
+  }
+});
+
+(function () {
+  var $modal = $('#modal-image');
+  var timer, lastQuery = '';
+  var composing = false;
+
+  $modal.on('shown.bs.modal', function () {
+    var $inp = $modal.find('input[name="search"]');
+    $inp.trigger('focus');
+    var el = $inp.get(0);
+    if (el && el.setSelectionRange) {
+      var len = $inp.val().length;
+      el.setSelectionRange(len, len);
+    }
+  });
+
+  $modal.on('compositionstart', 'input[name="search"]', function(){ composing = true; });
+  $modal.on('compositionend',   'input[name="search"]', function(){ composing = false; $(this).trigger('input'); });
+
+  $modal.on('input', 'input[name="search"]', function () {
+    if (composing) return;
+    var $inp = $(this);
+    lastQuery = $inp.val();
+
+    clearTimeout(timer);
+    timer = setTimeout(function () {
+      if (lastQuery.length < 2) return;
+      if (document.activeElement !== $inp[0]) return;
+      if ($inp.val() !== lastQuery) return;
+      var url = 'index.php?route=common/filemanager&user_token={{ user_token }}&directory={{ directory }}';
+      url += '&filter_name=' + encodeURIComponent(lastQuery);
+      {% if thumb %} url += '&thumb={{ thumb|escape('js') }}'; {% endif %}
+      {% if target %} url += '&target={{ target|escape('js') }}'; {% endif %}
+
+      $modal.load(url, function () {
+        var $new = $modal.find('input[name="search"]');
+        $new.focus();
+        var el = $new.get(0), len = $new.val().length;
+        if (el && el.setSelectionRange) el.setSelectionRange(len, len);
+        lastQuery = $new.val();
+      });
+    }, 350);
+  });
+
+  $('#button-search').off('click').on('click', function () {
+    var $inp = $modal.find('input[name="search"]');
+    var q = $inp.val();
+    var url = 'index.php?route=common/filemanager&user_token={{ user_token }}&directory={{ directory }}';
+    if (q) url += '&filter_name=' + encodeURIComponent(q);
+    {% if thumb %} url += '&thumb={{ thumb|escape('js') }}'; {% endif %}
+    {% if target %} url += '&target={{ target|escape('js') }}'; {% endif %}
+    $modal.load(url, function () {
+      var $new = $modal.find('input[name="search"]');
+      $new.focus();
+      var el = $new.get(0), len = $new.val().length;
+      if (el && el.setSelectionRange) el.setSelectionRange(len, len);
+    });
+  });
+})();
+
 //--></script>
