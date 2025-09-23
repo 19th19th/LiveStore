@@ -100,7 +100,7 @@
 	}
 
 	function setClickByCounries(countries) {
-		$(country_block).bind('plotclick', (event, pos, obj) => {
+		$(country_block).on('plotclick', (event, pos, obj) => {
 		
 			if (obj && countries) {
 				const country_id = countries[obj.seriesIndex];
@@ -118,7 +118,7 @@
 		});
 	}
 	
-	$(country_block+' , '+region_block).bind('plothover', (event, pos, obj) => {
+	$(country_block+' , '+region_block).on('plothover', (event, pos, obj) => {
 		$('.chart-by-country-and-region__tooltip').remove();
 			
 		if (obj) {
