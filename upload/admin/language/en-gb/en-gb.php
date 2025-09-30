@@ -113,6 +113,7 @@ $_['tab_ftp'] = 'FTP';
 $_['tab_ip'] = 'IP Addresses';
 $_['tab_links'] = 'Links';
 $_['tab_log'] = 'Log';
+$_['text_log_errors'] = 'Only Errors Log';
 $_['tab_image'] = 'Image';
 $_['tab_option'] = 'Option';
 $_['tab_server'] = 'Server';

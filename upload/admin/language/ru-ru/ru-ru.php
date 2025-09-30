@@ -108,6 +108,7 @@ $_['tab_ftp'] = 'FTP';
 $_['tab_ip'] = 'IP адрес';
 $_['tab_links'] = 'Связи';
 $_['tab_log'] = 'Лог';
+$_['text_log_errors'] = 'Лог только ошибок';
 $_['tab_image'] = 'Изображения';
 $_['tab_option'] = 'Опции';
 $_['tab_server'] = 'Сервер';

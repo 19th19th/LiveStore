@@ -1197,9 +1197,19 @@ class ControllerMarketplaceModification extends Controller {
 		$file = DIR_LOGS . 'ocmod.log';
 
 		if (file_exists($file)) {
-			$data['log'] = htmlentities(file_get_contents($file, FILE_USE_INCLUDE_PATH, null));
+			$log_content = file_get_contents($file, FILE_USE_INCLUDE_PATH, null);
+			$data['log'] = htmlentities($log_content);
+
+			$errors = [];
+			foreach (explode("\n", $log_content) as $line) {
+				if (stripos($line, 'error') !== false || stripos($line, 'warning') !== false || stripos($line, 'notice') !== false) {
+					$errors[] = $line;
+				}
+			}
+			$data['log_errors'] = htmlentities(implode("\n", $errors));
 		} else {
 			$data['log'] = '';
+			$data['log_errors'] = '';
 		}
 
 		$data['clear_log'] = $this->url->link('marketplace/modification/clearlog', 'user_token=' . $this->session->data['user_token'], true);
