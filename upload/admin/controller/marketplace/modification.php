@@ -78,75 +78,77 @@ class ControllerMarketplaceModification extends Controller {
         $this->getForm();
     }
 	
-	public function add() {
-		$this->load->language('marketplace/modification');
+public function add() {
+    $this->load->language('marketplace/modification');
+    $this->document->setTitle($this->language->get('heading_title'));
+    $this->load->model('setting/modification');
 
-		$this->document->setTitle($this->language->get('heading_title'));
+    if ($this->request->server['REQUEST_METHOD'] == 'POST' && $this->validateForm()) {
 
-		$this->load->model('setting/modification');
+        $xml = isset($this->request->post['xml'])
+            ? html_entity_decode($this->request->post['xml'], ENT_QUOTES, 'UTF-8')
+            : '';
 
-		if ($this->request->server['REQUEST_METHOD'] == 'POST' && $this->validateForm()) {
+        $meta = $this->parseMetaFromXml($xml);
 
-			$xml = $this->request->post['xml'] ?? '';
-			$meta = $this->parseMetaFromXml($xml);
+        $name    = $this->request->post['name']    ?? ($meta['name'] ?: '');
+        $code    = $this->request->post['code']    ?? $meta['code'];
+        $author  = $this->request->post['author']  ?? $meta['author'];
+        $version = $this->request->post['version'] ?? $meta['version'];
+        $link    = $this->request->post['link']    ?? $meta['link'];
+        $status  = isset($this->request->post['status']) ? (int)$this->request->post['status'] : 1;
 
-			$name    = $this->request->post['name']    ?? ($meta['name'] ?: '');
-			$code    = $this->request->post['code']    ?? $meta['code'];
-			$author  = $this->request->post['author']  ?? $meta['author'];
-			$version = $this->request->post['version'] ?? $meta['version'];
-			$link    = $this->request->post['link']    ?? $meta['link'];
-			$status  = isset($this->request->post['status']) ? (int)$this->request->post['status'] : 1;
+        if (!$code) {
+            $base = preg_replace('~[^a-z0-9\.\-_]+~i', '_', $name ?: 'my_mod');
+            $base = trim($base, '_') ?: 'my_mod';
+            $code = strtolower($base);
+        }
 
-			if (!$code) {
-				$base = preg_replace('~[^a-z0-9\.\-_]+~i', '_', $name ?: 'my_mod');
-				$base = trim($base, '_') ?: 'my_mod';
-				$code = strtolower($base);
-			}
+        $exists = $this->model_setting_modification->getModificationByCode($code);
+        if ($exists) {
+            $i = 1;
+            do {
+                $try = $code . '_' . $i++;
+                $exists = $this->model_setting_modification->getModificationByCode($try);
+            } while ($exists);
+            $code = $try;
+        }
 
-			$exists = $this->model_setting_modification->getModificationByCode($code);
-			if ($exists) {
-				$i = 1;
-				do {
-					$try = $code . '_' . $i++;
-					$exists = $this->model_setting_modification->getModificationByCode($try);
-				} while ($exists);
-				$code = $try;
-			}
+        $data = array(
+            'extension_install_id' => 0,
+            'name'    => $name,
+            'code'    => $code,
+            'author'  => $author,
+            'version' => $version,
+            'link'    => $link,
+            'xml'     => $xml ?: "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<modification>\n  <name>{$name}</name>\n  <code>{$code}</code>\n  <version>" . ($version ?: '1.0.0') . "</version>\n  <author>" . ($author ?: '') . "</author>\n  <link>" . ($link ?: '') . "</link>\n  <!-- your operations here -->\n</modification>",
+            'status'  => $status
+        );
 
-			$data = array(
-				'extension_install_id' => 0,
-				'name'    => $name,
-				'code'    => $code,
-				'author'  => $author,
-				'version' => $version,
-				'link'    => $link,
-				'xml'     => $xml ?: "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<modification>\n  <name>{$name}</name>\n  <code>{$code}</code>\n  <version>" . ($version ?: '1.0.0') . "</version>\n  <author>" . ($author ?: '') . "</author>\n  <link>" . ($link ?: '') . "</link>\n  <!-- your operations here -->\n</modification>",
-				'status'  => $status
-			);
+        $this->model_setting_modification->addModification($data);
 
-			$this->model_setting_modification->addModification($data);
+        $created = $this->model_setting_modification->getModificationByCode($code);
+        if (!empty($created['modification_id'])) {
+            $this->model_setting_modification->addModificationBackup($created['modification_id'], $data);
 
-			$created = $this->model_setting_modification->getModificationByCode($code);
-			if (!empty($created['modification_id'])) {
-				$this->model_setting_modification->addModificationBackup($created['modification_id'], $data);
+            $this->session->data['success'] = $this->language->get('text_success');
 
-				$this->session->data['success'] = $this->language->get('text_success');
+            if (!isset($this->request->get['update'])) {
+                $this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true));
+            } else {
+                $this->refresh(['redirect' => 'marketplace/modification/edit']);
+                $this->response->redirect($this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . (int)$created['modification_id'], true));
+            }
+            return;
+        }
 
-				if (!isset($this->request->get['update'])) {
-					$this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true));
-				} else {
-					$this->refresh(['redirect' => 'marketplace/modification/edit']);
-					$this->response->redirect($this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . (int)$created['modification_id'], true));
-				}
-				return;
-			}
+        $this->session->data['success'] = $this->language->get('text_success');
+        $this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true));
+    }
 
-			$this->session->data['success'] = $this->language->get('text_success');
-			$this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true));
-		}
+    $this->getForm();
+}
 
-		$this->getForm();
-	}
 
     public function restore() {
         $this->load->language('marketplace/extension');
@@ -1331,14 +1333,12 @@ class ControllerMarketplaceModification extends Controller {
 		}
 
 		if (isset($this->request->post['xml'])) {
-
-    $data['xml'] = ltrim($this->request->post['xml'], "﻿");
-} elseif ($modification) {
-    $data['xml'] = html_entity_decode(ltrim($modification['xml'], "﻿"), ENT_QUOTES, 'UTF-8');
-} else {
-    $data['xml'] = '';
-}
-
+			$data['xml'] = ltrim($this->request->post['xml'], "﻿");
+		} elseif ($modification) {
+			$data['xml'] = html_entity_decode(ltrim($modification['xml'], "﻿"), ENT_QUOTES, 'UTF-8');
+		} else {
+			$data['xml'] = '';
+		}
 
 		$data['header']      = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');

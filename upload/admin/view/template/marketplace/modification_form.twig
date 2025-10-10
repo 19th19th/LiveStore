@@ -41,7 +41,7 @@
               <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-xml">{{ entry_xml }}</label>
                  <div class="col-sm-10">
-                   <textarea name="xml" id="input-xml" class="form-control CodeMirror" style="min-height:600px;">{{ xml|e('html')|raw }}</textarea>
+					<textarea name="xml" id="input-xml" class="form-control CodeMirror" style="min-height:600px;">{{ xml|e }}</textarea>
                    {% if error_xml %}
                    <div class="text-danger">{{ error_xml }}</div>
                  {% endif %}
