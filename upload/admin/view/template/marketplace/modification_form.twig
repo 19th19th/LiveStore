@@ -1,90 +1,92 @@
-{{header}}{{column_left}}
+{{ header }}
+{{ column_left }}
 <div id="content">
-  <div class="page-header">
-    <div class="container-fluid">
-      <div class="pull-right">
-        <a type="button" onclick="update()" data-toggle="tooltip" title="{{button_update}}" class="btn btn-success"><i class="fa fa-check"></i></a>
-        <button type="submit" form="form-modification" data-toggle="tooltip" title="{{button_save}}" class="btn btn-primary"><i class="fa fa-save"></i></button>
-        <a href="{{cancel}}" data-toggle="tooltip" title="{{button_cancel}}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
-      <h1>{{heading_title}}</h1>
-      <ul class="breadcrumb">
-        {% for breadcrumb in breadcrumbs %}
-          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
-  <div class="container-fluid">
-    {% if error_warning %}
-    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{error_warning}}
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-    </div>
-    {% endif %}
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{text_form}}</h3>
-      </div>
-      <div class="panel-body">
-        <form action="{{action}}" method="post" enctype="multipart/form-data" id="form-modification" class="form-horizontal">
-          <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab-general" data-toggle="tab">{{tab_general}}</a></li>
-            <li><a href="#tab-backup" data-toggle="tab">{{tab_backup}}</a></li>
-          </ul>
-          <div class="tab-content">
-            <div class="tab-pane active" id="tab-general">
-              <div class="form-group required">
-                <label class="col-sm-2 control-label" for="input-name">{{entry_name}}</label>
-                <div class="col-sm-10">
-                  <input type="text"  name="name" value="{{name}}" placeholder="{{entry_name}}" id="input-name" class="form-control" />
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="col-sm-2 control-label" for="input-xml">{{ entry_xml }}</label>
-                 <div class="col-sm-10">
-					<textarea name="xml" id="input-xml" class="form-control CodeMirror" style="min-height:600px;">{{ xml|e }}</textarea>
-                   {% if error_xml %}
-                   <div class="text-danger">{{ error_xml }}</div>
-                 {% endif %}
-                 </div>
-              </div>
-            </div>
-            <div class="tab-pane" id="tab-backup">
-              <div class="table-responsive">
-                <table class="table table-bordered table-hover">
-                  <thead>
-                  <tr>
-                    <td class="text-left">{{column_id}}</td>
-                    <td class="text-left">{{column_code}}</td>
-                    <td class="text-left">{{column_date_added}}</td>
-                    <td class="text-right">{{column_restore}} <a type="button" href="{{history}}" data-toggle="tooltip" title="{{button_history}}" class="btn btn-default"><i class="fa fa-trash"></i></a></td>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  {% if backups %}
-                    {% for backup in backups %}
-                      <tr>
-                        <td class="text-left">{{backup['backup_id']}}</td>
-                        <td class="text-left">{{backup['code']}}</td>
-                        <td class="text-left">{{backup['date_added']}}</td>
-                        <td class="text-right"><a href="{{backup['restore']}}" data-toggle="tooltip" title="{{button_restore}}" class="btn btn-primary"><i class="fa fa-share-square"></i></a></td>
-                      </tr>
-                    {% endfor %}
-                  {% else %}
-                  <tr>
-                    <td class="text-center" colspan="4">{{text_no_results}}</td>
-                  </tr>
-                  {% endif %}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
+	<div class="page-header">
+		<div class="container-fluid">
+			<div class="pull-right">
+				<a type="button" onclick="update()" data-toggle="tooltip" title="{{ button_update }}" class="btn btn-success"><i class="fa fa-check"></i></a>
+				<button type="submit" form="form-modification" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+				<a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
+			</div>
+			<h1>{{ heading_title }}</h1>
+			<ul class="breadcrumb">
+				{% for breadcrumb in breadcrumbs %}
+					<li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="container-fluid">
+		{% if error_warning %}
+			<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+			</div>
+		{% endif %}
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_form }}</h3>
+			</div>
+			<div class="panel-body">
+				<form action="{{action}}" method="post" enctype="multipart/form-data" id="form-modification" class="form-horizontal">
+					<ul class="nav nav-tabs">
+						<li class="active"><a href="#tab-general" data-toggle="tab">{{ tab_general }}</a></li>
+						<li><a href="#tab-backup" data-toggle="tab">{{ tab_backup }}</a></li>
+					</ul>
+					<div class="tab-content">
+						<div class="tab-pane active" id="tab-general">
+							<div class="form-group required">
+								<label class="col-sm-2 control-label" for="input-name">{{ entry_name }}</label>
+								<div class="col-sm-10">
+									<input type="text"  name="name" value="{{ name }}" placeholder="{{entry_name}}" id="input-name" class="form-control" />
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label" for="input-xml">{{ entry_xml }}</label>
+								<div class="col-sm-10">
+									<textarea name="xml" id="input-xml" class="form-control CodeMirror" style="min-height:600px;">{{ xml|raw }}</textarea>
+									{% if error_xml %}
+										<div class="text-danger">{{ error_xml }}</div>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane" id="tab-backup">
+							<div class="table-responsive">
+								<table class="table table-bordered table-hover">
+									<thead>
+										<tr>
+											<td class="text-left">{{ column_id }}</td>
+											<td class="text-left">{{ column_code }}</td>
+											<td class="text-left">{{ column_date_added }}</td>
+											<td class="text-right">{{ column_restore }} <a type="button" href="{{ history }}" data-toggle="tooltip" title="{{ button_history }}" class="btn btn-default"><i class="fa fa-trash"></i></a></td>
+										</tr>
+									</thead>
+									<tbody>
+										{% if backups %}
+											{% for backup in backups %}
+												<tr>
+													<td class="text-left">{{ backup['backup_id'] }}</td>
+													<td class="text-left">{{ backup['code'] }}</td>
+													<td class="text-left">{{ backup['date_added'] }}</td>
+													<td class="text-right"><a href="{{ backup['restore'] }}" data-toggle="tooltip" title="{{ button_restore }}" class="btn btn-primary"><i class="fa fa-share-square"></i></a></td>
+												</tr>
+											{% endfor %}
+										{% else %}
+											<tr>
+												<td class="text-center" colspan="4">{{ text_no_results }}</td>
+											</tr>
+										{% endif %}
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 </div>
-<script type="text/javascript"><!--
+<script type="text/javascript">
   // Initialize codemirrror
   var editor = CodeMirror.fromTextArea(document.querySelector('.CodeMirror'), {
     mode: 'xml',
@@ -100,5 +102,5 @@
       $('form#form-modification').attr('action', action+"&update=1");
       $('form#form-modification').submit();
   }
---></script>
-{{footer}}
+</script>
+{{ footer }}

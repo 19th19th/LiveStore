@@ -78,77 +78,78 @@ class ControllerMarketplaceModification extends Controller {
         $this->getForm();
     }
 	
-public function add() {
-    $this->load->language('marketplace/modification');
-    $this->document->setTitle($this->language->get('heading_title'));
-    $this->load->model('setting/modification');
+	public function add() {
+		$this->load->language('marketplace/modification');
 
-    if ($this->request->server['REQUEST_METHOD'] == 'POST' && $this->validateForm()) {
+		$this->document->setTitle($this->language->get('heading_title'));
 
-        $xml = isset($this->request->post['xml'])
-            ? html_entity_decode($this->request->post['xml'], ENT_QUOTES, 'UTF-8')
-            : '';
+		$this->load->model('setting/modification');
 
-        $meta = $this->parseMetaFromXml($xml);
+		if ($this->request->server['REQUEST_METHOD'] == 'POST' && $this->validateForm()) {
 
-        $name    = $this->request->post['name']    ?? ($meta['name'] ?: '');
-        $code    = $this->request->post['code']    ?? $meta['code'];
-        $author  = $this->request->post['author']  ?? $meta['author'];
-        $version = $this->request->post['version'] ?? $meta['version'];
-        $link    = $this->request->post['link']    ?? $meta['link'];
-        $status  = isset($this->request->post['status']) ? (int)$this->request->post['status'] : 1;
+			$xml  = html_entity_decode($this->request->post['xml'] ?? '', ENT_QUOTES, 'UTF-8');
+			$meta = $this->parseMetaFromXml($xml);
 
-        if (!$code) {
-            $base = preg_replace('~[^a-z0-9\.\-_]+~i', '_', $name ?: 'my_mod');
-            $base = trim($base, '_') ?: 'my_mod';
-            $code = strtolower($base);
-        }
+			$name    = $this->request->post['name']    ?? ($meta['name'] ?: '');
+			$code    = $this->request->post['code']    ?? $meta['code'];
+			$author  = $this->request->post['author']  ?? $meta['author'];
+			$version = $this->request->post['version'] ?? $meta['version'];
+			$link    = $this->request->post['link']    ?? $meta['link'];
+			$status  = isset($this->request->post['status']) ? (int)$this->request->post['status'] : 1;
 
-        $exists = $this->model_setting_modification->getModificationByCode($code);
-        if ($exists) {
-            $i = 1;
-            do {
-                $try = $code . '_' . $i++;
-                $exists = $this->model_setting_modification->getModificationByCode($try);
-            } while ($exists);
-            $code = $try;
-        }
+			if (!$code) {
+				$base = preg_replace('~[^a-z0-9\.\-_]+~i', '_', $name ?: 'my_mod');
+				$base = trim($base, '_') ?: 'my_mod';
+				$code = strtolower($base);
+			}
 
-        $data = array(
-            'extension_install_id' => 0,
-            'name'    => $name,
-            'code'    => $code,
-            'author'  => $author,
-            'version' => $version,
-            'link'    => $link,
-            'xml'     => $xml ?: "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<modification>\n  <name>{$name}</name>\n  <code>{$code}</code>\n  <version>" . ($version ?: '1.0.0') . "</version>\n  <author>" . ($author ?: '') . "</author>\n  <link>" . ($link ?: '') . "</link>\n  <!-- your operations here -->\n</modification>",
-            'status'  => $status
-        );
+			$exists = $this->model_setting_modification->getModificationByCode($code);
+			
+			if ($exists) {
+				$i = 1;
+				do {
+					$try = $code . '_' . $i++;
+					$exists = $this->model_setting_modification->getModificationByCode($try);
+				} while ($exists);
+				$code = $try;
+			}
 
-        $this->model_setting_modification->addModification($data);
+			$data = array(
+				'extension_install_id' => 0,
+				'name'    => $name,
+				'code'    => $code,
+				'author'  => $author,
+				'version' => $version,
+				'link'    => $link,
+				'xml'     => $xml ?: $this->getSampleXml(),
+				'status'  => $status
+			);
 
-        $created = $this->model_setting_modification->getModificationByCode($code);
-        if (!empty($created['modification_id'])) {
-            $this->model_setting_modification->addModificationBackup($created['modification_id'], $data);
+			$this->model_setting_modification->addModification($data);
 
-            $this->session->data['success'] = $this->language->get('text_success');
+			$created = $this->model_setting_modification->getModificationByCode($code);
+			
+			if(!empty($created['modification_id'])) {
+				$this->model_setting_modification->addModificationBackup($created['modification_id'], $data);
 
-            if (!isset($this->request->get['update'])) {
-                $this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true));
-            } else {
-                $this->refresh(['redirect' => 'marketplace/modification/edit']);
-                $this->response->redirect($this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . (int)$created['modification_id'], true));
-            }
-            return;
-        }
+				$this->session->data['success'] = $this->language->get('text_success');
 
-        $this->session->data['success'] = $this->language->get('text_success');
-        $this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true));
-    }
+				if (!isset($this->request->get['update'])) {
+					$this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true));
+				} else {
+					$this->refresh(['redirect' => 'marketplace/modification/edit']);
+					$this->response->redirect($this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . (int)$created['modification_id'], true));
+				}
 
-    $this->getForm();
-}
+				return;
+			}
 
+			$this->session->data['success'] = $this->language->get('text_success');
+			$this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true));
+		}
+
+		$this->getForm();
+	}
 
     public function restore() {
         $this->load->language('marketplace/extension');
@@ -157,11 +158,9 @@ public function add() {
 
         $this->load->model('setting/modification');
 
-        if (isset($this->request->get['modification_id']) AND isset($this->request->get['backup_id'])) {
+        if (isset($this->request->get['modification_id']) && isset($this->request->get['backup_id'])) {
 
-            $backup = $this->model_setting_modification->getModificationBackup($this->request->get['modification_id'],$this->request->get['backup_id']);
-
-            $url = '';
+            $backup = $this->model_setting_modification->getModificationBackup($this->request->get['modification_id'], $this->request->get['backup_id']);
 
             if ($backup) {
                 $xml  = $backup['xml'];
@@ -181,10 +180,9 @@ public function add() {
 				$this->model_setting_modification->editModification($this->request->get['modification_id'], $data);
 
                 $this->refresh();
-                $this->response->redirect($this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $this->request->get['modification_id'] . $url, true));
-            } else {
-                $this->response->redirect($this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $this->request->get['modification_id'] . $url, true));
             }
+			
+			$this->response->redirect($this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $this->request->get['modification_id'], true));
         }
 
         $this->getForm();
@@ -566,12 +564,6 @@ public function add() {
 
 				$dom = new DOMDocument('1.0', 'UTF-8');
 				$dom->preserveWhiteSpace = false;
-				$xml = trim($xml);
-				$xml = ltrim($xml, "\xEF\xBB\xBF");
-
-				if (empty($xml) || strpos($xml, '<') !== 0) {
-					continue;
-				}
 				$dom->loadXml($xml);
 
 				// Log
@@ -1205,16 +1197,29 @@ public function add() {
 		$file = DIR_LOGS . 'ocmod.log';
 
 		if (file_exists($file)) {
-			$log_content = file_get_contents($file, FILE_USE_INCLUDE_PATH, null);
-			$data['log'] = htmlentities($log_content);
-
+			$data['log'] = htmlentities(file_get_contents($file, FILE_USE_INCLUDE_PATH, null));
+			
 			$errors = [];
-			foreach (explode("\n", $log_content) as $line) {
-				if (stripos($line, 'error') !== false || stripos($line, 'warning') !== false || stripos($line, 'notice') !== false) {
-					$errors[] = $line;
+			
+			$log = explode("\n", $data['log']);
+			
+			if($log) {
+				foreach ($log as $key => $line) {
+					if (stripos($line, 'MOD:') !== false) {
+						$mod = $line;
+					}
+				
+					if (stripos($line, 'FILE:') !== false) {
+						$file = $line;
+					}
+				
+					if (stripos($line, 'NOT FOUND') !== false) {
+						$errors[] = $mod."\n".$file."\n".$log[$key-1]."\n".$line."\n";
+					}
 				}
 			}
-			$data['log_errors'] = htmlentities(implode("\n", $errors));
+			
+			$data['log_errors'] = implode("\n", $errors);
 		} else {
 			$data['log'] = '';
 			$data['log_errors'] = '';
@@ -1252,26 +1257,6 @@ public function add() {
 			'href' => $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true)
 		];
 
-		$data['heading_title']   = $this->language->get('heading_title');
-		$data['text_form']       = $this->language->get('text_form');
-		$data['text_no_results'] = $this->language->get('text_no_results');
-		$data['entry_name']      = $this->language->get('entry_name');
-		$data['entry_xml']       = $this->language->get('entry_xml');
-
-		$data['column_id']         = $this->language->get('column_id');
-		$data['column_code']       = $this->language->get('column_code');
-		$data['column_date_added'] = $this->language->get('column_date_added');
-		$data['column_restore']    = $this->language->get('column_restore');
-
-		$data['button_update']  = $this->language->get('button_update');
-		$data['button_save']    = $this->language->get('button_save');
-		$data['button_cancel']  = $this->language->get('button_cancel');
-		$data['button_restore'] = $this->language->get('button_restore');
-		$data['button_history'] = $this->language->get('button_history');
-
-		$data['tab_general'] = $this->language->get('tab_general');
-		$data['tab_backup']  = $this->language->get('tab_backup');
-
 		$data['user_token'] = $this->session->data['user_token'];
 
 		$data['error_warning'] = isset($this->error['warning']) ? $this->error['warning'] : '';
@@ -1301,6 +1286,7 @@ public function add() {
 		$this->load->model('setting/modification');
 
 		$modification = null;
+		
 		if (!$is_create) {
 			$modification = $this->model_setting_modification->getModification($modification_id);
 		}
@@ -1308,6 +1294,7 @@ public function add() {
 		$data['backups'] = [];
 		if (!$is_create) {
 			$backups = $this->model_setting_modification->getModificationBackups($modification_id);
+			
 			if ($backups) {
 				foreach ($backups as $backup) {
 					$data['backups'][] = [
@@ -1315,10 +1302,8 @@ public function add() {
 						'code'       => $backup['code'],
 						'date_added' => $backup['date_added'],
 						'restore'    => $this->url->link(
-							'marketplace/modification/restore',
-							'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $modification_id . '&backup_id=' . (int)$backup['backup_id'] . $url,
-							true
-						)
+						'marketplace/modification/restore',
+						'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $modification_id . '&backup_id=' . (int)$backup['backup_id'] . $url,	true)
 					];
 				}
 			}
@@ -1335,9 +1320,11 @@ public function add() {
 		if (isset($this->request->post['xml'])) {
 			$data['xml'] = ltrim($this->request->post['xml'], "﻿");
 		} elseif ($modification) {
-			$data['xml'] = html_entity_decode(ltrim($modification['xml'], "﻿"), ENT_QUOTES, 'UTF-8');
+			$data['xml'] = ltrim($modification['xml'], "﻿");
 		} else {
-			$data['xml'] = '';
+			$default_xml = $this->getSampleXml();
+
+			$data['xml'] = htmlentities(ltrim($default_xml));
 		}
 
 		$data['header']      = $this->load->controller('common/header');
@@ -1372,24 +1359,54 @@ public function add() {
 	}
 	
 	private function parseMetaFromXml($xml) {
-		$meta = array('name'=>'', 'code'=>'', 'author'=>'', 'version'=>'', 'link'=>'');
-		if (!$xml) return $meta;
+		$meta = array('name' => '', 'code' => '', 'author' => '', 'version' => '', 'link' => '');
+		
+		if(!$xml) {
+			return $meta;
+		}
 
 		libxml_use_internal_errors(true);
+		
 		$dom = new DOMDocument('1.0', 'UTF-8');
+		
 		if ($dom->loadXml($xml)) {
 			$get = function($tag) use ($dom) {
 				$n = $dom->getElementsByTagName($tag)->item(0);
 				return $n ? trim($n->nodeValue) : '';
 			};
+			
 			$meta['name']    = $get('name');
 			$meta['code']    = $get('code');
 			$meta['author']  = $get('author');
 			$meta['version'] = $get('version');
 			$meta['link']    = $get('link');
 		}
+		
 		libxml_clear_errors();
+		
 		return $meta;
 	}
-
+	
+	private function getSampleXml() {
+		$xml = '<?xml version="1.0" encoding="utf-8"?>'."\r\n";
+		$xml .= '<modification>'."\r\n";
+		$xml .= '	<name></name>'."\r\n";
+		$xml .= '	<code></code>'."\r\n";
+		$xml .= '	<version>1.0.0</version>'."\r\n";
+		$xml .= '	<author></author>'."\r\n";
+		$xml .= '	<link></link>'."\r\n";
+		$xml .= '	<!-- пример:'."\r\n";
+		$xml .= '	<file path="catalog/controller/common/home.php">'."\r\n";
+		$xml .= '		<operation>'."\r\n";
+		$xml .= '		<search><![CDATA[$this->document->setTitle(]]></search>'."\r\n";
+		$xml .= '		<add position="after"><![CDATA['."\r\n";
+		$xml .= '			// demo'."\r\n";
+		$xml .= '		]]></add>'."\r\n";
+		$xml .= '		</operation>'."\r\n";
+		$xml .= '	</file>'."\r\n";
+		$xml .= '	-->'."\r\n";
+		$xml .= '</modification>';
+		
+		return $xml;
+	}
 }
