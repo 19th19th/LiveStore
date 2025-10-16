@@ -65,8 +65,6 @@ class ControllerMarketplaceModification extends Controller {
                 $url .= '&page=' . $this->request->get['page'];
             }
 
-
-
             if (!isset($this->request->get['update'])) {
                 $this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . $url, true));
             } else {
@@ -232,7 +230,7 @@ class ControllerMarketplaceModification extends Controller {
 
         if (!$json) {
             if (!empty($this->request->files['file']['name'])) {
-                if (!$this->request->files['file']['name'] == $modification['code'].".ocmod.xml") {
+                if ($this->request->files['file']['name'] != $modification['code'].".ocmod.xml") {
                     $json['error'] = $this->language->get('error_filetype');
                 }
 
@@ -1292,6 +1290,7 @@ class ControllerMarketplaceModification extends Controller {
 		}
 
 		$data['backups'] = [];
+		
 		if (!$is_create) {
 			$backups = $this->model_setting_modification->getModificationBackups($modification_id);
 			
@@ -1301,9 +1300,7 @@ class ControllerMarketplaceModification extends Controller {
 						'backup_id'  => $backup['backup_id'],
 						'code'       => $backup['code'],
 						'date_added' => $backup['date_added'],
-						'restore'    => $this->url->link(
-						'marketplace/modification/restore',
-						'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $modification_id . '&backup_id=' . (int)$backup['backup_id'] . $url,	true)
+						'restore'    => $this->url->link('marketplace/modification/restore', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $modification_id . '&backup_id=' . (int)$backup['backup_id'] . $url, true)
 					];
 				}
 			}
@@ -1324,7 +1321,7 @@ class ControllerMarketplaceModification extends Controller {
 		} else {
 			$default_xml = $this->getSampleXml();
 
-			$data['xml'] = htmlentities(ltrim($default_xml));
+			$data['xml'] = ltrim($default_xml);
 		}
 
 		$data['header']      = $this->load->controller('common/header');
