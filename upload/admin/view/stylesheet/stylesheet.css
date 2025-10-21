@@ -208,7 +208,7 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 
 .jqvmap-label {z-index:999}
 
-.alert {overflow:auto}
+.alert {overflow:auto;border-radius:var(--border-radius-1)}
 .alert > i{margin:0 5px 0 0}
 
 /* Fix form-group margin inside the modal */
@@ -274,6 +274,10 @@ select, input[type="text"], input[type="password"], input[type="datetime"], inpu
 .open-close-filter{display:none}
 
 .modal-content {border-radius:var(--border-radius-1)}
+
+#form-category .fa-sort-asc, #form-category .fa-sort-desc{position:absolute;padding:0 0 0 2px;transform:translateY(-50%)}
+#form-category .fa-sort-asc {top:calc(50% + 2px)}
+#form-category .fa-sort-desc {top:calc(50% - 2px)}
 
 @media (min-width:992px) and (max-width:1600px) {
     #filter-product{position:fixed;z-index:9999;top:0px;left:auto;right:0;width:400px;padding:0 !important;transform: translateX(100%);box-shadow:0 5px 15px rgba(0 0 0 / .3);transition:transform ease-in-out .15s}
