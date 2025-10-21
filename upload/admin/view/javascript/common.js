@@ -154,12 +154,6 @@ $(() => {
 			$element.popover('destroy');
 		});
 	});
-	
-	window.onbeforeunload = () => sessionStorage.setItem('scrollPos', window.scrollY);
-	
-	setTimeout(() => {
-		window.scrollTo(0, sessionStorage.getItem('scrollPos') || 0);
-	}, 50);
 });
 
 // Autocomplete */
