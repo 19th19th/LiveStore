@@ -100,9 +100,9 @@
 		$(() => {
 			window.onbeforeunload = () => sessionStorage.setItem('scrollPos', window.scrollY);
 	
-			setTimeout(() => {
+			if(sessionStorage.getItem('scrollPos')) {
 				window.scrollTo(0, sessionStorage.getItem('scrollPos') || 0);
-			}, 50);
+			}
 		});
 	</script>
 </div>
