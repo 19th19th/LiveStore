@@ -141,7 +141,7 @@ class ControllerProductCategory extends Controller {
 				
 				$this->document->setOgImage($data['thumb']);
 			} else {
-				$data['thumb'] = '';
+				$data['thumb'] = $this->model_tool_image->resize('placeholder.png', $this->config->get('theme_' . $this->config->get('config_theme') . '_image_category_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_category_height'));
 			}
 
 			$data['description'] = html_entity_decode($category_info['description'], ENT_QUOTES, 'UTF-8');

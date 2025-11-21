@@ -279,7 +279,7 @@ class ControllerProductProduct extends Controller {
 				
 				$this->document->setOgImage($data['thumb']);
 			} else {
-				$data['thumb'] = '';
+				$data['thumb'] = $this->model_tool_image->resize('placeholder.png', $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_height'));
 			}
 
 			$data['images'] = array();
