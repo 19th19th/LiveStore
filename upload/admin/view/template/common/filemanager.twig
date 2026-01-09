@@ -13,7 +13,7 @@
         </div>
         <div class="col-sm-7">
           <div class="input-group">
-            <input type="text" name="search" value="{{ filter_name }}" placeholder="{{ entry_search }}" class="form-control">
+            <input type="text" name="search" value="{{ filter_name }}" placeholder="{{ entry_search }}" class="form-control" autocomplete="off">
             <span class="input-group-btn">
             <button type="button" data-toggle="tooltip" title="{{ button_search }}" id="button-search" class="btn btn-primary"><i class="fa fa-search"></i></button>
             </span></div>
@@ -84,7 +84,7 @@ $('#button-refresh').on('click', function(e) {
 	$('#modal-image').load($(this).attr('href'));
 });
 
-$('input[name=\'search\']').on('keydown', function(e) {
+$('input[name=\'search\']').off('keydown keyup').on('keydown', function(e) {
 	if (e.which == 13) {
 		$('#button-search').trigger('click');
 	}
