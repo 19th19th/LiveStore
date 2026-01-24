@@ -23,15 +23,24 @@ class ConditionalExpression extends AbstractExpression
 
     public function compile(Compiler $compiler)
     {
-        $compiler
-            ->raw('((')
-            ->subcompile($this->getNode('expr1'))
-            ->raw(') ? (')
-            ->subcompile($this->getNode('expr2'))
-            ->raw(') : (')
-            ->subcompile($this->getNode('expr3'))
-            ->raw('))')
-        ;
+        // Ternary with no then uses Elvis operator
+        if ($this->getNode('expr1') === $this->getNode('expr2')) {
+            $compiler
+                ->raw('((')
+                ->subcompile($this->getNode('expr1'))
+                ->raw(') ?: (')
+                ->subcompile($this->getNode('expr3'))
+                ->raw('))');
+        } else {
+            $compiler
+                ->raw('((')
+                ->subcompile($this->getNode('expr1'))
+                ->raw(') ? (')
+                ->subcompile($this->getNode('expr2'))
+                ->raw(') : (')
+                ->subcompile($this->getNode('expr3'))
+                ->raw('))');
+        }
     }
 }
 

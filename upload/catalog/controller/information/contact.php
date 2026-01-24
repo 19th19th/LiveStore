@@ -17,7 +17,7 @@ class ControllerInformationContact extends Controller {
 			$mail->smtp_timeout = $this->config->get('config_mail_smtp_timeout');
 
 			$mail->setTo($this->config->get('config_email'));
-			$mail->setFrom($this->request->post['email']);
+			$mail->setFrom($this->config->get('config_email')); 
 			$mail->setReplyTo($this->request->post['email']);
 			$mail->setSender(html_entity_decode($this->request->post['name'], ENT_QUOTES, 'UTF-8'));
 			$mail->setSubject(html_entity_decode(sprintf($this->language->get('email_subject'), $this->request->post['name'] . ' (' . $this->request->post['email'] . ')'), ENT_QUOTES, 'UTF-8'));
@@ -55,6 +55,12 @@ class ControllerInformationContact extends Controller {
 			$data['error_enquiry'] = $this->error['enquiry'];
 		} else {
 			$data['error_enquiry'] = '';
+		}
+		
+		if (isset($this->error['agree'])) {
+			$data['error_agree'] = $this->error['agree'];
+		} else {
+			$data['error_agree'] = '';
 		}
 
 		$data['button_submit'] = $this->language->get('button_submit');
@@ -130,6 +136,20 @@ class ControllerInformationContact extends Controller {
 		} else {
 			$data['captcha'] = '';
 		}
+		
+		if ($this->config->get('config_account_id')) {
+			$this->load->model('catalog/information');
+
+			$information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
+
+			if ($information_info) {
+				$data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('information/information/agree', 'information_id=' . $this->config->get('config_account_id'), true), $information_info['title']);
+			} else {
+				$data['text_agree'] = '';
+			}
+		} else {
+			$data['text_agree'] = '';
+		}
 
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['column_right'] = $this->load->controller('common/column_right');
@@ -160,6 +180,16 @@ class ControllerInformationContact extends Controller {
 
 			if ($captcha) {
 				$this->error['captcha'] = $captcha;
+			}
+		}
+		
+		if ($this->config->get('config_account_id')) {
+			$this->load->model('catalog/information');
+
+			$information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
+
+			if ($information_info && !isset($this->request->post['agree'])) {
+				$this->error['agree'] = sprintf($this->language->get('error_agree'), $information_info['title']);
 			}
 		}
 

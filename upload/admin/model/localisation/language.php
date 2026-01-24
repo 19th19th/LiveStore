@@ -229,8 +229,18 @@ class ModelLocalisationLanguage extends Model {
 	}
 
 	public function getLanguages($data = array()) {
+		$status = true;
+		
+		if(isset($this->request->get['route']) && $this->request->get['route'] == 'localisation/language') {
+			$status = false;
+		}
+		
 		if ($data) {
 			$sql = "SELECT * FROM " . DB_PREFIX . "language";
+			
+			if($status) {
+				$sql .= " WHERE status = '1'";
+			}
 
 			$sort_data = array(
 				'name',
@@ -271,7 +281,15 @@ class ModelLocalisationLanguage extends Model {
 			if (!$language_data) {
 				$language_data = array();
 
-				$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "language ORDER BY sort_order, name");
+				$sql = "SELECT * FROM " . DB_PREFIX . "language";
+				
+				if($status) {
+					$sql .= " WHERE status = '1'";
+				}
+				
+				$sql .= " ORDER BY sort_order, name";
+				
+				$query = $this->db->query($sql);
 
 				foreach ($query->rows as $result) {
 					$language_data[$result['code']] = array(

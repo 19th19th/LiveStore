@@ -687,6 +687,27 @@
                     </select>
                   </div>
                 </div>
+				<div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-cookie"><span data-toggle="tooltip" title="{{ help_cookie }}">{{ entry_cookie }}</span></label>
+                  <div class="col-sm-10">
+                    <select name="config_cookie_id" id="input-cookie" class="form-control">
+                      <option value="0">{{ text_none }}</option>
+                      
+                      {% for information in informations %}
+                      {% if information.information_id == config_cookie_id %}
+                      
+                      <option value="{{ information.information_id }}" selected="selected">{{ information.title }}</option>
+                      
+                      {% else %}
+                      
+                      <option value="{{ information.information_id }}">{{ information.title }}</option>
+                      
+                      {% endif %}
+                      {% endfor %}
+                    
+                    </select>
+                  </div>
+                </div>
               </fieldset>
               <fieldset>
                 <legend>{{ text_checkout }}</legend>
@@ -1493,32 +1514,13 @@
 				</div>
 			</div>
 			<div class="form-group">
-			  <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ help_config_valide_param_flag }}">{{ entry_config_valide_param_flag }}</span></label>
-			  <div class="col-sm-10">
-				<label class="radio-inline"> {% if config_valide_param_flag %}
-				  <input type="radio" name="config_valide_param_flag" value="1" checked="checked" />
-				  {{ text_yes }}
-				  {% else %}
-				  <input type="radio" name="config_valide_param_flag" value="1" />
-				  {{ text_yes }}
-				  {% endif %} </label>
-				<label class="radio-inline"> {% if not config_valide_param_flag %}
-				  <input type="radio" name="config_valide_param_flag" value="0" checked="checked" />
-				  {{ text_no }}
-				  {% else %}
-				  <input type="radio" name="config_valide_param_flag" value="0" />
-				  {{ text_no }}
-				  {% endif %} </label>
-			  </div>
-			</div>
-			<div class="form-group">
 			  <label class="col-sm-2 control-label" for="input-valide-params"><span data-toggle="tooltip" title="{{ help_valide_params }}">{{ entry_valide_params }}</span></label>
 			  <div class="col-sm-10">
 				<textarea name="config_valide_params" rows=10" placeholder="{{ entry_valide_params }}" id="input-valide-params" class="form-control">{{ config_valide_params }}</textarea>
 			  </div>
 			</div>
             <div class="form-group">
-              <label class="col-sm-2 control-label"><span data-toggle="tooltip" title="{{ entry_canonical_method_help }}">{{ entry_canonical_method }}</span></label>
+              <label class="col-sm-2 control-label">{{ entry_canonical_method }}<span data-toggle="tooltip" title="{{ entry_canonical_method_help }}"></span></label>
               <div class="col-sm-10">
                 {% if config_canonical_method %}
                 <label class="radio-inline">

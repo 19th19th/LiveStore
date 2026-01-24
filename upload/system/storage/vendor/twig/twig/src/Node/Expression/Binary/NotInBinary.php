@@ -18,7 +18,7 @@ class NotInBinary extends AbstractBinary
     public function compile(Compiler $compiler)
     {
         $compiler
-            ->raw('!twig_in_filter(')
+            ->raw('!CoreExtension::inFilter(')
             ->subcompile($this->getNode('left'))
             ->raw(', ')
             ->subcompile($this->getNode('right'))

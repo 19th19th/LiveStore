@@ -1,7 +1,11 @@
 <?php
 // Version
+<<<<<<< HEAD
 define('VERSION', '3.0.3.7');
 define('VERSION_CORE', 'ocStore');
+=======
+define('VERSION', '3.0.4.2');
+>>>>>>> 3.0.4.2
 
 // Configuration
 if (is_file('config.php')) {

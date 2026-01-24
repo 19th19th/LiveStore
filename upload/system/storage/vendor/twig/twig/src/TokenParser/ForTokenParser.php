@@ -59,14 +59,21 @@ final class ForTokenParser extends AbstractTokenParser
         $stream->expect(/* Token::BLOCK_END_TYPE */ 3);
 
         if (\count($targets) > 1) {
-            $keyTarget = $targets->getNode(0);
+            $keyTarget = $targets->getNode('0');
             $keyTarget = new AssignNameExpression($keyTarget->getAttribute('name'), $keyTarget->getTemplateLine());
+<<<<<<< HEAD
             $valueTarget = $targets->getNode(1);
             $valueTarget = new AssignNameExpression($valueTarget->getAttribute('name'), $valueTarget->getTemplateLine());
         } else {
             $keyTarget = new AssignNameExpression('_key', $lineno);
             $valueTarget = $targets->getNode(0);
             $valueTarget = new AssignNameExpression($valueTarget->getAttribute('name'), $valueTarget->getTemplateLine());
+=======
+            $valueTarget = $targets->getNode('1');
+        } else {
+            $keyTarget = new AssignNameExpression('_key', $lineno);
+            $valueTarget = $targets->getNode('0');
+>>>>>>> 3.0.4.2
         }
 
         if ($ifexpr) {

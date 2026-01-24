@@ -30,6 +30,8 @@ class ControllerCommonFooter extends Controller {
 		$data['newsletter'] = $this->url->link('account/newsletter', '', true);
 
 		$data['powered'] = sprintf($this->language->get('text_powered'), $this->config->get('config_name'), date('Y', time()));
+		
+		$data['cookie_info'] = $this->getCookieNotification();
 
 		// Whos Online
 		if ($this->config->get('config_customer_online')) {
@@ -60,5 +62,33 @@ class ControllerCommonFooter extends Controller {
 		$data['styles'] = $this->document->getStyles('footer');
 		
 		return $this->load->view('common/footer', $data);
+	}
+	
+	private function getCookieNotification() {
+		$result = '';
+		
+		if(!$this->customer->isLogged()) {
+			if(!isset($this->request->cookie['CookieNotificationAccept'])) {
+				$cookie_article_id = $this->config->get('config_cookie_id');
+			
+				if ($cookie_article_id) {
+					$this->load->model('catalog/information');
+					
+					$info = $this->model_catalog_information->getInformation($cookie_article_id);
+					
+					if ($info) {
+						$result = html_entity_decode($info['description'], ENT_QUOTES, 'UTF-8');
+					}
+				}
+			}
+		}
+		
+		return $result;
+	}
+	
+	public function applyCookieNotification() {
+		$time = 60*60;
+		
+		setcookie('CookieNotificationAccept', true, time()+$time, '/');
 	}
 }

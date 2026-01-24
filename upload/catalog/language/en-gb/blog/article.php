@@ -1,7 +1,4 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Text
 $_['text_blog']         = 'Blog';
 $_['text_write']        = 'Write a review';
@@ -18,6 +15,7 @@ $_['text_tax']          = 'Ex Tax:';
 $_['button_more']       = 'more';
 $_['text_related']       = 'Related Articles';
 $_['text_related_product']       = 'Related Products';
+$_['text_agree']         = 'I have read and agree to the terms and conditions <a href="%s" class="agree"><b>%s</b></a>';
 
 // Entry
 $_['entry_name']        = 'Your Name:';
@@ -32,4 +30,4 @@ $_['error_name']        = 'Warning: Review Name must be between 3 and 25 charact
 $_['error_text']        = 'Warning: Review Text must be between 25 and 1000 characters!';
 $_['error_rating']      = 'Warning: Please select a review rating!';
 $_['error_captcha']     = 'Warning: Verification code does not match the image!';
-?>
+$_['error_agree']       = 'You must agree with <b>%s</b></a>';

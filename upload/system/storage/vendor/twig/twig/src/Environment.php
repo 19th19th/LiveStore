@@ -22,12 +22,15 @@ use Twig\Extension\CoreExtension;
 use Twig\Extension\EscaperExtension;
 use Twig\Extension\ExtensionInterface;
 use Twig\Extension\OptimizerExtension;
+use Twig\Extension\YieldNotReadyExtension;
 use Twig\Loader\ArrayLoader;
 use Twig\Loader\ChainLoader;
 use Twig\Loader\LoaderInterface;
 use Twig\Node\ModuleNode;
 use Twig\Node\Node;
 use Twig\NodeVisitor\NodeVisitorInterface;
+use Twig\Runtime\EscaperRuntime;
+use Twig\RuntimeLoader\FactoryRuntimeLoader;
 use Twig\RuntimeLoader\RuntimeLoaderInterface;
 use Twig\TokenParser\TokenParserInterface;
 
@@ -38,12 +41,21 @@ use Twig\TokenParser\TokenParserInterface;
  */
 class Environment
 {
+<<<<<<< HEAD
     const VERSION = '2.13.0';
     const VERSION_ID = 21300;
     const MAJOR_VERSION = 2;
     const MINOR_VERSION = 13;
     const RELEASE_VERSION = 0;
     const EXTRA_VERSION = '';
+=======
+    public const VERSION = '3.11.3';
+    public const VERSION_ID = 301103;
+    public const MAJOR_VERSION = 4;
+    public const MINOR_VERSION = 11;
+    public const RELEASE_VERSION = 3;
+    public const EXTRA_VERSION = '';
+>>>>>>> 3.0.4.2
 
     private $charset;
     private $loader;
@@ -58,12 +70,14 @@ class Environment
     private $resolvedGlobals;
     private $loadedTemplates;
     private $strictVariables;
-    private $templateClassPrefix = '__TwigTemplate_';
     private $originalCache;
     private $extensionSet;
     private $runtimeLoaders = [];
     private $runtimes = [];
     private $optionsHash;
+    /** @var bool */
+    private $useYield;
+    private $defaultRuntimeLoader;
 
     /**
      * Constructor.
@@ -98,6 +112,10 @@ class Environment
      *  * optimizations: A flag that indicates which optimizations to apply
      *                   (default to -1 which means that all optimizations are enabled;
      *                   set it to 0 to disable).
+     *
+     *  * use_yield: Enable templates to exclusively use "yield" instead of "echo"
+     *               (default to "false", but switch it to "true" when possible
+     *               as this will be the only supported mode in Twig 4.0)
      */
     public function __construct(LoaderInterface $loader, $options = [])
     {
@@ -112,8 +130,10 @@ class Environment
             'cache' => false,
             'auto_reload' => null,
             'optimizations' => -1,
+            'use_yield' => false,
         ], $options);
 
+        $this->useYield = (bool) $options['use_yield'];
         $this->debug = (bool) $options['debug'];
         $this->setCharset($options['charset']);
         $this->baseTemplateClass = '\\'.ltrim($options['base_template_class'], '\\');
@@ -124,13 +144,22 @@ class Environment
         $this->strictVariables = (bool) $options['strict_variables'];
         $this->setCache($options['cache']);
         $this->extensionSet = new ExtensionSet();
+        $this->defaultRuntimeLoader = new FactoryRuntimeLoader([
+            EscaperRuntime::class => function () { return new EscaperRuntime($this->charset); },
+        ]);
 
         $this->addExtension(new CoreExtension());
-        $this->addExtension(new EscaperExtension($options['autoescape']));
+        $escaperExt = new EscaperExtension($options['autoescape']);
+        $escaperExt->setEnvironment($this, false);
+        $this->addExtension($escaperExt);
+        if (\PHP_VERSION_ID >= 80000) {
+            $this->addExtension(new YieldNotReadyExtension($this->useYield));
+        }
         $this->addExtension(new OptimizerExtension($options['optimizations']));
     }
 
     /**
+<<<<<<< HEAD
      * Gets the base template class for compiled templates.
      *
      * @return string The base template class name
@@ -155,6 +184,13 @@ class Environment
 
         $this->baseTemplateClass = $class;
         $this->updateOptionsHash();
+=======
+     * @internal
+     */
+    public function useYield(): bool
+    {
+        return $this->useYield;
+>>>>>>> 3.0.4.2
     }
 
     /**
@@ -282,7 +318,6 @@ class Environment
      *
      *  * The cache key for the given template;
      *  * The currently enabled extensions;
-     *  * Whether the Twig C extension is available or not;
      *  * PHP version;
      *  * Twig version;
      *  * Options with what environment was created.
@@ -294,11 +329,19 @@ class Environment
      *
      * @internal
      */
+<<<<<<< HEAD
     public function getTemplateClass($name, $index = null)
     {
         $key = $this->getLoader()->getCacheKey($name).$this->optionsHash;
 
         return $this->templateClassPrefix.hash('sha256', $key).(null === $index ? '' : '___'.$index);
+=======
+    public function getTemplateClass(string $name, ?int $index = null): string
+    {
+        $key = $this->getLoader()->getCacheKey($name).$this->optionsHash;
+
+        return '__TwigTemplate_'.hash(\PHP_VERSION_ID < 80100 ? 'sha256' : 'xxh128', $key).(null === $index ? '' : '___'.$index);
+>>>>>>> 3.0.4.2
     }
 
     /**
@@ -349,6 +392,11 @@ class Environment
         if ($name instanceof TemplateWrapper) {
             return $name;
         }
+        if ($name instanceof Template) {
+            trigger_deprecation('twig/twig', '3.9', 'Passing a "%s" instance to "%s" is deprecated.', self::class, __METHOD__);
+
+            return $name;
+        }
 
         if ($name instanceof Template) {
             @trigger_error('Passing a \Twig\Template instance to '.__METHOD__.' is deprecated since Twig 2.7.0, use \Twig\TemplateWrapper instead.', E_USER_DEPRECATED);
@@ -365,8 +413,8 @@ class Environment
      * This method is for internal use only and should never be called
      * directly.
      *
-     * @param string $name  The template name
-     * @param int    $index The index if it is an embedded template
+     * @param string   $name  The template name
+     * @param int|null $index The index if it is an embedded template
      *
      * @return Template A template instance representing the given template name
      *
@@ -376,6 +424,7 @@ class Environment
      *
      * @internal
      */
+<<<<<<< HEAD
     public function loadTemplate($name, $index = null)
     {
         return $this->loadClass($this->getTemplateClass($name), $name, $index);
@@ -385,6 +434,9 @@ class Environment
      * @internal
      */
     public function loadClass($cls, $name, $index = null)
+=======
+    public function loadTemplate(string $cls, string $name, ?int $index = null): Template
+>>>>>>> 3.0.4.2
     {
         $mainCls = $cls;
         if (null !== $index) {
@@ -402,7 +454,6 @@ class Environment
                 $this->cache->load($key);
             }
 
-            $source = null;
             if (!class_exists($cls, false)) {
                 $source = $this->getLoader()->getSourceContext($name);
                 $content = $this->compileSource($source);
@@ -419,7 +470,7 @@ class Environment
                 }
 
                 if (!class_exists($cls, false)) {
-                    throw new RuntimeError(sprintf('Failed to load Twig template "%s", index "%s": cache might be corrupted.', $name, $index), -1, $source);
+                    throw new RuntimeError(\sprintf('Failed to load Twig template "%s", index "%s": cache might be corrupted.', $name, $index), -1, $source);
                 }
             }
         }
@@ -435,21 +486,25 @@ class Environment
      *
      * This method should not be used as a generic way to load templates.
      *
-     * @param string $template The template source
-     * @param string $name     An optional name of the template to be used in error messages
+     * @param string      $template The template source
+     * @param string|null $name     An optional name of the template to be used in error messages
      *
      * @return TemplateWrapper A template instance representing the given template name
      *
      * @throws LoaderError When the template cannot be found
      * @throws SyntaxError When an error occurred during compilation
      */
+<<<<<<< HEAD
     public function createTemplate($template, string $name = null)
+=======
+    public function createTemplate(string $template, ?string $name = null): TemplateWrapper
+>>>>>>> 3.0.4.2
     {
         $hash = hash('sha256', $template, false);
         if (null !== $name) {
-            $name = sprintf('%s (string template %s)', $name, $hash);
+            $name = \sprintf('%s (string template %s)', $name, $hash);
         } else {
-            $name = sprintf('__string_template__%s', $hash);
+            $name = \sprintf('__string_template__%s', $hash);
         }
 
         $loader = new ChainLoader([
@@ -485,10 +540,10 @@ class Environment
     /**
      * Tries to load a template consecutively from an array.
      *
-     * Similar to load() but it also accepts instances of \Twig\Template and
-     * \Twig\TemplateWrapper, and an array of templates where each is tried to be loaded.
+     * Similar to load() but it also accepts instances of \Twig\TemplateWrapper
+     * and an array of templates where each is tried to be loaded.
      *
-     * @param string|TemplateWrapper|array $names A template or an array of templates to try consecutively
+     * @param string|TemplateWrapper|array<string|TemplateWrapper> $names A template or an array of templates to try consecutively
      *
      * @return TemplateWrapper|Template
      *
@@ -503,7 +558,9 @@ class Environment
 
         foreach ($names as $name) {
             if ($name instanceof Template) {
-                return $name;
+                trigger_deprecation('twig/twig', '3.9', 'Passing a "%s" instance to "%s" is deprecated.', Template::class, __METHOD__);
+
+                return new TemplateWrapper($this, $name);
             }
             if ($name instanceof TemplateWrapper) {
                 return $name;
@@ -518,7 +575,7 @@ class Environment
             }
         }
 
-        throw new LoaderError(sprintf('Unable to find one of the following templates: "%s".', implode('", "', $names)));
+        throw new LoaderError(\sprintf('Unable to find one of the following templates: "%s".', implode('", "', $names)));
     }
 
     public function setLexer(Lexer $lexer)
@@ -597,7 +654,7 @@ class Environment
             $e->setSourceContext($source);
             throw $e;
         } catch (\Exception $e) {
-            throw new SyntaxError(sprintf('An exception has been thrown during the compilation of a template ("%s").', $e->getMessage()), -1, $source, $e);
+            throw new SyntaxError(\sprintf('An exception has been thrown during the compilation of a template ("%s").', $e->getMessage()), -1, $source, $e);
         }
     }
 
@@ -623,7 +680,11 @@ class Environment
      */
     public function setCharset($charset)
     {
+<<<<<<< HEAD
         if ('UTF8' === $charset = strtoupper($charset)) {
+=======
+        if ('UTF8' === $charset = strtoupper($charset ?: '')) {
+>>>>>>> 3.0.4.2
             // iconv on Windows requires "UTF-8" instead of "UTF8"
             $charset = 'UTF-8';
         }
@@ -694,7 +755,11 @@ class Environment
             }
         }
 
-        throw new RuntimeError(sprintf('Unable to load the "%s" runtime.', $class));
+        if (null !== $runtime = $this->defaultRuntimeLoader->load($class)) {
+            return $this->runtimes[$class] = $runtime;
+        }
+
+        throw new RuntimeError(\sprintf('Unable to load the "%s" runtime.', $class));
     }
 
     public function addExtension(ExtensionInterface $extension)
@@ -904,7 +969,7 @@ class Environment
     public function addGlobal($name, $value)
     {
         if ($this->extensionSet->isInitialized() && !\array_key_exists($name, $this->getGlobals())) {
-            throw new \LogicException(sprintf('Unable to add global "%s" as the runtime or the extensions have already been initialized.', $name));
+            throw new \LogicException(\sprintf('Unable to add global "%s" as the runtime or the extensions have already been initialized.', $name));
         }
 
         if (null !== $this->resolvedGlobals) {
@@ -988,6 +1053,7 @@ class Environment
             (int) $this->debug,
             $this->baseTemplateClass,
             (int) $this->strictVariables,
+            $this->useYield ? '1' : '0',
         ]);
     }
 }

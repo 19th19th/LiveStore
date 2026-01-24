@@ -1,0 +1,143 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h3 class="panel-title"><i class="fa fa-globe"></i> {{ heading_title }}</h3>
+	</div>
+	<div class="panel-body">
+		<div class="chart-by-country-and-region">
+			<div class="chart-by-country-and-region__country active"></div>
+			<div class="chart-by-country-and-region__region"></div>
+		</div>
+	</div>
+</div>
+<style type="text/css">
+	.chart-by-country-and-region{position:relative;width:100%;height:260px}
+	.chart-by-country-and-region__country, .chart-by-country-and-region__region{width:100%;height:260px;opacity:0;background:#fff;overflow:hidden}
+	.chart-by-country-and-region__country.active, .chart-by-country-and-region__region.active{z-index:1 !important; opacity:1; transition:all linear .5s}
+	.chart-by-country-and-region__region{position:absolute !important;z-index:-1;top:0px;left:0px;right:0px;width:auto !important}
+	.chart-by-country-and-region__country .legendLabel, .chart-by-country-and-region__region .legendLabel{padding:0 0 3px 3px}
+	.chart-by-country-and-region__country .legend, .chart-by-country-and-region__region .legend{overflow-y:auto}
+	.chart-by-country-and-region__no-orders{position:absolute;top:50%;left:50%;transform:translate(-50%, -50%)}
+	.chart-by-country-and-region__back{position:absolute;bottom:0px;z-index:9;padding:2px 4px;font-size:12px;cursor:pointer;background:rgba(255 255 255 / .8)}
+	.chart-by-country-and-region__tooltip{position:absolute;z-index:9;padding:2px 4px;font-size:11px;background:rgba(255 255 255 / .8)}
+</style>
+<script>
+	const country_block = '.chart-by-country-and-region__country', 
+		  region_block = '.chart-by-country-and-region__region',
+		  no_orders = '.chart-by-country-and-region__no-orders',
+		  back_btn = '.chart-by-country-and-region__back';
+
+	function getByCountry() {
+		$.ajax({
+			url: 'index.php?route=extension/dashboard/chart_by_country_and_region/chartByCountry&user_token={{ user_token }}',
+			dataType: 'json',
+			success: function(json) {
+				if(json.data.length > 1) {
+					const param = {'elem': country_block, 'clickable': true, 'hoverable': true};
+					
+					DrawChart(json.data, param);
+					
+					setClickByCounries(json.countries);
+				} else if (json.data.length == 1) {
+					getByRegion(json.countries[0]);
+					
+					$(region_block).toggleClass('active');
+				} else {
+					$(country_block).html('<div class="'+no_orders+'">{{ text_no_orders }}</div>');
+				}
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});
+	}
+	
+	function getByRegion(country_id) {
+		$.ajax({
+			url: 'index.php?route=extension/dashboard/chart_by_country_and_region/chartByRegion&user_token={{ user_token }}',
+			data: 'country_id='+country_id,
+			dataType: 'json',
+			success: function(json) {
+				if(json.length) {
+					const param = {'elem': region_block, 'clickable': false, 'hoverable': true};
+					
+					DrawChart(json, param);
+				} else {
+					$(region_block).html('<div class="'+no_orders+'">{{ text_no_orders }}</div>');
+				}
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});
+	}
+	
+	function DrawChart(json, param) {
+		if(json) {
+			data = [];
+		
+			for (i in json) {
+				data[i] = {
+					label: json[i]['name']+' ('+json[i]['total']+')',
+					data: json[i]['total']
+				}
+			}
+
+			$.plot(param.elem, data, {
+				colors: ['#9FD5F1', '#1065D2', '#9827bb', '#bb272c', '#27bb5c'],
+				series: {
+					pie: {
+						show: true
+					}
+				},
+				grid: {
+					hoverable: param.hoverable,
+					clickable: param.clickable,
+				}
+			});
+		} else {
+			console.log('Error, json is empty')
+		}
+	}
+
+	function setClickByCounries(countries) {
+		$(country_block).on('plotclick', (event, pos, obj) => {
+		
+			if (obj && countries) {
+				const country_id = countries[obj.seriesIndex];
+			
+				if(country_id) {
+					getByRegion(country_id);
+					
+					if(!$(back_btn).length) {
+						$(country_block).before('<a class="'+back_btn.split('.')[1]+'">{{ btn_back }}</a>');
+					}
+					
+					$(country_block+', '+region_block).toggleClass('active');
+				}
+			}
+		});
+	}
+	
+	$(country_block+' , '+region_block).on('plothover', (event, pos, obj) => {
+		$('.chart-by-country-and-region__tooltip').remove();
+			
+		if (obj) {
+			if(!$('.chart-by-country-and-region__tooltip').length) {
+				$(country_block).before('<span class="chart-by-country-and-region__tooltip">'+obj.series.label.split('(')[0]+'</span>');
+			}
+			$(country_block).css('cursor', 'pointer');		
+		} else {
+			$('.chart-by-country-and-region__tooltip').remove();
+			$(country_block).css('cursor', 'auto');
+		}
+	});
+	
+	$('body').on('click', back_btn, function() {
+		$(this).remove();
+		$(country_block+', '+region_block).toggleClass('active');
+	});
+	
+	$(document).ready(function() {
+		getByCountry();
+	});
+</script> 

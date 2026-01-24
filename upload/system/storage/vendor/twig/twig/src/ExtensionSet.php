@@ -16,6 +16,12 @@ use Twig\Extension\ExtensionInterface;
 use Twig\Extension\GlobalsInterface;
 use Twig\Extension\InitRuntimeInterface;
 use Twig\Extension\StagingExtension;
+<<<<<<< HEAD
+=======
+use Twig\Node\Expression\AbstractExpression;
+use Twig\Node\Expression\Binary\AbstractBinary;
+use Twig\Node\Expression\Unary\AbstractUnary;
+>>>>>>> 3.0.4.2
 use Twig\NodeVisitor\NodeVisitorInterface;
 use Twig\TokenParser\TokenParserInterface;
 
@@ -35,7 +41,13 @@ final class ExtensionSet
     private $filters;
     private $tests;
     private $functions;
+<<<<<<< HEAD
     private $unaryOperators;
+=======
+    /** @var array<string, array{precedence: int, class: class-string<AbstractExpression>}> */
+    private $unaryOperators;
+    /** @var array<string, array{precedence: int, class?: class-string<AbstractExpression>, associativity: ExpressionParser::OPERATOR_*}> */
+>>>>>>> 3.0.4.2
     private $binaryOperators;
     private $globals;
     private $functionCallbacks = [];
@@ -87,7 +99,7 @@ final class ExtensionSet
         }
 
         if (!isset($this->extensions[$class])) {
-            throw new RuntimeError(sprintf('The "%s" extension is not enabled.', $class));
+            throw new RuntimeError(\sprintf('The "%s" extension is not enabled.', $class));
         }
 
         return $this->extensions[$class];
@@ -142,11 +154,11 @@ final class ExtensionSet
         $class = \get_class($extension);
 
         if ($this->initialized) {
-            throw new \LogicException(sprintf('Unable to register extension "%s" as extensions have already been initialized.', $class));
+            throw new \LogicException(\sprintf('Unable to register extension "%s" as extensions have already been initialized.', $class));
         }
 
         if (isset($this->extensions[$class])) {
-            throw new \LogicException(sprintf('Unable to register extension "%s" as it is already registered.', $class));
+            throw new \LogicException(\sprintf('Unable to register extension "%s" as it is already registered.', $class));
         }
 
         // For BC/FC with namespaced aliases
@@ -157,7 +169,7 @@ final class ExtensionSet
     public function addFunction(TwigFunction $function)
     {
         if ($this->initialized) {
-            throw new \LogicException(sprintf('Unable to add function "%s" as extensions have already been initialized.', $function->getName()));
+            throw new \LogicException(\sprintf('Unable to add function "%s" as extensions have already been initialized.', $function->getName()));
         }
 
         $this->staging->addFunction($function);
@@ -216,7 +228,7 @@ final class ExtensionSet
     public function addFilter(TwigFilter $filter)
     {
         if ($this->initialized) {
-            throw new \LogicException(sprintf('Unable to add filter "%s" as extensions have already been initialized.', $filter->getName()));
+            throw new \LogicException(\sprintf('Unable to add filter "%s" as extensions have already been initialized.', $filter->getName()));
         }
 
         $this->staging->addFilter($filter);
@@ -328,7 +340,7 @@ final class ExtensionSet
 
             $extGlobals = $extension->getGlobals();
             if (!\is_array($extGlobals)) {
-                throw new \UnexpectedValueException(sprintf('"%s::getGlobals()" must return an array of globals.', \get_class($extension)));
+                throw new \UnexpectedValueException(\sprintf('"%s::getGlobals()" must return an array of globals.', \get_class($extension)));
             }
 
             $globals = array_merge($globals, $extGlobals);
@@ -344,7 +356,7 @@ final class ExtensionSet
     public function addTest(TwigTest $test)
     {
         if ($this->initialized) {
-            throw new \LogicException(sprintf('Unable to add test "%s" as extensions have already been initialized.', $test->getName()));
+            throw new \LogicException(\sprintf('Unable to add test "%s" as extensions have already been initialized.', $test->getName()));
         }
 
         $this->staging->addTest($test);
@@ -391,6 +403,12 @@ final class ExtensionSet
         return false;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array<string, array{precedence: int, class: class-string<AbstractExpression>}>
+     */
+>>>>>>> 3.0.4.2
     public function getUnaryOperators(): array
     {
         if (!$this->initialized) {
@@ -400,6 +418,12 @@ final class ExtensionSet
         return $this->unaryOperators;
     }
 
+<<<<<<< HEAD
+=======
+    /**
+     * @return array<string, array{precedence: int, class?: class-string<AbstractExpression>, associativity: ExpressionParser::OPERATOR_*}>
+     */
+>>>>>>> 3.0.4.2
     public function getBinaryOperators(): array
     {
         if (!$this->initialized) {
@@ -461,11 +485,11 @@ final class ExtensionSet
         // operators
         if ($operators = $extension->getOperators()) {
             if (!\is_array($operators)) {
-                throw new \InvalidArgumentException(sprintf('"%s::getOperators()" must return an array with operators, got "%s".', \get_class($extension), \is_object($operators) ? \get_class($operators) : \gettype($operators).(\is_resource($operators) ? '' : '#'.$operators)));
+                throw new \InvalidArgumentException(\sprintf('"%s::getOperators()" must return an array with operators, got "%s".', \get_class($extension), \is_object($operators) ? \get_class($operators) : \gettype($operators).(\is_resource($operators) ? '' : '#'.$operators)));
             }
 
             if (2 !== \count($operators)) {
-                throw new \InvalidArgumentException(sprintf('"%s::getOperators()" must return an array of 2 elements, got %d.', \get_class($extension), \count($operators)));
+                throw new \InvalidArgumentException(\sprintf('"%s::getOperators()" must return an array of 2 elements, got %d.', \get_class($extension), \count($operators)));
             }
 
             $this->unaryOperators = array_merge($this->unaryOperators, $operators[0]);

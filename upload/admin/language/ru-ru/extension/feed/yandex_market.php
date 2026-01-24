@@ -77,7 +77,7 @@ $_['help_currency']          = 'Яндекс.Маркет принимает п�
 $_['help_in_stock']          = 'При наличии товара на складе.';
 $_['help_out_of_stock']      = 'При остатке на складе 0.';
 $_['help_quantity_status']   = 'Если да, то товары с нулевым количеством будут выгружаться в YML файле.';
-$_['help_yandex_market']     = 'Тема на <a target="_blank" href="//forum.opencart.pro/topic/1059-yandexmarket-20/">Форуме</a>';
+$_['help_yandex_market']     = '<a target="_blank" href="//forum.liveopencart.ru">Форум</a>';
 
 // Error
 $_['error_image_width']      = 'Укажите ширину!';

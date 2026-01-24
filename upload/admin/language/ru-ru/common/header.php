@@ -3,7 +3,7 @@
 // *	@license	GNU General Public License version 3; see LICENSE.txt
 
 // Heading
-$_['heading_title']      	 = 'ocStore';
+$_['heading_title']      	 = 'LiveStore';
 
 // Text
 $_['text_profile']      		  = 'Ваш профиль';

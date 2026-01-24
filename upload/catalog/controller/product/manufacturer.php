@@ -4,7 +4,6 @@ class ControllerProductManufacturer extends Controller {
 		$this->load->language('product/manufacturer');
 
 		$this->load->model('catalog/manufacturer');
-
 		$this->load->model('tool/image');
 
 		$this->document->setTitle($this->language->get('heading_title'));
@@ -58,9 +57,7 @@ class ControllerProductManufacturer extends Controller {
 		$this->load->language('product/manufacturer');
 
 		$this->load->model('catalog/manufacturer');
-
 		$this->load->model('catalog/product');
-
 		$this->load->model('tool/image');
 
 		if (isset($this->request->get['manufacturer_id'])) {
@@ -69,12 +66,7 @@ class ControllerProductManufacturer extends Controller {
 			$manufacturer_id = 0;
 		}
 
-        if ($this->config->get('config_noindex_disallow_params')) {
-            $params = explode ("\r\n", $this->config->get('config_noindex_disallow_params'));
-            if(!empty($params)) {
-                $disallow_params = $params;
-            }
-        }
+        $disallow_params = explode("\r\n", $this->config->get('config_noindex_disallow_params'));
 
         if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
@@ -103,7 +95,7 @@ class ControllerProductManufacturer extends Controller {
 			$page = 1;
 		}
 
-		if (isset($this->request->get['limit'])) {
+		if (isset($this->request->get['limit']) && (int)$this->request->get['limit'] > 0) {
 			$limit = (int)$this->request->get['limit'];
             if (!in_array('limit', $disallow_params, true) && $this->config->get('config_noindex_status')) {
                 $this->document->setRobots('noindex,follow');

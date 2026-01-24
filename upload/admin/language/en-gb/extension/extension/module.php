@@ -7,7 +7,11 @@ $_['heading_title']    = 'Modules';
 
 // Text
 $_['text_success']     = 'Success: You have modified modules!';
+<<<<<<< HEAD
 $_['text_layout']      = 'After you have installed and configured a module you can add it to a layout <a href="%s" class="alert-link">here</a>! You can purchase legal modules and templates at <a href="https://liveopencart.ru/?utm_source=ocstore3&utm_medium=extension&utm_campaign=3037" class="alert-link" target="new">liveopencart.ru</a>.';
+=======
+$_['text_layout']      = 'After you have installed and configured a module you can add it to a layout <a href="%s" class="alert-link">here</a>!You can purchase legal modules and templates at <a href="https://liveopencart.ru/?utm_source=ocstore3&utm_medium=extension&utm_campaign=3042" class="alert-link" target="new">liveopencart.ru</a>.';
+>>>>>>> 3.0.4.2
 $_['text_add']         = 'Add Module';
 $_['text_list']        = 'Module List';
 $_['text_hide_modules'] = 'The list is not displayed modules, which are hidden in <a href="%s" class="alert-link">section </a> the control of user rights!';

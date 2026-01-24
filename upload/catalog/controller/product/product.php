@@ -276,9 +276,13 @@ class ControllerProductProduct extends Controller {
 
 			if ($product_info['image']) {
 				$data['thumb'] = $this->model_tool_image->resize($product_info['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_height'));
+<<<<<<< HEAD
+=======
+				
+>>>>>>> 3.0.4.2
 				$this->document->setOgImage($data['thumb']);
 			} else {
-				$data['thumb'] = '';
+				$data['thumb'] = $this->model_tool_image->resize('placeholder.png', $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_thumb_height'));
 			}
 
 			$data['images'] = array();
@@ -386,6 +390,20 @@ class ControllerProductProduct extends Controller {
 				$data['captcha'] = $this->load->controller('extension/captcha/' . $this->config->get('config_captcha'));
 			} else {
 				$data['captcha'] = '';
+			}
+			
+			if ($this->config->get('config_account_id')) {
+				$this->load->model('catalog/information');
+
+				$information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
+
+				if ($information_info) {
+					$data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('information/information/agree', 'information_id=' . $this->config->get('config_account_id'), true), $information_info['title']);
+				} else {
+					$data['text_agree'] = '';
+				}
+			} else {
+				$data['text_agree'] = '';
 			}
 
 			$data['share'] = $this->url->link('product/product', 'product_id=' . (int)$this->request->get['product_id']);
@@ -604,6 +622,16 @@ class ControllerProductProduct extends Controller {
 
 				if ($captcha) {
 					$json['error'] = $captcha;
+				}
+			}
+			
+			if ($this->config->get('config_account_id')) {
+				$this->load->model('catalog/information');
+
+				$information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
+
+				if ($information_info && !isset($this->request->post['agree'])) {
+					$json['error'] = sprintf($this->language->get('error_agree'), $information_info['title']);
 				}
 			}
 

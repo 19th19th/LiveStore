@@ -27,9 +27,8 @@ final class InlinePrint extends AbstractExpression
     public function compile(Compiler $compiler)
     {
         $compiler
-            ->raw('print (')
+            ->raw('yield ')
             ->subcompile($this->getNode('node'))
-            ->raw(')')
         ;
     }
 }

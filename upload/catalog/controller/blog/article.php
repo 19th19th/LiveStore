@@ -226,6 +226,26 @@ class ControllerBlogArticle extends Controller {
 			}
 
 			$this->load->model('tool/image');
+			
+			if (!empty($article_info['image'])) {
+				$data['thumb'] = $this->model_tool_image->resize($article_info['image'], 200, 300);
+				$data['popup'] = $this->model_tool_image->resize($article_info['image'], 1200, 900);
+			} else {
+				$data['thumb'] = '';
+				$data['popup'] = '';
+			}
+
+			$data['images'] = array();
+
+			$results = $this->model_blog_article->getArticleImages($article_id);
+
+			foreach ($results as $result) {
+				$data['images'][] = array(
+					'popup' => $this->model_tool_image->resize($result['image'], 1200, 900),
+					'thumb' => $this->model_tool_image->resize($result['image'], 100, 100)
+				);
+			}
+
 			$data['products'] = array();
 			
 			$results = $this->model_blog_article->getArticleRelatedProduct($this->request->get['article_id']);
@@ -313,7 +333,21 @@ class ControllerBlogArticle extends Controller {
                         'href'       => $this->url->link('blog/article/download', '&article_id='. $this->request->get['article_id']. '&download_id=' . $result['download_id'])
                     );
                 }
-            } 
+            }
+			
+			if ($this->config->get('config_account_id')) {
+				$this->load->model('catalog/information');
+
+				$information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
+
+				if ($information_info) {
+					$data['text_agree'] = sprintf($this->language->get('text_agree'), $this->url->link('information/information/agree', 'information_id=' . $this->config->get('config_account_id'), true), $information_info['title']);
+				} else {
+					$data['text_agree'] = '';
+				}
+			} else {
+				$data['text_agree'] = '';
+			}
 			
 			$this->model_blog_article->updateViewed($this->request->get['article_id']);
 
@@ -493,6 +527,16 @@ class ControllerBlogArticle extends Controller {
 
 				if ($captcha) {
 					$json['error'] = $captcha;
+				}
+			}
+			
+			if ($this->config->get('config_account_id')) {
+				$this->load->model('catalog/information');
+
+				$information_info = $this->model_catalog_information->getInformation($this->config->get('config_account_id'));
+
+				if ($information_info && !isset($this->request->post['agree'])) {
+					$json['error'] = sprintf($this->language->get('error_agree'), $information_info['title']);
 				}
 			}
 

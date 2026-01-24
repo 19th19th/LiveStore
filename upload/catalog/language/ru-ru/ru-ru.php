@@ -1,7 +1,4 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Locale
 $_['code']                  = 'ru';
 $_['direction']             = 'ltr';
@@ -10,7 +7,7 @@ $_['date_format_long']      = 'l, d F Y';
 $_['time_format']           = 'H:i:s';
 $_['datetime_format']       = 'd/m/Y H:i:s';
 $_['decimal_point']         = '.';
-$_['thousand_point']        = '';
+$_['thousand_point']        = ' ';
 
 // Text
 $_['text_home']             = '<i class="fa fa-home"></i>';
@@ -21,6 +18,7 @@ $_['text_select']           = ' --- Выберите --- ';
 $_['text_all_zones']        = 'Все зоны';
 $_['text_pagination']       = 'Показано с %d по %d из %d (всего %d страниц)';
 $_['text_loading']          = 'Загрузка...';
+$_['text_agree'] = 'Я прочитал(а) и согласен(на) с условиями <a href="%s" class="agree">%s</a>';
 
 // Buttons
 $_['button_address_add']    = 'Добавить адрес';
@@ -29,7 +27,7 @@ $_['button_continue']       = 'Продолжить';
 $_['button_cart']           = 'Купить';
 $_['button_cancel']         = 'Отмена';
 $_['button_compare']        = 'В сравнение';
-$_['button_wishlist']       = 'В закладки';
+$_['button_wishlist']       = 'В избранное';
 $_['button_checkout']       = 'Оформление заказа';
 $_['button_confirm']        = 'Подтверждение заказа';
 $_['button_coupon']         = 'Применение купона';
@@ -48,7 +46,7 @@ $_['button_reorder']        = 'Дополнительный заказ';
 $_['button_return']         = 'Возврат товара';
 $_['button_shopping']       = 'Продолжить покупки';
 $_['button_search']         = 'Поиск';
-$_['button_shipping']       = 'Применить Доставку';
+$_['button_shipping']       = 'Применить доставку';
 $_['button_submit']         = 'Применить';
 $_['button_guest']          = 'Оформить заказ без регистрации';
 $_['button_view']           = 'Просмотр';
@@ -70,3 +68,7 @@ $_['error_upload_6']        = 'Не найдены во временной па�
 $_['error_upload_7']        = 'Ошибка записи!';
 $_['error_upload_8']        = 'Запрещено загружать файлы данного типа!';
 $_['error_upload_999']      = 'Неизвестная ошибка!';
+$_['datepicker']            = 'ru-ru';
+$_['text_no_results']       = 'Нет результатов';
+$_['error_curl']            = 'CURL: Error Code(%s): %s';
+$_['error_agree'] = 'Вы должны прочитать и согласится с %s!';

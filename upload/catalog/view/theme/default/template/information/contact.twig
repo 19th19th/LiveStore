@@ -100,6 +100,9 @@
         {% endfor %}
       </div>
       {% endif %}
+		{% if error_agree %}
+			<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_agree }}</div>
+		{% endif %}
       <form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
         <fieldset>
           <legend>{{ text_contact }}</legend>
@@ -134,6 +137,15 @@
         </fieldset>
         <div class="buttons">
           <div class="pull-right">
+			{% if text_agree %}
+				{% if agree %}
+					<input type="checkbox" name="agree" value="1" checked="checked" />
+				{% else %}
+					<input type="checkbox" name="agree" value="1" />
+				{% endif %}
+				{{ text_agree }}
+			{% endif %}
+			&nbsp;
             <input class="btn btn-primary" type="submit" value="{{ button_submit }}" />
           </div>
         </div>

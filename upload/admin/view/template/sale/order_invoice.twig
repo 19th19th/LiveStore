@@ -14,7 +14,11 @@
 <div class="container">
   {% for order in orders %}
   <div style="page-break-after: always;">
+<<<<<<< HEAD
     <h1>{% if order.invoice_no %}{{ text_invoice }} #{{ order.invoice_no }}{% else %}{{ order.text_order }}{% endif %}</h1>
+=======
+    <h1><h1>{{ order.invoice_no ? text_invoice ~ ' #' ~ order.invoice_no : text_order|format(order.order_id) }}</h1></h1>
+>>>>>>> 3.0.4.2
     <table class="table table-bordered">
       <thead>
         <tr>

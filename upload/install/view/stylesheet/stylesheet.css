@@ -262,7 +262,7 @@ a.button, input.button {
 }
 
 @media (min-width: 992px) {
-    .core-modules{
+    .core-modules {
         padding: 20px 50px 0px 50px;
         background: #fff;
     }
@@ -271,7 +271,7 @@ a.button, input.button {
 /* Modules */
 .modules {
     text-align: center;
-    padding: 50px;
+    padding: 50px 0px 50px 0px;
     background: #fff;
 }
 

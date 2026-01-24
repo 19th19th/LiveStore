@@ -11,7 +11,7 @@ $_['text_edit']        = 'Редактирование';
 // Entry
 $_['entry_status']     = 'Статус';
 $_['entry_currency']   = 'Валюта';
-$_['entry_made']       = 'Собрал <a href="https://opencartforum.com/profile/678128-spectre/" target="_blank">@spectre</a>';
+$_['entry_made']       = 'Собрал spectre';
 $_['entry_data_feed']  = 'Адрес Yandex';
 
 // Error

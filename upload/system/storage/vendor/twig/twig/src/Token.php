@@ -23,6 +23,7 @@ final class Token
     private $type;
     private $lineno;
 
+<<<<<<< HEAD
     const EOF_TYPE = -1;
     const TEXT_TYPE = 0;
     const BLOCK_START_TYPE = 1;
@@ -37,6 +38,23 @@ final class Token
     const INTERPOLATION_START_TYPE = 10;
     const INTERPOLATION_END_TYPE = 11;
     const ARROW_TYPE = 12;
+=======
+    public const EOF_TYPE = -1;
+    public const TEXT_TYPE = 0;
+    public const BLOCK_START_TYPE = 1;
+    public const VAR_START_TYPE = 2;
+    public const BLOCK_END_TYPE = 3;
+    public const VAR_END_TYPE = 4;
+    public const NAME_TYPE = 5;
+    public const NUMBER_TYPE = 6;
+    public const STRING_TYPE = 7;
+    public const OPERATOR_TYPE = 8;
+    public const PUNCTUATION_TYPE = 9;
+    public const INTERPOLATION_START_TYPE = 10;
+    public const INTERPOLATION_END_TYPE = 11;
+    public const ARROW_TYPE = 12;
+    public const SPREAD_TYPE = 13;
+>>>>>>> 3.0.4.2
 
     /**
      * @param int    $type   The type of the token
@@ -52,7 +70,7 @@ final class Token
 
     public function __toString()
     {
-        return sprintf('%s(%s)', self::typeToString($this->type, true), $this->value);
+        return \sprintf('%s(%s)', self::typeToString($this->type, true), $this->value);
     }
 
     /**
@@ -76,9 +94,9 @@ final class Token
         }
 
         return ($this->type === $type) && (
-            null === $values ||
-            (\is_array($values) && \in_array($this->value, $values)) ||
-            $this->value == $values
+            null === $values
+            || (\is_array($values) && \in_array($this->value, $values))
+            || $this->value == $values
         );
     }
 
@@ -159,8 +177,11 @@ final class Token
             case self::ARROW_TYPE:
                 $name = 'ARROW_TYPE';
                 break;
+            case self::SPREAD_TYPE:
+                $name = 'SPREAD_TYPE';
+                break;
             default:
-                throw new \LogicException(sprintf('Token of type "%s" does not exist.', $type));
+                throw new \LogicException(\sprintf('Token of type "%s" does not exist.', $type));
         }
 
         return $short ? $name : 'Twig\Token::'.$name;
@@ -204,8 +225,10 @@ final class Token
                 return 'end of string interpolation';
             case self::ARROW_TYPE:
                 return 'arrow function';
+            case self::SPREAD_TYPE:
+                return 'spread operator';
             default:
-                throw new \LogicException(sprintf('Token of type "%s" does not exist.', $type));
+                throw new \LogicException(\sprintf('Token of type "%s" does not exist.', $type));
         }
     }
 }

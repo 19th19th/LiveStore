@@ -40,7 +40,7 @@ abstract class AbstractExtension implements ExtensionInterface
 
     public function getOperators()
     {
-        return [];
+        return [[], []];
     }
 }
 

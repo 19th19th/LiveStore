@@ -7,17 +7,10 @@ class ControllerBlogCategory extends Controller {
 		$this->load->language('blog/category');
 
 		$this->load->model('blog/category');
-
 		$this->load->model('blog/article');
-
 		$this->load->model('tool/image');
 
-        if ($this->config->get('config_noindex_disallow_params')) {
-            $params = explode ("\r\n", $this->config->get('config_noindex_disallow_params'));
-            if(!empty($params)) {
-                $disallow_params = $params;
-            }
-        }
+        $disallow_params = explode("\r\n", $this->config->get('config_noindex_disallow_params'));
 
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
@@ -94,9 +87,15 @@ class ControllerBlogCategory extends Controller {
 
 			$parts = explode('_', (string)$this->request->get['blog_category_id']);
 
+<<<<<<< HEAD
             $blog_category_id = (int)array_pop($parts);
             
             $blog_category_id_temp = 0;
+=======
+			$blog_category_id = (int)array_pop($parts);
+			
+			$blog_category_id_temp = 0;
+>>>>>>> 3.0.4.2
 
             foreach ($parts as $blog_category_id_id) {
                 if (!$blog_category_id_temp) {

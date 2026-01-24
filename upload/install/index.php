@@ -1,9 +1,8 @@
 <?php
-// Version
-define('VERSION', '3.0.3.7b');
-
 // Error Reporting
 error_reporting(E_ALL);
+
+ini_set('display_errors', 1);
 
 // Check if SSL
 if ((isset($_SERVER['HTTPS']) && (($_SERVER['HTTPS'] == 'on') || ($_SERVER['HTTPS'] == '1'))) || $_SERVER['SERVER_PORT'] == 443) {

@@ -80,6 +80,12 @@ $(document).ready(function() {
 			$(this).css('margin-left', '-' + (i + 10) + 'px');
 		}
 	});
+	
+	$('#menu > div > ul > li > a').unbind('click').on('click', function() {
+		if($(window).width() > 768) {
+			location = $(this).attr('href');
+		}
+	});
 
 	// Product List
 	$('#list-view').click(function() {

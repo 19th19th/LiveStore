@@ -26,6 +26,7 @@ use Twig\Node\PrintNode;
 use Twig\Node\SpacelessNode;
 use Twig\Node\TextNode;
 use Twig\TokenParser\TokenParserInterface;
+use Twig\Util\ReflectionCallable;
 
 /**
  * Default parser implementation.
@@ -56,7 +57,11 @@ class Parser
 
     public function getVarName()
     {
+<<<<<<< HEAD
         return sprintf('__internal_%s', hash('sha256', __METHOD__.$this->stream->getSourceContext()->getCode().$this->varNameSalt++));
+=======
+        return \sprintf('__internal_parse_%d', $this->varNameSalt++);
+>>>>>>> 3.0.4.2
     }
 
     public function parse(TokenStream $stream, $test = null, $dropNeedle = false)
@@ -116,6 +121,9 @@ class Parser
 
         $traverser = new NodeTraverser($this->env, $this->visitors);
 
+        /**
+         * @var ModuleNode $node
+         */
         $node = $traverser->traverse($node);
 
         // restore previous stack so previous parse() call can resume working
@@ -166,14 +174,20 @@ class Parser
 
                     if (!isset($this->handlers[$token->getValue()])) {
                         if (null !== $test) {
-                            $e = new SyntaxError(sprintf('Unexpected "%s" tag', $token->getValue()), $token->getLine(), $this->stream->getSourceContext());
+                            $e = new SyntaxError(\sprintf('Unexpected "%s" tag', $token->getValue()), $token->getLine(), $this->stream->getSourceContext());
 
-                            if (\is_array($test) && isset($test[0]) && $test[0] instanceof TokenParserInterface) {
-                                $e->appendMessage(sprintf(' (expecting closing tag for the "%s" tag defined near line %s).', $test[0]->getTag(), $lineno));
+                            $callable = (new ReflectionCallable($test))->getCallable();
+                            if (\is_array($callable) && $callable[0] instanceof TokenParserInterface) {
+                                $e->appendMessage(\sprintf(' (expecting closing tag for the "%s" tag defined near line %s).', $callable[0]->getTag(), $lineno));
                             }
                         } else {
+<<<<<<< HEAD
                             $e = new SyntaxError(sprintf('Unknown "%s" tag.', $token->getValue()), $token->getLine(), $this->stream->getSourceContext());
                             $e->addSuggestions($token->getValue(), array_keys($this->env->getTags()));
+=======
+                            $e = new SyntaxError(\sprintf('Unknown "%s" tag.', $token->getValue()), $token->getLine(), $this->stream->getSourceContext());
+                            $e->addSuggestions($token->getValue(), array_keys($this->env->getTokenParsers()));
+>>>>>>> 3.0.4.2
                         }
 
                         throw $e;
@@ -272,7 +286,11 @@ class Parser
         $this->embeddedTemplates[] = $template;
     }
 
+<<<<<<< HEAD
     public function addImportedSymbol($type, $alias, $name = null, AbstractExpression $node = null)
+=======
+    public function addImportedSymbol(string $type, string $alias, ?string $name = null, ?AbstractExpression $node = null): void
+>>>>>>> 3.0.4.2
     {
         $this->importedSymbols[0][$type][$alias] = ['name' => $name, 'node' => $node];
     }
@@ -337,11 +355,15 @@ class Parser
         // check that the body does not contain non-empty output nodes
         if (
             ($node instanceof TextNode && !ctype_space($node->getAttribute('data')))
+<<<<<<< HEAD
             ||
             // the "&& !$node instanceof SpacelessNode" part of the condition must be removed in 3.0
             (!$node instanceof TextNode && !$node instanceof BlockReferenceNode && ($node instanceof NodeOutputInterface && !$node instanceof SpacelessNode))
+=======
+            || (!$node instanceof TextNode && !$node instanceof BlockReferenceNode && $node instanceof NodeOutputInterface)
+>>>>>>> 3.0.4.2
         ) {
-            if (false !== strpos((string) $node, \chr(0xEF).\chr(0xBB).\chr(0xBF))) {
+            if (str_contains((string) $node, \chr(0xEF).\chr(0xBB).\chr(0xBF))) {
                 $t = substr($node->getAttribute('data'), 3);
                 if ('' === $t || ctype_space($t)) {
                     // bypass empty nodes starting with a BOM

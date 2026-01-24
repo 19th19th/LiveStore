@@ -32,6 +32,10 @@ final class ProfilerNodeVisitor extends AbstractNodeVisitor
     public function __construct(string $extensionName)
     {
         $this->extensionName = $extensionName;
+<<<<<<< HEAD
+=======
+        $this->varName = \sprintf('__internal_%s', hash(\PHP_VERSION_ID < 80100 ? 'sha256' : 'xxh128', $extensionName));
+>>>>>>> 3.0.4.2
     }
 
     protected function doEnterNode(Node $node, Environment $env)

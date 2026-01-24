@@ -7,20 +7,10 @@ class ControllerProductCategory extends Controller {
 		$this->load->language('product/category');
 
 		$this->load->model('catalog/category');
-
 		$this->load->model('catalog/product');
-
 		$this->load->model('tool/image');
 
-
-		$data['text_empty'] = $this->language->get('text_empty');
-
-        if ($this->config->get('config_noindex_disallow_params')) {
-            $params = explode ("\r\n", $this->config->get('config_noindex_disallow_params'));
-            if(!empty($params)) {
-                $disallow_params = $params;
-            }
-        }
+        $disallow_params = explode("\r\n", $this->config->get('config_noindex_disallow_params'));
 
 		if (isset($this->request->get['filter'])) {
 			$filter = $this->request->get['filter'];
@@ -58,7 +48,7 @@ class ControllerProductCategory extends Controller {
 			$page = 1;
 		}
 
-		if (isset($this->request->get['limit'])) {
+		if (isset($this->request->get['limit']) && (int)$this->request->get['limit'] > 0) {
 			$limit = (int)$this->request->get['limit'];
             if (!in_array('limit', $disallow_params, true) && $this->config->get('config_noindex_status')) {
                 $this->document->setRobots('noindex,follow');
@@ -148,9 +138,13 @@ class ControllerProductCategory extends Controller {
 
 			if ($category_info['image']) {
 				$data['thumb'] = $this->model_tool_image->resize($category_info['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_category_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_category_height'));
+<<<<<<< HEAD
+=======
+				
+>>>>>>> 3.0.4.2
 				$this->document->setOgImage($data['thumb']);
 			} else {
-				$data['thumb'] = '';
+				$data['thumb'] = $this->model_tool_image->resize('placeholder.png', $this->config->get('theme_' . $this->config->get('config_theme') . '_image_category_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_category_height'));
 			}
 
 			$data['description'] = html_entity_decode($category_info['description'], ENT_QUOTES, 'UTF-8');

@@ -1,17 +1,14 @@
 {{ header }}
 <div class="container">
-  <header>
-    <div class="row">
-      <div class="col-sm-6">
-        <h1 class="pull-left">2<small>/4</small></h1>
-        <h3>{{ heading_title }}<br>
-          <small>{{ text_step_2 }}</small></h3>
-      </div>
-      <div class="col-sm-6">
-        <div id="logo" class="pull-right hidden-xs"><img src="view/image/logo.png" alt="ocStore" title="ocStore" /></div>
-      </div>
-    </div>
-  </header>
+	<header>
+		<div class="row">
+		<div class="col-sm-12">
+			<h1 class="pull-left">2<small>/4</small></h1>
+			<h3>{{ heading_title }}<br>
+			<small>{{ text_step_2 }}</small></h3>
+		</div>
+		</div>
+	</header>
   {% if error_warning %}
   <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
     <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -19,7 +16,7 @@
   {% endif %}
   <div class="row">
     <div class="col-sm-9">
-      <form action="{{ action }}" method="post" enctype="multipart/form-data">
+      <form name="step-2" action="{{ action }}" method="post" enctype="multipart/form-data" class="form-step-2">
         <p>{{ text_install_php }}</p>
         <fieldset>
           <table class="table">
@@ -221,23 +218,23 @@
           <table class="table">
             <thead>
               <tr>
-                <td><b>{{ text_file }}</b></td>
-                <td><b>{{ text_status }}</b></td>
+                <td width="85%"><b>{{ text_file }}</b></td>
+                <td width="15%" class="text-center"><b>{{ text_status }}</b></td>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>{{ catalog_config }}</td>
-                <td>{% if not error_catalog_config %}
-                  <span class="text-success">{{ text_writable }}</span>
+                <td class="text-center">{% if not error_catalog_config %}
+                  <span class="text-success"><i class="fa fa-check-circle"></i></span>
                   {% else %}
                   <span class="text-danger">{{ error_catalog_config }}</span>
                   {% endif %}</td>
               </tr>
               <tr>
                 <td>{{ admin_config }}</td>
-                <td>{% if not error_admin_config %}
-                  <span class="text-success">{{ text_writable }}</span>
+                <td class="text-center">{% if not error_admin_config %}
+                  <span class="text-success"><i class="fa fa-check-circle"></i></span>
                   {% else %}
                   <span class="text-danger">{{ error_admin_config }}</span>
                   {% endif %}</td>
@@ -250,71 +247,71 @@
           <table class="table">
             <thead>
               <tr>
-                <td align="left"><b>{{ text_directory }}</b></td>
-                <td align="left"><b>{{ text_status }}</b></td>
+                <td width="85%"><b>{{ text_directory }}</b></td>
+                <td width="15%" align="center"><b>{{ text_status }}</b></td>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>{{ image }}/</td>
-                <td>{% if not error_image %}
-                  <span class="text-success">{{ text_writable }}</span>
+                <td class="text-center">{% if not error_image %}
+                  <span class="text-success"><i class="fa fa-check-circle"></i></span>
                   {% else %}
                   <span class="text-danger">{{ error_image }}</span>
                   {% endif %}</td>
               </tr>
               <tr>
                 <td>{{ image_cache }}/</td>
-                <td>{% if not error_image_cache %}
-                  <span class="text-success">{{ text_writable }}</span>
+                <td class="text-center">{% if not error_image_cache %}
+                  <span class="text-success"><i class="fa fa-check-circle"></i></span>
                   {% else %}
                   <span class="text-danger">{{ error_image_cache }}</span>
                   {% endif %}</td>
               </tr>
               <tr>
                 <td>{{ image_catalog }}/</td>
-                <td>{% if not error_image_catalog %}
-                  <span class="text-success">{{ text_writable }}</span>
+                <td class="text-center">{% if not error_image_catalog %}
+                  <span class="text-success"><i class="fa fa-check-circle"></i></span>
                   {% else %}
                   <span class="text-danger">{{ error_image_catalog }}</span>
                   {% endif %}</td>
               </tr>
               <tr>
                 <td>{{ cache }}/</td>
-                <td>{% if not error_cache %}
-                  <span class="text-success">{{ text_writable }}</span>
+                <td class="text-center">{% if not error_cache %}
+                  <span class="text-success"><i class="fa fa-check-circle"></i></span>
                   {% else %}
                   <span class="text-danger">{{ error_cache }}</span>
                   {% endif %}</td>
               </tr>
               <tr>
                 <td>{{ logs }}/</td>
-                <td>{% if not error_logs %}
-                  <span class="text-success">{{ text_writable }}</span>
+                <td class="text-center">{% if not error_logs %}
+                  <span class="text-success"><i class="fa fa-check-circle"></i></span>
                   {% else %}
                   <span class="text-danger">{{ error_logs }}</span>
                   {% endif %}</td>
               </tr>
               <tr>
                 <td>{{ download }}/</td>
-                <td>{% if not error_download %}
-                  <span class="text-success">{{ text_writable }}</span>
+                <td class="text-center">{% if not error_download %}
+                  <span class="text-success"><i class="fa fa-check-circle"></i></span>
                   {% else %}
                   <span class="text-danger">{{ error_download }}</span>
                   {% endif %}</td>
               </tr>
               <tr>
                 <td>{{ upload }}/</td>
-                <td>{% if not error_upload %}
-                  <span class="text-success">{{ text_writable }}</span>
+                <td class="text-center">{% if not error_upload %}
+                  <span class="text-success"><i class="fa fa-check-circle"></i></span>
                   {% else %}
                   <span class="text-danger">{{ error_upload }}</span>
                   {% endif %}</td>
               </tr>
               <tr>
                 <td>{{ modification }}/</td>
-                <td>{% if not error_modification %}
-                  <span class="text-success">{{ text_writable }}</span>
+                <td class="text-center">{% if not error_modification %}
+                  <span class="text-success"><i class="fa fa-check-circle"></i></span>
                   {% else %}
                   <span class="text-danger">{{ error_modification }}</span>
                   {% endif %}</td>

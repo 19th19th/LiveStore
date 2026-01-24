@@ -8,10 +8,6 @@ class ModelUpgrade1006 extends Model {
         $this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = 'ru-ru' WHERE `key` = 'config_language' AND `value` = 'ru'");
         $this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = 'ru-ru' WHERE `key` = 'config_admin_language' AND `value` = 'ru'");
         $this->db->query("UPDATE `" . DB_PREFIX . "language` SET `code` = 'ru-ru' WHERE `code` = 'ru'");
-        $this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = 'uk-ua' WHERE `key` = 'config_language' AND `value` = 'ua'");
-        $this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = 'uk-ua' WHERE `key` = 'config_admin_language' AND `value` = 'ua'");
-        $this->db->query("UPDATE `" . DB_PREFIX . "language` SET `code` = 'uk-ua' WHERE `code` = 'ua'");
-
 
         $this->cache->delete('language');
 

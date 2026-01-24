@@ -38,7 +38,7 @@ class Profile implements \IteratorAggregate, \Serializable
 
         $this->template = $template;
         $this->type = $type;
-        $this->name = 0 === strpos($name, '__internal_') ? 'INTERNAL' : $name;
+        $this->name = str_starts_with($name, '__internal_') ? 'INTERNAL' : $name;
         $this->enter();
     }
 
@@ -185,7 +185,7 @@ class Profile implements \IteratorAggregate, \Serializable
      */
     public function __unserialize(array $data)
     {
-        list($this->template, $this->name, $this->type, $this->starts, $this->ends, $this->profiles) = $data;
+        [$this->template, $this->name, $this->type, $this->starts, $this->ends, $this->profiles] = $data;
     }
 }
 

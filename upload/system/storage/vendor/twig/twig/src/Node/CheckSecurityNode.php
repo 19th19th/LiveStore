@@ -11,17 +11,24 @@
 
 namespace Twig\Node;
 
+use Twig\Attribute\YieldReady;
 use Twig\Compiler;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
  */
+#[YieldReady]
 class CheckSecurityNode extends Node
 {
     private $usedFilters;
     private $usedTags;
     private $usedFunctions;
 
+    /**
+     * @param array<string, int> $usedFilters
+     * @param array<string, int> $usedTags
+     * @param array<string, int> $usedFunctions
+     */
     public function __construct(array $usedFilters, array $usedTags, array $usedFunctions)
     {
         $this->usedFilters = $usedFilters;
@@ -33,29 +40,29 @@ class CheckSecurityNode extends Node
 
     public function compile(Compiler $compiler)
     {
-        $tags = $filters = $functions = [];
-        foreach (['tags', 'filters', 'functions'] as $type) {
-            foreach ($this->{'used'.ucfirst($type)} as $name => $node) {
-                if ($node instanceof Node) {
-                    ${$type}[$name] = $node->getTemplateLine();
-                } else {
-                    ${$type}[$node] = null;
-                }
-            }
-        }
-
         $compiler
+<<<<<<< HEAD
             ->write("\$this->sandbox = \$this->env->getExtension('\Twig\Extension\SandboxExtension');\n")
             ->write('$tags = ')->repr(array_filter($tags))->raw(";\n")
             ->write('$filters = ')->repr(array_filter($filters))->raw(";\n")
             ->write('$functions = ')->repr(array_filter($functions))->raw(";\n\n")
+=======
+            ->write("\n")
+            ->write("public function checkSecurity()\n")
+            ->write("{\n")
+            ->indent()
+            ->write('static $tags = ')->repr(array_filter($this->usedTags))->raw(";\n")
+            ->write('static $filters = ')->repr(array_filter($this->usedFilters))->raw(";\n")
+            ->write('static $functions = ')->repr(array_filter($this->usedFunctions))->raw(";\n\n")
+>>>>>>> 3.0.4.2
             ->write("try {\n")
             ->indent()
             ->write("\$this->sandbox->checkSecurity(\n")
             ->indent()
-            ->write(!$tags ? "[],\n" : "['".implode("', '", array_keys($tags))."'],\n")
-            ->write(!$filters ? "[],\n" : "['".implode("', '", array_keys($filters))."'],\n")
-            ->write(!$functions ? "[]\n" : "['".implode("', '", array_keys($functions))."']\n")
+            ->write(!$this->usedTags ? "[],\n" : "['".implode("', '", array_keys($this->usedTags))."'],\n")
+            ->write(!$this->usedFilters ? "[],\n" : "['".implode("', '", array_keys($this->usedFilters))."'],\n")
+            ->write(!$this->usedFunctions ? "[],\n" : "['".implode("', '", array_keys($this->usedFunctions))."'],\n")
+            ->write("\$this->source\n")
             ->outdent()
             ->write(");\n")
             ->outdent()

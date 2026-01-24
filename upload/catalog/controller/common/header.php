@@ -5,15 +5,19 @@
 class ControllerCommonHeader extends Controller {
 	public function index() {
 		// Analytics
-		$this->load->model('setting/extension');
-
 		$data['analytics'] = array();
+		
+		$route = isset($this->request->get['route']) ? $this->request->get['route'] : 'common/home';
+		
+		if(mb_strpos($route, 'account') === false && mb_strpos($route, 'affiliate') === false) {
+			$this->load->model('setting/extension');
+			
+			$analytics = $this->model_setting_extension->getExtensions('analytics');
 
-		$analytics = $this->model_setting_extension->getExtensions('analytics');
-
-		foreach ($analytics as $analytic) {
-			if ($this->config->get('analytics_' . $analytic['code'] . '_status')) {
-				$data['analytics'][] = $this->load->controller('extension/analytics/' . $analytic['code'], $this->config->get('analytics_' . $analytic['code'] . '_status'));
+			foreach ($analytics as $analytic) {
+				if ($this->config->get('analytics_' . $analytic['code'] . '_status')) {
+					$data['analytics'][] = $this->load->controller('extension/analytics/' . $analytic['code'], $this->config->get('analytics_' . $analytic['code'] . '_status'));
+				}
 			}
 		}
 
@@ -59,8 +63,6 @@ class ControllerCommonHeader extends Controller {
 		
 		$data['og_image'] = $this->document->getOgImage();
 		
-
-
 		// Wishlist
 		if ($this->customer->isLogged()) {
 			$this->load->model('account/wishlist');

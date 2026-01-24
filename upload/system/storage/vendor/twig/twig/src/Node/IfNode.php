@@ -12,6 +12,7 @@
 
 namespace Twig\Node;
 
+use Twig\Attribute\YieldReady;
 use Twig\Compiler;
 
 /**
@@ -19,9 +20,10 @@ use Twig\Compiler;
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
+#[YieldReady]
 class IfNode extends Node
 {
-    public function __construct(Node $tests, ?Node $else, int $lineno, string $tag = null)
+    public function __construct(Node $tests, ?Node $else, int $lineno, ?string $tag = null)
     {
         $nodes = ['tests' => $tests];
         if (null !== $else) {
@@ -47,11 +49,18 @@ class IfNode extends Node
             }
 
             $compiler
-                ->subcompile($this->getNode('tests')->getNode($i))
+                ->subcompile($this->getNode('tests')->getNode((string) $i))
                 ->raw(") {\n")
                 ->indent()
                 ->subcompile($this->getNode('tests')->getNode($i + 1))
             ;
+<<<<<<< HEAD
+=======
+            // The node might not exists if the content is empty
+            if ($this->getNode('tests')->hasNode((string) ($i + 1))) {
+                $compiler->subcompile($this->getNode('tests')->getNode((string) ($i + 1)));
+            }
+>>>>>>> 3.0.4.2
         }
 
         if ($this->hasNode('else')) {

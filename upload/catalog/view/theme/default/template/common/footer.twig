@@ -48,6 +48,21 @@
 {% for script in scripts %}
 <script src="{{ script }}" type="text/javascript"></script>
 {% endfor %}
+{% if cookie_info %}
+	<div id="cookie-warning" class="cookie-notification">
+		<div class="cookie-notification__container container">
+			<div class="cookie-notification__info">{{ cookie_info|raw }}</div>
+			<button id="accept-cookie" class="cookie-notification__btn btn btn-primary">{{ button_continue }}</button>
+		</div>
+	</div>
+	<script>
+		$('#accept-cookie').on('click', () => {
+			$.get('index.php?route=common/footer/applyCookieNotification');
+			$('#cookie-warning').hide();
+		});
+	</script>
+{% endif %}
+
 <!--
 OpenCart is open source software and you are free to remove the powered by OpenCart if you want, but its generally accepted practise to make a small donation.
 Please donate via PayPal to donate@opencart.com
