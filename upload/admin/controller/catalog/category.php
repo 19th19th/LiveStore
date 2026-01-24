@@ -719,32 +719,37 @@ class ControllerCatalogCategory extends Controller {
 	private function getCategories($parent_id, $parent_path = '', $indent = '') {
 		$category_id = array_shift($this->path);
 		$output = array();
+		
 		static $href_category = null;
 		static $href_action = null;
+		
 		if ($href_category === null) {
 			$href_category = $this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token'] . '&path=', true);
 			$href_action = $this->url->link('catalog/category/update', 'user_token=' . $this->session->data['user_token'] . '&category_id=', true);
 		}
+		
 		$results = $this->model_catalog_category->getCategoriesByParentId($parent_id);
+		
 		foreach ($results as $result) {
 			$path = $parent_path . $result['category_id'];
 			$href = ($result['children']) ? $href_category . $path : '';
 			$name = $result['name'];
+			
 			if ($category_id == $result['category_id']) {
-				$name = '<b>' . $name . '</b>';
-				$data['breadcrumbs'][] = array(
-					'text'      => $result['name'],
-					'href'      => $href,
-					'separator' => ' :: '
-			);
+				$new_path = explode('_', $path);
+				array_pop($new_path);
+				
+				$name = '<a href="'.$this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token'] . '&path='.implode('_', $new_path), true).'"><b>'. $name .'</b></a>&nbsp;<i class="fa fa-sort-asc"></i>';
 				$href = '';
 			}
+			
 			$selected = isset($this->request->post['selected']) && in_array($result['category_id'], $this->request->post['selected']);
-			$action = array();
-			$action[] = array(
+			
+			$action = array(
 				'text' => $this->language->get('text_edit'),
 				'href' => $href_action . $result['category_id']
 			);
+			
 			$output[$result['category_id']] = array(
 				'category_id' => $result['category_id'],
 				'name'        => $name,
@@ -757,8 +762,9 @@ class ControllerCatalogCategory extends Controller {
 				'href_shop'   => HTTP_CATALOG . 'index.php?route=product/category&path=' . ($result['category_id']),
 				'indent'      => $indent
 			);
+			
 			if ($category_id == $result['category_id']) {
-				$output += $this->getCategories($result['category_id'], $path . '_', $indent . str_repeat('&nbsp;', 8));
+				$output += $this->getCategories($result['category_id'], $path . '_', $indent . str_repeat('&nbsp;', 5));
 			}
 		}
 		return $output;

@@ -5,14 +5,14 @@
  * https://github.com/opencart/opencart/wiki/Modification-System
  */
 class ControllerMarketplaceModification extends Controller {
-	private $error = array();
+	private $error = [];
 
 	public function index() {
 		$this->load->language('marketplace/modification');
 
-		$this->document->setTitle($this->language->get('heading_title'));
-
 		$this->load->model('setting/modification');
+		
+		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->getList();
 	}
@@ -20,19 +20,36 @@ class ControllerMarketplaceModification extends Controller {
     public function edit() {
         $this->load->language('marketplace/modification');
 
-        $this->document->setTitle($this->language->get('heading_title'));
-
         $this->load->model('setting/modification');
+		
+		$this->document->setTitle($this->language->get('heading_title'));
+		
+		$modification_id = isset($this->request->get['modification_id']) ? (int)$this->request->get['modification_id'] : 0;
+		$status = 0;
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-
-            $modification = $this->model_setting_modification->getModification($this->request->get['modification_id']);
+            $modification = $this->model_setting_modification->getModification($modification_id);
 
             if ($modification) {
-                $this->model_setting_modification->addModificationBackup($this->request->get['modification_id'], $modification);
+                $this->model_setting_modification->addModificationBackup($modification_id, $modification);
+				
+				$status = (int)$modification['status'];
             }
 
-            $this->model_setting_modification->editModification($this->request->get['modification_id'], $this->request->post);
+            $xml = html_entity_decode($this->request->post['xml'], ENT_QUOTES, 'UTF-8');
+			$meta = $this->parseMetaFromXml($xml);
+
+			$data = array(
+				'name'    => $meta['name'],
+				'code'    => $meta['code'],
+				'author'  => $meta['author'],
+				'version' => $meta['version'],
+				'link'    => $meta['link'],
+				'xml'     => $xml,
+				'status'  => $status,
+			);
+
+			$this->model_setting_modification->editModification($modification_id, $data);
 
             $this->session->data['success'] = $this->language->get('text_success');
 
@@ -50,47 +67,94 @@ class ControllerMarketplaceModification extends Controller {
                 $url .= '&page=' . $this->request->get['page'];
             }
 
-
-
             if (!isset($this->request->get['update'])) {
                 $this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . $url, true));
             } else {
-                $this->refresh();
                 $this->response->redirect($this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $this->request->get['modification_id'] . $url, true));
             }
         }
 
         $this->getForm();
     }
+	
+	public function add() {
+		$this->load->language('marketplace/modification');
+		
+		$this->load->model('setting/modification');
+
+		$this->document->setTitle($this->language->get('heading_title'));
+
+		if ($this->request->server['REQUEST_METHOD'] == 'POST' && $this->validateForm()) {
+			$xml  = html_entity_decode($this->request->post['xml'], ENT_QUOTES, 'UTF-8');
+			$meta = $this->parseMetaFromXml($xml);
+
+			$data = array(
+				'extension_install_id' => 0,
+				'name'    => $meta['name'],
+				'code'    => $meta['code'],
+				'author'  => $meta['author'],
+				'version' => $meta['version'],
+				'link'    => $meta['link'],
+				'xml'     => $xml,
+				'status'  => 0
+			);
+
+			$this->model_setting_modification->addModification($data);
+
+			$created = $this->model_setting_modification->getModificationByCode($data['code']);
+			
+			$this->model_setting_modification->addModificationBackup($created['modification_id'], $data);
+
+			$this->session->data['success'] = $this->language->get('text_success');
+			
+			if (!isset($this->request->get['update'])) {
+				$this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true));
+			} else {
+				$this->response->redirect($this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . (int)$created['modification_id'], true));
+			}
+		}
+
+		$this->getForm();
+	}
 
     public function restore() {
         $this->load->language('marketplace/extension');
 
-        $this->document->setTitle($this->language->get('heading_title'));
-
         $this->load->model('setting/modification');
+		
+		$this->document->setTitle($this->language->get('heading_title'));
+		
+		$modification_id = isset($this->request->get['modification_id']) ? (int)$this->request->get['modification_id'] : 0;
+		$backup_id = isset($this->request->get['backup_id']) ? (int)$this->request->get['backup_id'] : 0;
 
-        if (isset($this->request->get['modification_id']) AND isset($this->request->get['backup_id'])) {
-
-            $backup = $this->model_setting_modification->getModificationBackup($this->request->get['modification_id'],$this->request->get['backup_id']);
-
-            $url = '';
+        if ($modification_id && isset($this->request->get['backup_id'])) {
+            $backup = $this->model_setting_modification->getModificationBackup($modification_id, $backup_id);
 
             if ($backup) {
-                $this->model_setting_modification->setModificationRestore($this->request->get['modification_id'], $backup['xml']);
-                $this->refresh();
-                $this->response->redirect($this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $this->request->get['modification_id'] . $url, true));
-            } else {
-                $this->response->redirect($this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $this->request->get['modification_id'] . $url, true));
+                $xml  = $backup['xml'];
+				$meta = $this->parseMetaFromXml($xml);
+				$cur  = $this->model_setting_modification->getModification($modification_id);
+
+				$data = array(
+					'name'    => $meta['name']    ?: $cur['name'],
+					'code'    => $meta['code']    ?: $cur['code'],
+					'author'  => $meta['author']  ?: $cur['author'],
+					'version' => $meta['version'] ?: $cur['version'],
+					'link'    => $meta['link']    ?: $cur['link'],
+					'xml'     => $xml,
+					'status'  => (int)$cur['status']
+				);
+
+				$this->model_setting_modification->editModification($modification_id, $data);
             }
+			
+			$this->response->redirect($this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $this->request->get['modification_id'], true));
         }
 
         $this->getForm();
     }
 
     public function clearHistory() {
-
-        // Check user has permission
         if (!$this->user->hasPermission('modify', 'marketplace/modification')) {
             $json['error'] = $this->language->get('error_permission');
         }
@@ -104,7 +168,7 @@ class ControllerMarketplaceModification extends Controller {
     public function download() {
         $this->load->model('setting/modification');
 
-        $modification = $this->model_setting_modification->getModification($this->request->get['modification_id']);
+        $modification = $this->model_setting_modification->getModification((int)$this->request->get['modification_id']);
 
         if ($modification) {
             $xml = $modification['xml'];
@@ -118,68 +182,74 @@ class ControllerMarketplaceModification extends Controller {
 
     public function upload() {
         $this->load->language('marketplace/installer');
+		$this->load->language('marketplace/modification');
+		
+		$this->load->model('setting/modification');
+		
+		$modification_id = !empty($this->request->get['modification_id']) ? (int)$this->request->get['modification_id'] : 0;
+		
+		$modification = $this->model_setting_modification->getModification($this->request->get['modification_id']);
 
-        $json = array();
+        $json = [];
 
-        // Check user has permission
         if (!$this->user->hasPermission('modify', 'marketplace/modification')) {
             $json['error'] = $this->language->get('error_permission');
         }
 
-        $this->load->model('setting/modification');
+		if($modification) {
+			if (!$json) {
+				if (!empty($this->request->files['file']['name'])) {
+					if ($this->request->files['file']['name'] != $modification['code'].".ocmod.xml") {
+						$json['error'] = $this->language->get('error_filename');
+					}
 
-        $modification = $this->model_setting_modification->getModification($this->request->get['modification_id']);
+					if ($this->request->files['file']['error'] != UPLOAD_ERR_OK) {
+						$json['error'] = $this->language->get('error_upload_' . $this->request->files['file']['error']);
+					}
+				} else {
+					$json['error'] = $this->language->get('error_upload');
+				}
+			}
 
-        if (!$json) {
-            if (!empty($this->request->files['file']['name'])) {
-                if (!$this->request->files['file']['name'] == $modification['code'].".ocmod.xml") {
-                    $json['error'] = $this->language->get('error_filetype');
-                }
+			if (!$json) {
+				// If no temp directory exists create it
+				$path = 'temp-' . token(32);
 
-                if ($this->request->files['file']['error'] != UPLOAD_ERR_OK) {
-                    $json['error'] = $this->language->get('error_upload_' . $this->request->files['file']['error']);
-                }
-            } else {
-                $json['error'] = $this->language->get('error_upload');
-            }
-        }
+				if (!is_dir(DIR_UPLOAD . $path)) {
+					mkdir(DIR_UPLOAD . $path, 0777);
+				}
 
-        if (!$json) {
-            // If no temp directory exists create it
-            $path = 'temp-' . token(32);
+				// Set the steps required for installation
+				$json['step'] = [];
+				$json['overwrite'] = [];
 
-            if (!is_dir(DIR_UPLOAD . $path)) {
-                mkdir(DIR_UPLOAD . $path, 0777);
-            }
+				if (strrchr($this->request->files['file']['name'], '.') == '.xml') {
+					$file = DIR_UPLOAD . $path . '/install.xml';
 
-            // Set the steps required for installation
-            $json['step'] = array();
-            $json['overwrite'] = array();
+					// If xml file copy it to the temporary directory
+					move_uploaded_file($this->request->files['file']['tmp_name'], $file);
 
-            if (strrchr($this->request->files['file']['name'], '.') == '.xml') {
-                $file = DIR_UPLOAD . $path . '/install.xml';
+					if (file_exists($file)) {
+						$json['step'][] = array(
+							'text' => $this->language->get('text_xml'),
+							'url'  => str_replace('&amp;', '&', $this->url->link('marketplace/modification/xml', 'user_token=' . $this->session->data['user_token']."&modification_id=".$modification['modification_id'], true)),
+							'path' => $path
+						);
 
-                // If xml file copy it to the temporary directory
-                move_uploaded_file($this->request->files['file']['tmp_name'], $file);
-
-                if (file_exists($file)) {
-                    $json['step'][] = array(
-                        'text' => $this->language->get('text_xml'),
-                        'url'  => str_replace('&amp;', '&', $this->url->link('marketplace/modification/xml', 'user_token=' . $this->session->data['user_token']."&modification_id=".$modification['modification_id'], true)),
-                        'path' => $path
-                    );
-
-                    // Clear temporary files
-                    $json['step'][] = array(
-                        'text' => $this->language->get('text_remove'),
-                        'url'  => str_replace('&amp;', '&', $this->url->link('marketplace/modification/remove', 'user_token=' . $this->session->data['user_token']."&modification_id=".$modification['modification_id'], true)),
-                        'path' => $path
-                    );
-                } else {
-                    $json['error'] = $this->language->get('error_file');
-                }
-            }
-        }
+						// Clear temporary files
+						$json['step'][] = array(
+							'text' => $this->language->get('text_remove'),
+							'url'  => str_replace('&amp;', '&', $this->url->link('marketplace/modification/remove', 'user_token=' . $this->session->data['user_token']."&modification_id=".$modification['modification_id'], true)),
+							'path' => $path
+						);
+					} else {
+						$json['error'] = $this->language->get('error_file');
+					}
+				}
+			}
+        } else {
+			$json['error'] = $this->language->get('error_id_not_found');
+		}
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
@@ -187,147 +257,192 @@ class ControllerMarketplaceModification extends Controller {
 
     public function xml() {
         $this->load->language('marketplace/installer');
+		$this->load->language('marketplace/modification');
 
         $this->load->model('setting/modification');
+		
+		$modification_id = !empty($this->request->get['modification_id']) ? (int)$this->request->get['modification_id'] : 0;
+		$path = !empty($this->request->post['path']) ? $this->request->post['path'] : '';
 
-        $modification = $this->model_setting_modification->getModification($this->request->get['modification_id']);
+        $modification = $this->model_setting_modification->getModification($modification_id);
 
-        $json = array();
+        $json = [];
 
         if (!$this->user->hasPermission('modify', 'marketplace/modification')) {
             $json['error'] = $this->language->get('error_permission');
         }
+		
+		if($modification) {
+			$file = DIR_UPLOAD . $path . '/install.xml';
 
-        $file = DIR_UPLOAD . $this->request->post['path'] . '/install.xml';
+			if (!is_file($file) || substr(str_replace('\\', '/', realpath($file)), 0, strlen(DIR_UPLOAD)) != DIR_UPLOAD) {
+				$json['error'] = $this->language->get('error_file');
+			}
 
-        if (!is_file($file) || substr(str_replace('\\', '/', realpath($file)), 0, strlen(DIR_UPLOAD)) != DIR_UPLOAD) {
-            $json['error'] = $this->language->get('error_file');
-        }
+			if (!$json) {
+				$this->load->model('setting/modification');
 
-        if (!$json) {
-            $this->load->model('setting/modification');
+				// If xml file just put it straight into the DB
+				$xml = file_get_contents($file);
 
-            // If xml file just put it straight into the DB
-            $xml = file_get_contents($file);
+				if ($xml) {
+					try {
+						$dom = new DOMDocument('1.0', 'UTF-8');
+                    
+						if($dom->loadXml($xml)) {
+							$name = $dom->getElementsByTagName('name')->item(0);
 
-            if ($xml) {
-                try {
-                    $dom = new DOMDocument('1.0', 'UTF-8');
-                    $dom->loadXml($xml);
+							if($name) {
+								$name = $name->nodeValue;
+						
+								if($name) {
+									$exists = $this->model_setting_modification->getModificationByName($name);
+		
+									if($exists && $exists['modification_id'] != $modification_id) {
+										$json['error'] = $this->language->get('error_name_exists');
+									}
+								} else {
+									$json['error'] = $this->language->get('error_name');
+								}
+							} else {
+								$json['error'] = $this->language->get('error_name');
+							}
 
-                    $name = $dom->getElementsByTagName('name')->item(0);
+							$code = $dom->getElementsByTagName('code')->item(0);
+	
+							if ($code) {
+								$code = $code->nodeValue;
+						
+								if($code) {
+									$exists = $this->model_setting_modification->getModificationByCode($code);
+		
+									if($exists && $exists['modification_id'] != $modification_id) {
+										$json['error'] = $this->language->get('error_code_exists');
+									}
+								} else {
+									$json['error'] = $this->language->get('error_code');
+								}
+							} else {
+								$json['error'] = $this->language->get('error_code');
+							}
 
-                    if ($name) {
-                        $name = $name->nodeValue;
-                    } else {
-                        $name = '';
-                    }
+							$author = $dom->getElementsByTagName('author')->item(0);
 
-                    $code = $dom->getElementsByTagName('code')->item(0);
+							if ($author) {
+								$author = $author->nodeValue;
+							} else {
+								$author = '';
+							}
 
-                    if (!$code) {
-                        $json['error'] = $this->language->get('error_code');
-                    }
+							$version = $dom->getElementsByTagName('version')->item(0);
 
-                    $author = $dom->getElementsByTagName('author')->item(0);
+							if ($version) {
+								$version = $version->nodeValue;
+							} else {
+								$version = '';
+							}
 
-                    if ($author) {
-                        $author = $author->nodeValue;
-                    } else {
-                        $author = '';
-                    }
+							$link = $dom->getElementsByTagName('link')->item(0);
 
-                    $version = $dom->getElementsByTagName('version')->item(0);
-
-                    if ($version) {
-                        $version = $version->nodeValue;
-                    } else {
-                        $version = '';
-                    }
-
-                    $link = $dom->getElementsByTagName('link')->item(0);
-
-                    if ($link) {
-                        $link = $link->nodeValue;
-                    } else {
-                        $link = '';
-                    }
-
-                    $modification_data = array(
-                        'name'    => $name,
-                        'code'    => $code,
-                        'author'  => $author,
-                        'version' => $version,
-                        'link'    => $link,
-                        'xml'     => $xml,
-                        'status'  => 1
-                    );
-
-                    if (!$json) {
-                        $this->model_setting_modification->editModification($modification['modification_id'], $modification_data);
-                    }
-                } catch(Exception $exception) {
-                    $json['error'] = sprintf($this->language->get('error_exception'), $exception->getCode(), $exception->getMessage(), $exception->getFile(), $exception->getLine());
-                }
-            }
-        }
+							if ($link) {
+								$link = $link->nodeValue;
+							} else {
+								$link = '';
+							}
+						
+							if (!$json) {
+								$modification_data = array(
+									'name'    => $name,
+									'code'    => $code,
+									'author'  => $author,
+									'version' => $version,
+									'link'    => $link,
+									'xml'     => $xml,
+									'status'  => $modification['status']
+								);
+                    
+								$this->model_setting_modification->editModification($modification['modification_id'], $modification_data);
+							}
+						} else {
+							$json['error'] = $this->language->get('error_syntaxis');
+						}
+					} catch(Exception $exception) {
+						$json['error'] = sprintf($this->language->get('error_exception'), $exception->getCode(), $exception->getMessage(), $exception->getFile(), $exception->getLine());
+					}
+				}
+			}
+        } else {
+			$json['error'] = $this->language->get('error_id_not_found');
+		}
+		
+		if ($json && $path) {
+			$this->remove($path);
+		}
 
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
 
-    public function remove() {
+    public function remove($path = '') {
         $this->load->language('marketplace/modification');
+		
+		if(!$path) {
+			if(!empty($this->request->post['path'])) {
+				$path = $this->request->post['path'];
+			}
+		}
 
-        $json = array();
+        $json = [];
 
         if (!$this->user->hasPermission('modify', 'marketplace/modification')) {
             $json['error'] = $this->language->get('error_permission');
         }
+		
+		if($path) {
+			$directory = DIR_UPLOAD . $path;
 
-        $directory = DIR_UPLOAD . $this->request->post['path'];
+			if (!is_dir($directory) || substr(str_replace('\\', '/', realpath($directory)), 0, strlen(DIR_UPLOAD)) != DIR_UPLOAD) {
+				$json['error'] = $this->language->get('error_directory');
+			}
 
-        if (!is_dir($directory) || substr(str_replace('\\', '/', realpath($directory)), 0, strlen(DIR_UPLOAD)) != DIR_UPLOAD) {
-            $json['error'] = $this->language->get('error_directory');
-        }
+			if (!$json) {
+				// Get a list of files ready to upload
+				$files = [];
 
-        if (!$json) {
-            // Get a list of files ready to upload
-            $files = array();
+				$path = array($directory);
 
-            $path = array($directory);
+				while (count($path) != 0) {
+					$next = array_shift($path);
 
-            while (count($path) != 0) {
-                $next = array_shift($path);
+					// We have to use scandir function because glob will not pick up dot files.
+					foreach (array_diff(scandir($next), array('.', '..')) as $file) {
+						$file = $next . '/' . $file;
 
-                // We have to use scandir function because glob will not pick up dot files.
-                foreach (array_diff(scandir($next), array('.', '..')) as $file) {
-                    $file = $next . '/' . $file;
+						if (is_dir($file)) {
+							$path[] = $file;
+						}
 
-                    if (is_dir($file)) {
-                        $path[] = $file;
-                    }
+						$files[] = $file;
+					}
+				}
 
-                    $files[] = $file;
-                }
-            }
+				rsort($files);
 
-            rsort($files);
+				foreach ($files as $file) {
+					if (is_file($file)) {
+						unlink($file);
 
-            foreach ($files as $file) {
-                if (is_file($file)) {
-                    unlink($file);
+					} elseif (is_dir($file)) {
+						rmdir($file);
+					}
+				}
 
-                } elseif (is_dir($file)) {
-                    rmdir($file);
-                }
-            }
+				if (file_exists($directory)) {
+					rmdir($directory);
+				}
 
-            if (file_exists($directory)) {
-                rmdir($directory);
-            }
-
-            $json['success'] = $this->language->get('text_success');
+				$json['success'] = $this->language->get('text_success');
+			}
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -337,10 +452,10 @@ class ControllerMarketplaceModification extends Controller {
 
 	public function delete() {
 		$this->load->language('marketplace/modification');
+		
+		$this->load->model('setting/modification');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-
-		$this->load->model('setting/modification');
 
 		if (isset($this->request->post['selected']) && $this->validate()) {
 			foreach ($this->request->post['selected'] as $modification_id) {
@@ -373,10 +488,10 @@ class ControllerMarketplaceModification extends Controller {
 	public function refresh($data = array()) {
 		$this->load->language('marketplace/modification');
 
-		$this->document->setTitle($this->language->get('heading_title'));
-
 		$this->load->model('setting/modification');
         $this->load->model('design/theme');
+		
+		$this->document->setTitle($this->language->get('heading_title'));
 
 		if ($this->validate()) {
 			// Clear log before refresh modifications
@@ -387,14 +502,15 @@ class ControllerMarketplaceModification extends Controller {
 			$maintenance = $this->config->get('config_maintenance');
 
 			$this->load->model('setting/setting');
+			$this->load->model('design/theme');
 
 			$this->model_setting_setting->editSettingValue('config', 'config_maintenance', true);
 
 			//Log
-			$log = array();
+			$log = [];
 
 			// Clear all modification files
-			$files = array();
+			$files = [];
 
 			// Make path into an array
 			$path = array(DIR_MODIFICATION . '*');
@@ -432,7 +548,7 @@ class ControllerMarketplaceModification extends Controller {
 			}
 
 			// Begin
-			$xml = array();
+			$xml = [];
 
 			// Load the default modification XML
 			$xml[] = file_get_contents(DIR_SYSTEM . 'modification.xml');
@@ -455,7 +571,7 @@ class ControllerMarketplaceModification extends Controller {
 				}
 			}
 
-			$modification = array();
+			$modification = [];
 
 			foreach ($xml as $xml) {
 				if (empty($xml)){
@@ -470,7 +586,7 @@ class ControllerMarketplaceModification extends Controller {
 				$log[] = 'MOD: ' . $dom->getElementsByTagName('name')->item(0)->textContent;
 
 				// Wipe the past modification store in the backup array
-				$recovery = array();
+				$recovery = [];
 
 				// Set the a recovery of the modification code in case we need to use it if an abort attribute is used.
 				if (isset($modification)) {
@@ -532,10 +648,19 @@ class ControllerMarketplaceModification extends Controller {
                                         $route = substr(mb_strstr($key, 'template'), 9, -5);
 
                                         $theme_info = $this->model_design_theme->getTheme($store_id, $theme, $route);
+										
+										//https://liveopencart.ru/alexdw
 
                                         if ($theme_info) {
                                             $content = html_entity_decode($theme_info['code'], ENT_QUOTES, 'UTF-8');
-                                        } else {
+                                        } else if (stristr($key, '/', true) === basename(DIR_CATALOG) && stristr($key, '.twig') != FALSE) {
+											$fix_theme = basename(stristr($file, '/template/', true));
+											$fix_route = stristr(substr(stristr($key, '/template/'), 10 ), '.twig', true);
+											$fix_store_id = (int)$this->config->get('config_store_id');
+
+											$theme_info = $this->model_design_theme->getTheme($fix_store_id, $fix_theme, $fix_route);
+											$content = $theme_info ? html_entity_decode($theme_info['code']) : file_get_contents($file);
+										} else {
                                             $content = file_get_contents($file);
                                         }
 
@@ -600,7 +725,7 @@ class ControllerMarketplaceModification extends Controller {
 											if ($index !== '') {
 												$indexes = explode(',', $index);
 											} else {
-												$indexes = array();
+												$indexes = [];
 											}
 
 											// Get all the matches
@@ -676,7 +801,7 @@ class ControllerMarketplaceModification extends Controller {
 											}
 
 											// Log
-											$match = array();
+											$match = [];
 
 											preg_match_all($search, $modification[$key], $match, PREG_OFFSET_CAPTURE);
 
@@ -788,12 +913,12 @@ class ControllerMarketplaceModification extends Controller {
 	public function clear() {
 		$this->load->language('marketplace/modification');
 
+		$this->load->model('setting/modification');
+		
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$this->load->model('setting/modification');
-
 		if ($this->validate()) {
-			$files = array();
+			$files = [];
 
 			// Make path into an array
 			$path = array(DIR_MODIFICATION . '*');
@@ -854,10 +979,10 @@ class ControllerMarketplaceModification extends Controller {
 
 	public function enable() {
 		$this->load->language('marketplace/modification');
+		
+		$this->load->model('setting/modification');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-
-		$this->load->model('setting/modification');
 
 		if (isset($this->request->get['modification_id']) && $this->validate()) {
 			$this->model_setting_modification->enableModification($this->request->get['modification_id']);
@@ -886,10 +1011,10 @@ class ControllerMarketplaceModification extends Controller {
 
 	public function disable() {
 		$this->load->language('marketplace/modification');
+		
+		$this->load->model('setting/modification');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-
-		$this->load->model('setting/modification');
 
 		if (isset($this->request->get['modification_id']) && $this->validate()) {
 			$this->model_setting_modification->disableModification($this->request->get['modification_id']);
@@ -918,10 +1043,10 @@ class ControllerMarketplaceModification extends Controller {
 
 	public function clearlog() {
 		$this->load->language('marketplace/modification');
+		
+		$this->load->model('setting/modification');
 
 		$this->document->setTitle($this->language->get('heading_title'));
-
-		$this->load->model('setting/modification');
 
 		if ($this->validate()) {
 			$handle = fopen(DIR_LOGS . 'ocmod.log', 'w+');
@@ -983,7 +1108,7 @@ class ControllerMarketplaceModification extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
-		$data['breadcrumbs'] = array();
+		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('text_home'),
@@ -999,7 +1124,7 @@ class ControllerMarketplaceModification extends Controller {
 		$data['clear'] = $this->url->link('marketplace/modification/clear', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('marketplace/modification/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['modifications'] = array();
+		$data['modifications'] = [];
 
 		$filter_data = array(
 			'sort'  => $sort,
@@ -1049,7 +1174,7 @@ class ControllerMarketplaceModification extends Controller {
 		if (isset($this->request->post['selected'])) {
 			$data['selected'] = (array)$this->request->post['selected'];
 		} else {
-			$data['selected'] = array();
+			$data['selected'] = [];
 		}
 
 		$url = '';
@@ -1098,11 +1223,35 @@ class ControllerMarketplaceModification extends Controller {
 
 		if (file_exists($file)) {
 			$data['log'] = htmlentities(file_get_contents($file, FILE_USE_INCLUDE_PATH, null));
+			
+			$errors = [];
+			
+			$log = explode("\n", $data['log']);
+			
+			if($log) {
+				foreach ($log as $key => $line) {
+					if (stripos($line, 'MOD:') !== false) {
+						$mod = $line;
+					}
+				
+					if (stripos($line, 'FILE:') !== false) {
+						$file = $line;
+					}
+				
+					if (stripos($line, 'NOT FOUND') !== false) {
+						$errors[] = $mod."\n".$file."\n".$log[$key-1]."\n".$line."\n";
+					}
+				}
+			}
+			
+			$data['log_errors'] = implode("\n", $errors);
 		} else {
 			$data['log'] = '';
+			$data['log_errors'] = '';
 		}
 
 		$data['clear_log'] = $this->url->link('marketplace/modification/clearlog', 'user_token=' . $this->session->data['user_token'], true);
+		$data['add'] = $this->url->link('marketplace/modification/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
@@ -1111,128 +1260,159 @@ class ControllerMarketplaceModification extends Controller {
 		$this->response->setOutput($this->load->view('marketplace/modification', $data));
 	}
 
-    protected function getForm() {
+	protected function getForm() {
+		$this->load->language('marketplace/modification');
 
-        $this->load->language('marketplace/modification');
+		$this->document->addStyle('view/javascript/codemirror/lib/codemirror.css');
+		$this->document->addStyle('view/javascript/codemirror/theme/xq-dark.css');
+		$this->document->addScript('view/javascript/codemirror/lib/codemirror.js');
+		$this->document->addScript('view/javascript/codemirror/lib/xml.js');
+		$this->document->addScript('view/javascript/codemirror/lib/formatting.js');
 
-        $this->document->addStyle('view/javascript/codemirror/lib/codemirror.css');
-        $this->document->addStyle('view/javascript/codemirror/theme/xq-dark.css');
-        $this->document->addScript('view/javascript/codemirror/lib/codemirror.js');
-        $this->document->addScript('view/javascript/codemirror/lib/xml.js');
-        $this->document->addScript('view/javascript/codemirror/lib/formatting.js');
+		$data['breadcrumbs'] = [];
 
-        $data['breadcrumbs'] = array();
+		$data['breadcrumbs'][] = [
+			'text' => $this->language->get('text_home'),
+			'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
+		];
 
-        $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('text_home'),
-            'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
-        );
+		$data['breadcrumbs'][] = [
+			'text' => $this->language->get('heading_title'),
+			'href' => $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true)
+		];
 
-        $data['breadcrumbs'][] = array(
-            'text' => $this->language->get('heading_title'),
-            'href' => $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true)
-        );
+		$data['user_token'] = $this->session->data['user_token'];
 
-        $data['heading_title'] = $this->language->get('heading_title');
-        $data['text_form'] = $this->language->get('text_form');
-        $data['text_no_results'] = $this->language->get('text_no_results');
-        $data['entry_name'] = $this->language->get('entry_name');
-        $data['entry_xml'] = $this->language->get('entry_xml');
+		$data['error_warning'] = isset($this->error['warning']) ? $this->error['warning'] : '';
 
-        $data['column_id'] = $this->language->get('column_id');
-        $data['column_code'] = $this->language->get('column_code');
-        $data['column_date_added'] = $this->language->get('column_date_added');
-        $data['column_restore'] = $this->language->get('column_restore');
+		if (isset($this->session->data['success'])) {
+			$data['success'] = $this->session->data['success'];
+			unset($this->session->data['success']);
+		} else {
+			$data['success'] = '';
+		}
 
-        $data['button_update'] = $this->language->get('button_update');
-        $data['button_save'] = $this->language->get('button_save');
-        $data['button_cancel'] = $this->language->get('button_cancel');
-        $data['button_restore'] = $this->language->get('button_restore');
-        $data['button_history'] = $this->language->get('button_history');
+		$is_create = empty($this->request->get['modification_id']);
+		$modification_id = $is_create ? 0 : (int)$this->request->get['modification_id'];
 
-        $data['tab_general'] = $this->language->get('tab_general');
-        $data['tab_backup'] = $this->language->get('tab_backup');
+		$url = '';
 
-        $data['user_token'] = $this->session->data['user_token'];
+		if ($is_create) {
+			$data['action'] = $this->url->link('marketplace/modification/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+		} else {
+			$data['action'] = $this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $modification_id . $url, true);
+		}
 
-        if (isset($this->error['warning'])) {
-            $data['error_warning'] = $this->error['warning'];
-        } else {
-            $data['error_warning'] = '';
-        }
+		$data['cancel']  = $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . $url, true);
+		$data['restore'] = $is_create ? '' : $this->url->link('marketplace/modification/restore', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $modification_id . $url, true);
+		$data['history'] = $is_create ? '' : $this->url->link('marketplace/modification/clearhistory', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $modification_id . $url, true);
 
-        if (isset($this->session->data['success'])) {
-            $data['success'] = $this->session->data['success'];
+		$this->load->model('setting/modification');
 
-            unset($this->session->data['success']);
-        } else {
-            $data['success'] = '';
-        }
+		$modification = null;
+		
+		if (!$is_create) {
+			$modification = $this->model_setting_modification->getModification($modification_id);
+		}
 
-        $url = '';
+		$data['backups'] = [];
+		
+		if (!$is_create) {
+			$backups = $this->model_setting_modification->getModificationBackups($modification_id);
+			
+			if ($backups) {
+				foreach ($backups as $backup) {
+					$data['backups'][] = [
+						'backup_id'  => $backup['backup_id'],
+						'code'       => $backup['code'],
+						'date_added' => $backup['date_added'],
+						'restore'    => $this->url->link('marketplace/modification/restore', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $modification_id . '&backup_id=' . (int)$backup['backup_id'] . $url, true)
+					];
+				}
+			}
+		}
 
-        if (!isset($this->request->get['modification_id'])) {
-            $data['action'] = $this->url->link('marketplace/modification/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
-        } else {
-            $data['action'] = $this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $this->request->get['modification_id'] . $url, true);
-        }
+		if (isset($this->request->post['xml'])) {
+			$data['xml'] = html_entity_decode(ltrim($this->request->post['xml']), ENT_QUOTES, 'UTF-8');
+		} elseif ($modification) {
+			$data['xml'] = ltrim($modification['xml'], "﻿");
+		} else {
+			$xml = '<?xml version="1.0" encoding="utf-8"?>'."\r\n";
+			$xml .= '<modification>'."\r\n";
+			$xml .= '	<name></name>'."\r\n";
+			$xml .= '	<code></code>'."\r\n";
+			$xml .= '	<version>1.0.0</version>'."\r\n";
+			$xml .= '	<author></author>'."\r\n";
+			$xml .= '	<link></link>'."\r\n";
+			$xml .= '	<!-- пример:'."\r\n";
+			$xml .= '	<file path="catalog/controller/common/home.php">'."\r\n";
+			$xml .= '		<operation>'."\r\n";
+			$xml .= '		<search><![CDATA[$this->document->setTitle(]]></search>'."\r\n";
+			$xml .= '		<add position="after"><![CDATA['."\r\n";
+			$xml .= '			// demo'."\r\n";
+			$xml .= '		]]></add>'."\r\n";
+			$xml .= '		</operation>'."\r\n";
+			$xml .= '	</file>'."\r\n";
+			$xml .= '	-->'."\r\n";
+			$xml .= '</modification>';
 
-        $data['restore'] = $this->url->link('marketplace/modification/restore', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $this->request->get['modification_id'] . $url, true);
-        $data['history'] = $this->url->link('marketplace/modification/clearhistory', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $this->request->get['modification_id'] . $url, true);
-        $data['cancel'] = $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . $url, true);
+			$data['xml'] = ltrim($xml);
+		}
 
-        $this->load->model('setting/modification');
+		$data['header']      = $this->load->controller('common/header');
+		$data['column_left'] = $this->load->controller('common/column_left');
+		$data['footer']      = $this->load->controller('common/footer');
 
-        $backups = $this->model_setting_modification->getModificationBackups($this->request->get['modification_id']);
+		$this->response->setOutput($this->load->view('marketplace/modification_form', $data));
+	}
 
-        $data['backups'] = array();
-
-        if ($backups) {
-            foreach ($backups as $backup) {
-                $data['backups'][] = array(
-                    'backup_id'     => $backup['backup_id'],
-                    'code'          => $backup['code'],
-                    'date_added'    => $backup['date_added'],
-                    'restore'       => $this->url->link('marketplace/modification/restore', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $this->request->get['modification_id'] . '&backup_id=' . $backup['backup_id'] . $url, true)
-                );
-            }
-        }
-
-        $modification = $this->model_setting_modification->getModification($this->request->get['modification_id']);
-
-        if (isset($this->request->post['name'])) {
-            $data['name'] = htmlentities(ltrim($this->request->post['name']));
-        } elseif (isset($modification)) {
-            $data['name'] = htmlentities(ltrim($modification['name']));
-        }
-
-        if (isset($this->request->post['xml'])) {
-            $data['xml'] = htmlentities(ltrim($this->request->post['xml'], "﻿"));
-        } elseif (isset($modification)) {
-            $data['xml'] = htmlentities(ltrim($modification['xml'], "﻿"));
-        }
-
-        $data['header'] = $this->load->controller('common/header');
-        $data['column_left'] = $this->load->controller('common/column_left');
-        $data['footer'] = $this->load->controller('common/footer');
-
-        $this->response->setOutput($this->load->view('marketplace/modification_form', $data));
-    }
-
-    protected function validateForm() {
+    protected function validateForm($xml = '') {
         if (!$this->user->hasPermission('modify', 'marketplace/modification')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
+		
+		if(!empty($this->request->post['xml'])) {
+			$xml = $this->request->post['xml'];
+		}
+		
+		if($xml) {
+			$xml  = html_entity_decode($xml, ENT_QUOTES, 'UTF-8');
+			$meta = $this->parseMetaFromXml($xml);
+		
+			$modification_id = isset($this->request->get['modification_id']) ? (int)$this->request->get['modification_id'] : 0;
+		
+			if(empty($meta['name'])) {
+				$this->error['warning'] = $this->language->get('error_name');
+			} else {
+				$exists = $this->model_setting_modification->getModificationByName($meta['name']);
+		
+				if($exists && $exists['modification_id'] != $modification_id) {
+					$this->error['warning'] = $this->language->get('error_name_exists');
+				}
+			}
+		
+			if(empty($meta['code'])) {
+				$this->error['warning'] = $this->language->get('error_code');
+			} else {
+				$exists = $this->model_setting_modification->getModificationByCode($meta['code']);
+		
+				if($exists && $exists['modification_id'] != $modification_id) {
+					$this->error['warning'] = $this->language->get('error_code_exists');
+				}
+			}
+		
+			if(empty($meta['version'])) {
+				$this->error['warning'] = $this->language->get('error_version');
+			}
+			
+			if(!empty($meta['error'])) {
+				$this->error['warning'] = $meta['error'];
+			}
+		} else {
+			$this->error['warning'] = $this->language->get('error_warning');
+		}
 
-        if ((utf8_strlen($this->request->post['name']) < 2)) {
-            $this->error['name'] = $this->language->get('error_name');
-        }
-
-        if ($this->error && !isset($this->error['warning'])) {
-            $this->error['warning'] = $this->language->get('error_warning');
-        }
-
-        return !$this->error;
+		return !$this->error;
 	}
 
 	protected function validate() {
@@ -1241,5 +1421,48 @@ class ControllerMarketplaceModification extends Controller {
 		}
 
 		return !$this->error;
+	}
+	
+	private function parseMetaFromXml($xml) {
+		$meta = ['name' => '', 'code' => '', 'author' => '', 'version' => '', 'link' => ''];
+		
+		$dom = new DOMDocument('1.0', 'UTF-8');
+		$dom->preserveWhiteSpace = false;
+		
+		if($dom->loadXml($xml)) {
+			$name = $dom->getElementsByTagName('name')->item(0);
+			
+			if($name) {
+				$meta['name'] = $name->textContent;
+			}
+			
+			$code = $dom->getElementsByTagName('code')->item(0);
+			
+			if($code) {
+				$meta['code'] = $code->textContent;
+			}
+			
+			$author = $dom->getElementsByTagName('author')->item(0);
+			
+			if($author) {
+				$meta['author'] = $author->textContent;
+			}
+			
+			$version = $dom->getElementsByTagName('version')->item(0);
+			
+			if($version) {
+				$meta['version'] = $version->textContent;
+			}
+			
+			$link = $dom->getElementsByTagName('link')->item(0);
+			
+			if($link) {
+				$meta['link'] = $link->textContent;
+			}
+		} else {
+			$meta['error'] = $this->language->get('error_syntaxis');
+		}
+
+		return $meta;
 	}
 }

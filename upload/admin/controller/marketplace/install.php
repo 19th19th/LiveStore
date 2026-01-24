@@ -123,16 +123,16 @@ class ControllerMarketplaceInstall extends Controller {
 	
 				// A list of allowed directories to be written to
 				$allowed = array(
-					'admin/controller/extension/',
+					'admin/controller/',
 					'admin/language/',
-					'admin/model/extension/',
+					'admin/model/',
 					'admin/view/image/',
 					'admin/view/javascript/',
 					'admin/view/stylesheet/',
-					'admin/view/template/extension/',
-					'catalog/controller/extension/',
+					'admin/view/template/',
+					'catalog/controller/',
 					'catalog/language/',
-					'catalog/model/extension/',
+					'catalog/model/',
 					'catalog/view/javascript/',
 					'catalog/view/theme/',
 					'system/config/',

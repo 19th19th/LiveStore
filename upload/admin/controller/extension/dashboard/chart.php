@@ -85,6 +85,9 @@ class ControllerExtensionDashboardChart extends Controller {
 	
 	public function dashboard() {
 		$this->load->language('extension/dashboard/chart');
+		
+		$this->document->addScript('view/javascript/jquery/flot/jquery.flot.js');
+		$this->document->addScript('view/javascript/jquery/flot/jquery.flot.resize.min.js');
 
 		$data['user_token'] = $this->session->data['user_token'];
 

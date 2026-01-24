@@ -417,6 +417,7 @@ class ControllerCatalogProduct extends Controller {
 		$filter_sub_category = null;
 		if (isset($this->request->get['filter_category'])) {
 			$filter_category = $this->request->get['filter_category'];
+			
 			if (!empty($filter_category) && isset($this->request->get['filter_sub_category'])) {
 				$filter_sub_category = true;
 			} elseif (isset($this->request->get['filter_sub_category'])) {
@@ -424,6 +425,7 @@ class ControllerCatalogProduct extends Controller {
 			}
 		} else {
 			$filter_category = null;
+			
 			if (isset($this->request->get['filter_sub_category'])) {
 				unset($this->request->get['filter_sub_category']);
 			}
@@ -434,15 +436,15 @@ class ControllerCatalogProduct extends Controller {
 			if ($filter_category>0) {
 				$this->load->model('catalog/category');
 				
-
-				
 				$category = $this->model_catalog_category->getCategory($filter_category);
+				
 				if ($category) {
 					$filter_category_name = ($category['path']) ? $category['path'] . ' &gt; ' . $category['name'] : $category['name'];
 				} else {
 					$filter_category = null;
 					unset($this->request->get['filter_category']);
 					$filter_sub_category = null;
+					
 					if (isset($this->request->get['filter_sub_category'])) {
 						unset($this->request->get['filter_sub_category']);
 					}
@@ -456,9 +458,11 @@ class ControllerCatalogProduct extends Controller {
 		$filter_manufacturer_name = '';
 		if (isset($this->request->get['filter_manufacturer_id'])) {
 			$filter_manufacturer_id = (int)$this->request->get['filter_manufacturer_id'];
+			
 			if($filter_manufacturer_id > 0) {
 				$this->load->model('catalog/manufacturer');
 				$manufacturer = $this->model_catalog_manufacturer->getManufacturer($filter_manufacturer_id);
+				
 				if ($manufacturer) {
 					$filter_manufacturer_name = $manufacturer['name'];
 				} else {
@@ -558,7 +562,6 @@ class ControllerCatalogProduct extends Controller {
 			}
 		}
 		
-		
 		if (isset($this->request->get['filter_manufacturer_id'])) {
 			$url .= '&filter_manufacturer_id=' . $this->request->get['filter_manufacturer_id'];
 		}
@@ -615,7 +618,6 @@ class ControllerCatalogProduct extends Controller {
 			'limit'           		=> $this->config->get('config_limit_admin')
 		);
 
-
 		$this->load->model('tool/image');
 
 		$product_total = $this->model_catalog_product->getTotalProducts($filter_data);
@@ -649,8 +651,8 @@ class ControllerCatalogProduct extends Controller {
 				'price'      => $this->currency->format($result['price'], $this->config->get('config_currency')),
 				'special'    => $special,
 				'quantity'   => $result['quantity'],
-				'status'     => $result['status'] ? $this->language->get('text_enabled_short') : $this->language->get('text_disabled_short'),
-				'noindex'    => $result['noindex'] ? $this->language->get('text_enabled_short') : $this->language->get('text_disabled_short'),
+				'status'     => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+				'noindex'    => $result['noindex'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
 				'href_shop'  => HTTP_CATALOG . 'index.php?route=product/product&product_id=' . $result['product_id'],
 				'edit'       => $this->url->link('catalog/product/edit', 'user_token=' . $this->session->data['user_token'] . '&product_id=' . $result['product_id'] . $url, true)
 			);

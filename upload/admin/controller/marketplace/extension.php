@@ -41,9 +41,10 @@ class ControllerMarketplaceExtension extends Controller {
 				$files = glob(DIR_APPLICATION . 'controller/extension/' . $extension . '/*.php', GLOB_BRACE);
 		
 				$data['categories'][] = array(
-					'code' => $extension,
-					'text' => $this->language->get('extension')->get('heading_title') . ' (' . count($files) .')',
-					'href' => $this->url->link('extension/extension/' . $extension, 'user_token=' . $this->session->data['user_token'], true)
+					'code'			=> $extension,
+					'text' 			=> $this->language->get('extension')->get('heading_title') . ' (' . count($files) .')',
+					'href' 			=> $this->url->link('extension/extension/' . $extension, 'user_token=' . $this->session->data['user_token'], true),
+					'section_href'	=> $this->url->link('marketplace/extension', 'user_token=' . $this->session->data['user_token'] . '&type=' . $extension, true)
 				);
 			}			
 		}
