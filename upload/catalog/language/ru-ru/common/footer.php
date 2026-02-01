@@ -14,4 +14,4 @@ $_['text_account'] = 'Личный кабинет';
 $_['text_order'] = 'История заказов';
 $_['text_wishlist'] = 'Избранное';
 $_['text_newsletter'] = 'Рассылка';
-$_['text_powered'] = 'Работает на <a target="_blank" href="https://liveopencart.ru/?utm_source=ocstore3&utm_medium=front&utm_campaign=3039">LiveStore</a><br /> %s &copy; %s';
+$_['text_powered'] = 'Работает на <a target="_blank" href="https://liveopencart.ru/?utm_source=ocstore3&utm_medium=front&utm_campaign=3042">LiveStore</a><br /> %s &copy; %s';

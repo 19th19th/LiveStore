@@ -80,8 +80,8 @@ class ModelBlogArticle extends Model {
 			}
 		}
 		
-		if($this->config->get('config_seo_pro')){		
-		$this->cache->delete('seopro');
+		if ($this->config->get('config_seo_pro')) {		
+			$this->cache->delete('seopro');
 		}
 
 		$this->cache->delete('article');
@@ -186,10 +186,9 @@ class ModelBlogArticle extends Model {
 		
 		$this->cache->delete('article');
 
-		if($this->config->get('config_seo_pro')){		
-		$this->cache->delete('seopro');
+		if ($this->config->get('config_seo_pro')) {		
+			$this->cache->delete('seopro');
 		}
-
 	}
 	
 	public function editArticleStatus($article_id, $status) {
@@ -240,7 +239,6 @@ class ModelBlogArticle extends Model {
 		$this->db->query("DELETE FROM " . DB_PREFIX . "seo_url WHERE query = 'article_id=" . (int)$article_id . "'");
 
 		$this->cache->delete('article');
-
 	}
 
 	public function getArticle($article_id) {

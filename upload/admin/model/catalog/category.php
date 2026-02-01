@@ -72,8 +72,8 @@ class ModelCatalogCategory extends Model {
 
 		$this->cache->delete('category');
 		
-		if($this->config->get('config_seo_pro')){		
-		$this->cache->delete('seopro');
+		if ($this->config->get('config_seo_pro')) {		
+			$this->cache->delete('seopro');
 		}
 
 		return $category_id;
@@ -204,8 +204,8 @@ class ModelCatalogCategory extends Model {
 
 		$this->cache->delete('category');
 		
-		if($this->config->get('config_seo_pro')){		
-		$this->cache->delete('seopro');
+		if ($this->config->get('config_seo_pro')) {		
+			$this->cache->delete('seopro');
 		}
 	}
 	
@@ -214,10 +214,9 @@ class ModelCatalogCategory extends Model {
         
 		$this->cache->delete('category');
 		
-		if($this->config->get('config_seo_pro')){		
-		$this->cache->delete('seopro');
+		if ($this->config->get('config_seo_pro')) {		
+			$this->cache->delete('seopro');
 		}
-		
     }
 
 	public function deleteCategory($category_id) {
@@ -242,8 +241,8 @@ class ModelCatalogCategory extends Model {
 
 		$this->cache->delete('category');
 		
-		if($this->config->get('config_seo_pro')){		
-		$this->cache->delete('seopro');
+		if ($this->config->get('config_seo_pro')) {		
+			$this->cache->delete('seopro');
 		}
 	}
 

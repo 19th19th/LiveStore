@@ -90,7 +90,7 @@ class ControllerExtensionExtensionPayment extends Controller {
 		
 		$user_group_info = $this->model_user_user_group->getUserGroup($this->user->getGroupId());
 		
-		if(isset($user_group_info['permission']['hiden'])) {
+		if (isset($user_group_info['permission']['hiden'])) {
 			$hiden = $user_group_info['permission']['hiden'];
 		} else {
 			$hiden = array();
@@ -103,44 +103,33 @@ class ControllerExtensionExtensionPayment extends Controller {
 				$extension = basename($file, '.php');
 				
 				if (!in_array('extension/payment/' . $extension, $hiden)) {
-				$this->load->language('extension/payment/' . $extension, 'extension');
+					$this->load->language('extension/payment/' . $extension, 'extension');
 
-				$text_link = $this->language->get('extension')->get('text_' . $extension);
+					$text_link = $this->language->get('extension')->get('text_' . $extension);
 
-				if ($text_link != 'text_' . $extension) {
-					$link = $text_link;
-				} else {
-					$link = '';
-				}
+					if ($text_link != 'text_' . $extension) {
+						$link = $text_link;
+					} else {
+						$link = '';
+					}
 
-				$data['extensions'][] = array(
-					'name'       => $this->language->get('extension')->get('heading_title'),
-					'link'       => $link,
-					'status'     => $this->config->get('payment_' . $extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
-					'sort_order' => $this->config->get('payment_' . $extension . '_sort_order'),
-					'install'    => $this->url->link('extension/extension/payment/install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
-					'uninstall'  => $this->url->link('extension/extension/payment/uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
-					'installed'  => in_array($extension, $extensions),
-					'edit'       => $this->url->link('extension/payment/' . $extension, 'user_token=' . $this->session->data['user_token'], true)
-				);
-				
+					$data['extensions'][] = array(
+						'name'       => $this->language->get('extension')->get('heading_title'),
+						'link'       => $link,
+						'status'     => $this->config->get('payment_' . $extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+						'sort_order' => $this->config->get('payment_' . $extension . '_sort_order'),
+						'install'    => $this->url->link('extension/extension/payment/install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
+						'uninstall'  => $this->url->link('extension/extension/payment/uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
+						'installed'  => in_array($extension, $extensions),
+						'edit'       => $this->url->link('extension/payment/' . $extension, 'user_token=' . $this->session->data['user_token'], true)
+					);
 				} else {
 					$data['hiden'] = true;
 				}
 			}
 		}
 
-		$sort_order = array();
-		
-		foreach ($data['extensions'] as $key => $value) {
-			if($value['installed']){
-				$add = '0';
-			}else{
-				$add = '1';
-			}
-				$sort_order[$key] = $add.$value['name'];
-		}
-		array_multisort($sort_order, SORT_ASC, $data['extensions']);
+		$data['extensions'] = sort_extensions($data['extensions']);
 		
 		$this->response->setOutput($this->load->view('extension/extension/payment', $data));
 	}

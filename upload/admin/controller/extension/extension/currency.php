@@ -112,6 +112,8 @@ class ControllerExtensionExtensionCurrency extends Controller {
             }
         }
 
+        $data['extensions'] = sort_extensions($data['extensions']);
+        
         $this->response->setOutput($this->load->view('extension/extension/currency', $data));
     }
 

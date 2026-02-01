@@ -99,12 +99,12 @@ class ControllerExtensionDashboardChartByCountryAndRegion extends Controller {
 		
 		$country_id = isset($this->request->get['country_id']) ? (int)$this->request->get['country_id'] : 0;
 		
-		if($country_id) {
+		if ($country_id) {
 			$this->load->model('extension/dashboard/chart_by_country_and_region');
 
 			$results = $this->model_extension_dashboard_chart_by_country_and_region->getTotalOrdersByRegion($country_id);
 		
-			if($results) {
+			if ($results) {
 				foreach ($results as $result) {
 					$json[] = [
 						'name' 	=> $result['name'],
@@ -125,7 +125,7 @@ class ControllerExtensionDashboardChartByCountryAndRegion extends Controller {
 		
 		$results = $this->model_extension_dashboard_chart_by_country_and_region->getTotalOrdersByCountry();
 		
-		if($results) {
+		if ($results) {
 			foreach ($results as $key => $result) {
 				$json['data'][] = [
 					'country_id'=> $result['country_id'],

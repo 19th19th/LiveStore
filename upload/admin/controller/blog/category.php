@@ -160,9 +160,9 @@ class ControllerBlogCategory extends Controller {
 
 		if (isset($this->request->get['path'])) {
 			if ($this->request->get['path'] != '') {
-					$this->path = explode('_', $this->request->get['path']);
-					$this->blog_category_id = end($this->path);
-					$this->session->data['path'] = $this->request->get['path'];
+				$this->path = explode('_', $this->request->get['path']);
+				$this->blog_category_id = end($this->path);
+				$this->session->data['path'] = $this->request->get['path'];
 			} else {
 				unset($this->session->data['path']);
 			}
@@ -206,6 +206,7 @@ class ControllerBlogCategory extends Controller {
 	}
 
 	protected function getForm() {
+		$data['text_form'] = !isset($this->request->get['blog_category_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];

@@ -42,8 +42,8 @@ class ModelBlogCategory extends Model {
 		}
 		$this->cache->delete('blog_category');
 		
-		if($this->config->get('config_seo_pro')){		
-		$this->cache->delete('seopro');
+		if ($this->config->get('config_seo_pro')) {		
+			$this->cache->delete('seopro');
 		}
 		return $blog_category_id;
 	}
@@ -118,8 +118,8 @@ class ModelBlogCategory extends Model {
 		}
 		$this->cache->delete('category');
 		
-		if($this->config->get('config_seo_pro')){		
-		$this->cache->delete('seopro');
+		if ($this->config->get('config_seo_pro')) {		
+			$this->cache->delete('seopro');
 		}
 	}
 	
@@ -142,8 +142,8 @@ class ModelBlogCategory extends Model {
 		$this->db->query("DELETE FROM " . DB_PREFIX . "seo_url WHERE query = 'blog_category_id=" . (int)$blog_category_id . "'");
 		$this->cache->delete('blog_category');
 		
-		if($this->config->get('config_seo_pro')){		
-		$this->cache->delete('seopro');
+		if ($this->config->get('config_seo_pro')) {		
+			$this->cache->delete('seopro');
 		}
 	}
 	public function repairCategories($parent_id = 0) {

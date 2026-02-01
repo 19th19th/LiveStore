@@ -11,9 +11,14 @@ class ControllerCommonFooter extends Controller {
 			$server_time = date('Y-m-d H:i:s');
 
 			$data['extra_version'] = ' | PHP ' . $php_version . ' | IonCube ' . $ioncube_version . ' | Server time: ' . $server_time;
+		
+			if (ini_get('display_errors') && error_reporting()) {
+				$data['display_errors'] = $this->language->get('text_display_errors');
+			}
 		} else {
 			$data['text_version'] = '';
 			$data['extra_version'] = '';
+			$data['display_errors'] = '';
 		}
 
 		return $this->load->view('common/footer', $data);

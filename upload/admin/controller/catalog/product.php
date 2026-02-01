@@ -459,7 +459,7 @@ class ControllerCatalogProduct extends Controller {
 		if (isset($this->request->get['filter_manufacturer_id'])) {
 			$filter_manufacturer_id = (int)$this->request->get['filter_manufacturer_id'];
 			
-			if($filter_manufacturer_id > 0) {
+			if ($filter_manufacturer_id > 0) {
 				$this->load->model('catalog/manufacturer');
 				$manufacturer = $this->model_catalog_manufacturer->getManufacturer($filter_manufacturer_id);
 				

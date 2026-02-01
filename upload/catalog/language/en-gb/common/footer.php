@@ -18,4 +18,4 @@ $_['text_account']      = 'My Account';
 $_['text_order']        = 'Order History';
 $_['text_wishlist']     = 'Wish List';
 $_['text_newsletter']   = 'Newsletter';
-$_['text_powered']      = 'Powered By <a target="_blank" href="https://liveopencart.ru/?utm_source=ocstore3&utm_medium=front&utm_campaign=3039">LiveStore</a><br /> %s &copy; %s';
+$_['text_powered']      = 'Powered By <a target="_blank" href="https://liveopencart.ru/?utm_source=ocstore3&utm_medium=front&utm_campaign=3042">LiveStore</a><br /> %s &copy; %s';

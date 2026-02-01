@@ -98,13 +98,7 @@ class ControllerExtensionExtensionMenu extends Controller {
 			}
 		}
 
-		$sort_order = array();
-
-		foreach ($data['extensions'] as $key => $value) {
-			$sort_order[$key] = $value['name'];
-		}
-
-		array_multisort($sort_order, SORT_ASC, $data['extensions']);
+		$data['extensions'] = sort_extensions($data['extensions']);
 
 		$this->response->setOutput($this->load->view('extension/extension/menu', $data));
 	}

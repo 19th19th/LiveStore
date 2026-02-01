@@ -154,34 +154,34 @@ class ModelSettingModification extends Model {
 		$dom = new DOMDocument('1.0', 'UTF-8');
 		$dom->preserveWhiteSpace = false;
 		
-		if($dom->loadXml($xml)) {
+		if ($dom->loadXml($xml)) {
 			$name = $dom->getElementsByTagName('name')->item(0);
 			
-			if($name) {
+			if ($name) {
 				$meta['name'] = $name->textContent;
 			}
 			
 			$code = $dom->getElementsByTagName('code')->item(0);
 			
-			if($code) {
+			if ($code) {
 				$meta['code'] = $code->textContent;
 			}
 			
 			$author = $dom->getElementsByTagName('author')->item(0);
 			
-			if($author) {
+			if ($author) {
 				$meta['author'] = $author->textContent;
 			}
 			
 			$version = $dom->getElementsByTagName('version')->item(0);
 			
-			if($version) {
+			if ($version) {
 				$meta['version'] = $version->textContent;
 			}
 			
 			$link = $dom->getElementsByTagName('link')->item(0);
 			
-			if($link) {
+			if ($link) {
 				$meta['link'] = $link->textContent;
 			}
 		}

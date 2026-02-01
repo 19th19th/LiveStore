@@ -138,7 +138,7 @@ class ControllerExtensionExtensionModule extends Controller {
 		
 		$user_group_info = $this->model_user_user_group->getUserGroup($this->user->getGroupId());
 
-		if(isset($user_group_info['permission']['hiden'])) {
+		if (isset($user_group_info['permission']['hiden'])) {
 			$hiden = $user_group_info['permission']['hiden'];
 		} else {
 			$hiden = array();
@@ -149,8 +149,7 @@ class ControllerExtensionExtensionModule extends Controller {
 		if ($files) {
 			foreach ($files as $file) {
 				$extension = basename($file, '.php');
-				
-				
+			
 				if (!in_array('extension/module/' . $extension, $hiden)) {
 					$this->load->language('extension/module/' . $extension, 'extension');
 					$module_data = array();
@@ -163,40 +162,29 @@ class ControllerExtensionExtensionModule extends Controller {
 						}
 						
 						$module_data[] = array(
-						'module_id' => $module['module_id'],
-						'name'      => $module['name'],
-						'status'    => (isset($setting_info['status']) && $setting_info['status']) ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
-						'edit'      => $this->url->link('extension/module/' . $extension, 'user_token=' . $this->session->data['user_token'] . '&module_id=' . $module['module_id'], true),
-						'delete'    => $this->url->link('extension/extension/module/delete', 'user_token=' . $this->session->data['user_token'] . '&module_id=' . $module['module_id'], true)
-					);
+							'module_id' => $module['module_id'],
+							'name'      => $module['name'],
+							'status'    => (isset($setting_info['status']) && $setting_info['status']) ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+							'edit'      => $this->url->link('extension/module/' . $extension, 'user_token=' . $this->session->data['user_token'] . '&module_id=' . $module['module_id'], true),
+							'delete'    => $this->url->link('extension/extension/module/delete', 'user_token=' . $this->session->data['user_token'] . '&module_id=' . $module['module_id'], true)
+						);
 					}
 					$data['extensions'][] = array(
-					'name'      => $this->language->get('extension')->get('heading_title'),
-					'status'    => $this->config->get('module_' . $extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
-					'module'    => $module_data,
-					'install'   => $this->url->link('extension/extension/module/install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
-					'uninstall' => $this->url->link('extension/extension/module/uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
-					'installed' => in_array($extension, $extensions),
-					'edit'      => $this->url->link('extension/module/' . $extension, 'user_token=' . $this->session->data['user_token'], true)
-				);
+						'name'      => $this->language->get('extension')->get('heading_title'),
+						'status'    => $this->config->get('module_' . $extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+						'module'    => $module_data,
+						'install'   => $this->url->link('extension/extension/module/install', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
+						'uninstall' => $this->url->link('extension/extension/module/uninstall', 'user_token=' . $this->session->data['user_token'] . '&extension=' . $extension, true),
+						'installed' => in_array($extension, $extensions),
+						'edit'      => $this->url->link('extension/module/' . $extension, 'user_token=' . $this->session->data['user_token'], true)
+					);
 				} else {
 					$data['hiden'] = true;
 				}
 			}
 		}
 
-		$sort_order = array();
-
-		foreach ($data['extensions'] as $key => $value) {
-			if($value['installed']){
-				$add = '0';
-			}else{
-				$add = '1';
-			}
-				$sort_order[$key] = $add.$value['name'];
-		}
-
-		array_multisort($sort_order, SORT_ASC, $data['extensions']);
+		$data['extensions'] = sort_extensions($data['extensions']);
 
 		$this->response->setOutput($this->load->view('extension/extension/module', $data));
 	}

@@ -21,7 +21,7 @@ class ModelExtensionDashboardChartByCountryAndRegion extends Model {
 			$sql .= " LEFT JOIN `" . DB_PREFIX . "zone` z ON (o.payment_zone_id = z.zone_id)";
 			$sql .= " WHERE o.order_status_id IN (".implode(',', array_map('intval', $implode)).")";
 			
-			if($country_id == $this->config->get('config_country_id')) {
+			if ($country_id == $this->config->get('config_country_id')) {
 				$sql .= " AND o.payment_country_id IN (0, ".(int)$country_id.")";
 			} else {
 				$sql .= " AND o.payment_country_id = '".(int)$country_id."'";
@@ -31,11 +31,11 @@ class ModelExtensionDashboardChartByCountryAndRegion extends Model {
 			
 			$query = $this->db->query($sql);
 			
-			if($query->rows) {
+			if ($query->rows) {
 				$total = 0;
 				
-				foreach($query->rows as $result) {
-					if($result['zone_id']) {
+				foreach ($query->rows as $result) {
+					if ($result['zone_id']) {
 						$results[$result['zone_id']] = [
 							'zone_id'	=> $result['zone_id'],
 							'name' 		=> $result['name'],
@@ -46,8 +46,8 @@ class ModelExtensionDashboardChartByCountryAndRegion extends Model {
 					}
 				}
 				
-				if($total) {
-					if(!isset($results[$zone_id])) {
+				if ($total) {
+					if (!isset($results[$zone_id])) {
 						$results[$zone_id] = [
 							'zone_id'	=> $zone_id,
 							'name' 		=> $zone_info['name'],
@@ -57,7 +57,7 @@ class ModelExtensionDashboardChartByCountryAndRegion extends Model {
 						$results[$zone_id]['total'] = $results[$zone_id]['total'] + $total;
 					}
 					
-					if(count($results) > 1) {
+					if (count($results) > 1) {
 						array_multisort(array_column($results, 'total'), SORT_DESC, $results);
 					}
 				}
@@ -91,11 +91,11 @@ class ModelExtensionDashboardChartByCountryAndRegion extends Model {
 			
 			$query = $this->db->query($sql);
 			
-			if($query->rows) {
+			if ($query->rows) {
 				$total = 0;
 				
-				foreach($query->rows as $result) {
-					if($result['country_id']) {
+				foreach ($query->rows as $result) {
+					if ($result['country_id']) {
 						$results[$result['country_id']] = [
 							'country_id'	=> $result['country_id'],
 							'name' 			=> $result['name'],
@@ -106,8 +106,8 @@ class ModelExtensionDashboardChartByCountryAndRegion extends Model {
 					}
 				}
 				
-				if($total) {
-					if(!isset($results[$country_id])) {
+				if ($total) {
+					if (!isset($results[$country_id])) {
 						$results[$country_id] = [
 							'country_id'	=> $country_id,
 							'name' 			=> $country_info['name'],
@@ -117,7 +117,7 @@ class ModelExtensionDashboardChartByCountryAndRegion extends Model {
 						$results[$country_id]['total'] = $results[$country_id]['total'] + $total;
 					}
 					
-					if(count($results) > 1) {
+					if (count($results) > 1) {
 						array_multisort(array_column($results, 'total'), SORT_DESC, $results);
 					}
 				}

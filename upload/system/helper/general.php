@@ -37,3 +37,16 @@ if(!function_exists('hash_equals')) {
 		}
 	}
 }
+
+
+if (!function_exists('sort_extensions')) {
+    function sort_extensions(array $extensions): array {
+        usort($extensions, function($a, $b) {
+            if ($a['installed'] !== $b['installed']) {
+                return $b['installed'] - $a['installed'];
+            }
+            return strcmp($a['name'], $b['name']);
+        });
+        return $extensions;
+    }
+}

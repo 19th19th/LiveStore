@@ -33,8 +33,8 @@ class ControllerExtensionFeedBlogSitemap extends Controller {
 			$output .= '<url>';
 			$output .= '<loc>'.$this->url->link('blog/category', 'blog_category_id='.$blog_category_id).'</loc>';
 			
-			if(count($languages) > 1) {
-				foreach($languages as $lang){
+			if (count($languages) > 1) {
+				foreach ($languages as $lang) {
 					$this->config->set('config_language_id', $lang['language_id']);	
 					$output .= '<xhtml:link rel="alternate" hreflang="'.$lang['code'].'" href="'.$this->url->link('blog/category', 'blog_category_id='.$blog_category_id).'" />';
 				}
@@ -52,8 +52,8 @@ class ControllerExtensionFeedBlogSitemap extends Controller {
 				$output .= '<url>';
 				$output .= '<loc>'.$this->url->link('blog/article', 'blog_category_id='.$blog_category_id.'&article_id='.$article['article_id']).'</loc>';
 				
-				if(count($languages) > 1) {
-					foreach($languages as $lang){
+				if (count($languages) > 1) {
+					foreach ($languages as $lang) {
 						$this->config->set('config_language_id', $lang['language_id']);	
 						$output .= '<xhtml:link rel="alternate" hreflang="'.$lang['code'].'" href="'.$this->url->link('blog/article', 'blog_category_id='.$blog_category_id . '&article_id='.$article['article_id']).'" />';
 					}

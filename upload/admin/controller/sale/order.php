@@ -665,15 +665,15 @@ class ControllerSaleOrder extends Controller {
 				'sort_order'         => $custom_field['sort_order']
 			);
 
-			if($custom_field['type'] == 'file') {
-				foreach($custom_field_locations as $location) {
-					if(isset($data[$location][$custom_field['custom_field_id']])) {
+			if ($custom_field['type'] == 'file') {
+				foreach ($custom_field_locations as $location) {
+					if (isset($data[$location][$custom_field['custom_field_id']])) {
 						$code = $data[$location][$custom_field['custom_field_id']];
 
 						$upload_result = $this->model_tool_upload->getUploadByCode($code);
 
 						$data[$location][$custom_field['custom_field_id']] = array();
-						if($upload_result) {
+						if ($upload_result) {
 							$data[$location][$custom_field['custom_field_id']]['name'] = $upload_result['name'];
 							$data[$location][$custom_field['custom_field_id']]['code'] = $upload_result['code'];
 						} else {

@@ -472,6 +472,8 @@ class SeoPro {
 	}
 
 	public function validate() {
+		$this->detectAjax();
+		
 		if (php_sapi_name() === 'cli') {
 			return;
 		}

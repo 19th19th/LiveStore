@@ -119,13 +119,13 @@ class ControllerCommonDeveloper extends Controller {
 		if (!$this->user->hasPermission('modify', 'common/developer')) {
 			$json['error'] = $this->language->get('error_permission');
 		} else {
-		$files = glob(DIR_CACHE . 'cache.*');
+			$files = glob(DIR_CACHE . 'cache.*');
 
-		if (!empty($files)) {
-			foreach($files as $file){
-				$this->deldir($file);
+			if (!empty($files)) {
+				foreach ($files as $file) {
+					$this->deldir($file);
+				}
 			}
-		}
 
 			$json['success'] = sprintf($this->language->get('text_cache'), $this->language->get('text_systemcache'));
 		}
@@ -142,13 +142,13 @@ class ControllerCommonDeveloper extends Controller {
 		if (!$this->user->hasPermission('modify', 'common/developer')) {
 			$json['error'] = $this->language->get('error_permission');
 		} else {
-		$imgfiles = glob(DIR_IMAGE . 'cache/*');
+			$imgfiles = glob(DIR_IMAGE . 'cache/*');
 
-		if (!empty($imgfiles)) {
-			foreach($imgfiles as $imgfile){
-				$this->deldir($imgfile);
+			if (!empty($imgfiles)) {
+				foreach ($imgfiles as $imgfile) {
+					$this->deldir($imgfile);
+				}
 			}
-		}
 
 			$json['success'] = sprintf($this->language->get('text_img_cache'), $this->language->get('text_imgcache'));
 		}
@@ -165,40 +165,40 @@ class ControllerCommonDeveloper extends Controller {
 		if (!$this->user->hasPermission('modify', 'common/developer')) {
 			$json['error'] = $this->language->get('error_permission');
 		} else {
-		$files = glob(DIR_CACHE . 'cache.*');
+			$files = glob(DIR_CACHE . 'cache.*');
 
-		if (!empty($files)) {
-			foreach($files as $file){
-				$this->deldir($file);
+			if (!empty($files)) {
+				foreach ($files as $file) {
+					$this->deldir($file);
+				}
 			}
-		}
 
-		$imgfiles = glob(DIR_IMAGE . 'cache/*');
+			$imgfiles = glob(DIR_IMAGE . 'cache/*');
 
-		if (!empty($imgfiles)) {
-			foreach($imgfiles as $imgfile){
-				$this->deldir($imgfile);
+			if (!empty($imgfiles)) {
+				foreach ($imgfiles as $imgfile) {
+					$this->deldir($imgfile);
+				}
 			}
-		}
 
-		// Before we delete we need to make sure there is a sass file to regenerate the css
-		$file = DIR_APPLICATION  . 'view/stylesheet/bootstrap.css';
+			// Before we delete we need to make sure there is a sass file to regenerate the css
+			$file = DIR_APPLICATION  . 'view/stylesheet/bootstrap.css';
 
-		if (is_file($file) && is_file(DIR_APPLICATION . 'view/stylesheet/sass/_bootstrap.scss')) {
-			unlink($file);
-		}
-
-		$files = glob(DIR_CATALOG  . 'view/theme/*/stylesheet/sass/_bootstrap.scss');
-
-		foreach ($files as $file) {
-			$file = substr($file, 0, -21) . '/bootstrap.css';
-
-			if (is_file($file)) {
+			if (is_file($file) && is_file(DIR_APPLICATION . 'view/stylesheet/sass/_bootstrap.scss')) {
 				unlink($file);
 			}
-		}
 
-		$directories = glob(DIR_CACHE . '*', GLOB_ONLYDIR);
+			$files = glob(DIR_CATALOG  . 'view/theme/*/stylesheet/sass/_bootstrap.scss');
+
+			foreach ($files as $file) {
+				$file = substr($file, 0, -21) . '/bootstrap.css';
+
+				if (is_file($file)) {
+					unlink($file);
+				}
+			}
+
+			$directories = glob(DIR_CACHE . '*', GLOB_ONLYDIR);
 
 			if ($directories) {
 				foreach ($directories as $directory) {
@@ -216,8 +216,6 @@ class ControllerCommonDeveloper extends Controller {
 				}
 			}
 
-
-
 			$json['success'] = sprintf($this->language->get('text_cache'), $this->language->get('text_allcache'));
 		}
 
@@ -225,12 +223,12 @@ class ControllerCommonDeveloper extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
-	public function deldir($dirname){
-		if(file_exists($dirname)) {
-			if(is_dir($dirname)){
-				$dir=opendir($dirname);
-				while(($filename=readdir($dir)) !== false){
-					if($filename!="." && $filename!=".."){
+	public function deldir($dirname) {
+		if (file_exists($dirname)) {
+			if (is_dir($dirname)) {
+				$dir = opendir($dirname);
+				while (($filename=readdir($dir)) !== false) {
+					if ($filename!="." && $filename!="..") {
 						$file=$dirname."/".$filename;
 						$this->deldir($file);
 					}

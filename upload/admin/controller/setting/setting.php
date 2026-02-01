@@ -339,7 +339,7 @@ class ControllerSettingSetting extends Controller {
 
 		$timezones = timezone_identifiers_list();
 
-		foreach($timezones as $timezone) {
+		foreach ($timezones as $timezone) {
 			date_default_timezone_set($timezone);
 			$hour = ' (' . date('P', $timestamp) . ')';
 			$data['timezones'][] = array(
@@ -379,14 +379,13 @@ class ControllerSettingSetting extends Controller {
         $extensions = $this->model_setting_extension->getInstalled('currency');
 
         foreach ($extensions as $code) {
-
             if ($this->config->get('currency_' . $code . '_status')) {
-            $this->load->language('extension/currency/' . $code, 'currency');
+				$this->load->language('extension/currency/' . $code, 'currency');
 
-            $data['currency_engines'][] = array(
-                'text'  => $this->language->get('currency')->get('heading_title'),
-                'value' => $code
-            );
+				$data['currency_engines'][] = array(
+					'text'  => $this->language->get('currency')->get('heading_title'),
+					'value' => $code
+				);
             }
         }
 
