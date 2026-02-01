@@ -5,14 +5,27 @@ class Redis {
 	private $cache;
 
 	public function __construct($expire) {
+		if (!extension_loaded('redis')) {
+			throw new \RuntimeException('The server does not support redis extension!');
+		}
+
 		$this->expire = $expire;
 
 		$this->cache = new \Redis();
 		$this->cache->pconnect(CACHE_HOSTNAME, CACHE_PORT);
+
+		if (!empty(CACHE_PASSWORD)) {
+			if (!$this->cache->auth((string)CACHE_PASSWORD)) {
+				throw new \RuntimeException('redis: wrong password!');
+			}
+		}
 	}
 
 	public function get($key) {
 		$data = $this->cache->get(CACHE_PREFIX . $key);
+		if ($data === false || $data === null) {
+			return null;
+		}
 
 		return json_decode($data, true);
 	}
@@ -28,6 +41,16 @@ class Redis {
 	}
 
 	public function delete($key) {
-		$this->cache->del(CACHE_PREFIX . $key);
+		$pattern = CACHE_PREFIX . $key . '*';
+		$iterator = null;
+
+		do {
+			$keys = $this->cache->scan($iterator, $pattern, 1000);
+			if ($keys !== false && !empty($keys)) {
+				foreach ($keys as $matched_key) {
+					$this->cache->del($matched_key);
+				}
+			}
+		} while ($iterator > 0);
 	}
 }
