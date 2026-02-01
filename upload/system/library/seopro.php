@@ -384,25 +384,26 @@ class SeoPro {
 			$this->keywords = $this->cache->get('seopro.keywords');
 			$this->queries = $this->cache->get('seopro.queries');
 
-    if (!$this->keywords || !is_array($this->keywords)) {
-        $this->keywords = [];
-    }
-    if (!$this->queries || !is_array($this->queries)) {
-        $this->queries = [];
-    }
+			if (!$this->keywords || !is_array($this->keywords)) {
+				$this->keywords = [];
+			}
+		
+			if (!$this->queries || !is_array($this->queries)) {
+				$this->queries = [];
+			}
 
-    if (empty($this->keywords) || empty($this->queries)) {
+			if (empty($this->keywords) || empty($this->queries)) {
 				$sql_keyword = 'keyword';
 				
 				if ($this->config->get('config_seopro_lowercase')) {
-            $sql_keyword = 'LCASE(keyword) as ' . $sql_keyword;
+					$sql_keyword = 'LCASE(keyword) as ' . $sql_keyword;
 				}
 
 				$sql = "SELECT " . $sql_keyword . ", query, store_id, language_id FROM " . DB_PREFIX . "seo_url WHERE 1";
 				$query = $this->db->query($sql);
 				
-        if ($query->num_rows && is_array($query->rows)) {
-            foreach ($query->rows as $row) {
+				if ($query->num_rows && is_array($query->rows)) {
+					foreach ($query->rows as $row) {
 						$this->keywords[$row['query']][$row['store_id']][$row['language_id']] = $row['keyword'];
 						$this->queries[$row['keyword']][$row['store_id']][$row['language_id']] = $row['query'];
 					}
@@ -472,8 +473,6 @@ class SeoPro {
 	}
 
 	public function validate() {
-		$this->detectAjax();
-		
 		if (php_sapi_name() === 'cli') {
 			return;
 		}
@@ -606,14 +605,12 @@ class SeoPro {
 		$category_id = $this->getPathByCategory($query->num_rows ? (int)$query->row['category_id'] : 0);
 
 		if ($this->config->get('config_seo_url_cache')) {
-    // Инициализируем как массив, если еще не инициализировано
-    if (!is_array($this->product_categories)) {
-        $this->product_categories = [];
-    }
+			if (!is_array($this->product_categories)) {
+				$this->product_categories = [];
+			}
 
-    // Добавляем данные в массив
-    $this->product_categories[$product_id] = $category_id;
-}
+			$this->product_categories[$product_id] = $category_id;
+		}
 
 		return $category_id;
 	}
