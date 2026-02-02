@@ -78,7 +78,7 @@ class ControllerSearchSearch extends Controller {
                 // Get categories
                 $data['categories'] = $this->model_search_search->getCategories($_data);
 
-                foreach ($data['categories'] as $key => $category){
+                foreach ($data['categories'] as $key => $category) {
                     if (!empty($category['image'])) {
                         $data['categories'][$key]['image'] = $this->model_tool_image->resize($category['image'], 30, 30);
                     } else {
@@ -91,7 +91,7 @@ class ControllerSearchSearch extends Controller {
                 // Get manufacturers
                 $data['manufacturers'] = $this->model_search_search->getManufacturers($_data);
 
-                foreach ($data['manufacturers'] as $key => $manufacturer){
+                foreach ($data['manufacturers'] as $key => $manufacturer) {
                     if (!empty($manufacturer['image'])) {
                         $data['manufacturers'][$key]['image'] = $this->model_tool_image->resize($manufacturer['image'], 30, 30);
                     } else {
@@ -115,7 +115,7 @@ class ControllerSearchSearch extends Controller {
             case 'orders':
                 $data['orders'] = $this->model_search_search->getOrders($_data);
 
-                foreach ($data['orders'] as $key => $order){
+                foreach ($data['orders'] as $key => $order) {
                     $data['orders'][$key]['url'] = $this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $order['order_id'], true);
                 }
 
