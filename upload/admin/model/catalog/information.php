@@ -81,10 +81,9 @@ class ModelCatalogInformation extends Model {
 	}
 	
 	public function editInformationStatus($information_id, $status) {
-        $this->db->query("UPDATE " . DB_PREFIX . "information SET status = '" . (int)$status . "'WHERE information_id = '" . (int)$information_id . "'");
+        $this->db->query("UPDATE " . DB_PREFIX . "information SET status = '" . (int)$status . "' WHERE information_id = '" . (int)$information_id . "'");
         
 		$this->cache->delete('information');
-		
     }
 
 	public function deleteInformation($information_id) {
@@ -108,6 +107,7 @@ class ModelCatalogInformation extends Model {
 			$sql = "SELECT * FROM " . DB_PREFIX . "information i LEFT JOIN " . DB_PREFIX . "information_description id ON (i.information_id = id.information_id) WHERE id.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 
 			$sort_data = array(
+				'i.information_id',
 				'id.title',
 				'i.sort_order'
 			);

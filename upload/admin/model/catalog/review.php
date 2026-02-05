@@ -51,6 +51,7 @@ class ModelCatalogReview extends Model {
 		}
 
 		$sort_data = array(
+			'r.review_id',
 			'pd.name',
 			'r.author',
 			'r.rating',
