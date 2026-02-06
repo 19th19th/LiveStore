@@ -449,7 +449,6 @@ class ControllerMarketplaceModification extends Controller {
         $this->response->setOutput(json_encode($json));
     }
 
-
 	public function delete() {
 		$this->load->language('marketplace/modification');
 		
@@ -1121,6 +1120,8 @@ class ControllerMarketplaceModification extends Controller {
 		);
 
 		$data['refresh'] = $this->url->link('marketplace/modification/refresh', 'user_token=' . $this->session->data['user_token'] . $url, true);
+		$data['files'] = $this->url->link('marketplace/modification/files', 'user_token=' . $this->session->data['user_token'] . $url, true);
+		$data['search'] = $this->url->link('marketplace/modification/search', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['clear'] = $this->url->link('marketplace/modification/clear', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		$data['delete'] = $this->url->link('marketplace/modification/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
@@ -1365,8 +1366,447 @@ class ControllerMarketplaceModification extends Controller {
 
 		$this->response->setOutput($this->load->view('marketplace/modification_form', $data));
 	}
+															
+	public function search() {
+        $this->load->language('marketplace/modification_search');
 
-    protected function validateForm($xml = '') {
+        $url = '';
+
+        $data = array();
+
+        if (isset($this->request->get['search_query'])) {
+            $url .= '&search_query=' . $this->request->get['search_query'];
+        }
+
+        if (isset($this->request->get['page'])) {
+            $url .= '&page=' . $this->request->get['page'];
+        }
+
+        if (isset($this->request->get['page'])) {
+            $page = $this->request->get['page'];
+        } else {
+            $page = 1;
+        }
+
+        if (isset($this->request->get['search_query'])) {
+            $search_query = $this->request->get['search_query'];
+        } else {
+            $search_query = '';
+        }
+
+        $data['search_query'] = $search_query;
+
+        $filter_data = array(
+            'search_query' => $search_query,
+            'start' => ($page - 1) * $this->config->get('config_limit_admin'),
+            'limit' => $this->config->get('config_limit_admin')
+        );
+
+        $this->load->model('setting/modification');
+
+        $modification_total = 0;
+
+        $data['modifications'] = array();
+
+        if (!empty($search_query)){
+            $modification_total = $this->model_setting_modification->getTotalSearchModificationElement($filter_data);
+
+            $results = $this->model_setting_modification->searchModificationElement($filter_data);
+
+            foreach ($results as $result) {
+                $data['modifications'][] = array(
+					'modification_id' => $result['modification_id'],
+					'name'            => $result['name'],
+					'author'          => $result['author'],
+					'filename'        => $result['code'].".ocmod.xml",
+					'version'         => $result['version'],
+					'status'          => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+					'date_added'      => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+					'link'            => $result['link'],
+					'edit'            => $this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
+					'download'        => $this->url->link('marketplace/modification/download', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
+					'enabled'         => $result['status']
+				);
+            }
+        }
+
+        $this->document->setTitle($this->language->get('heading_title'));
+
+        $data['breadcrumbs'] = array();
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
+        );
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_modifications'),
+            'href' => $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true)
+        );
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_search'),
+            'href' => $this->url->link('marketplace/modification/search', 'user_token=' . $this->session->data['user_token'] . $url, true)
+        );
+
+        $url = '';
+
+        if (isset($this->request->get['search_query'])) {
+            $url .= '&search_query=' . $this->request->get['search_query'];
+        }
+
+        if (isset($this->request->get['page'])) {
+            $url .= '&page=' . $this->request->get['page'];
+        }
+
+        $pagination = new Pagination();
+        $pagination->total = $modification_total;
+        $pagination->page = $page;
+        $pagination->limit = $this->config->get('config_limit_admin');
+        $pagination->url = $this->url->link('marketplace/modification/search', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+
+        $data['pagination'] = $pagination->render();
+
+        $data['results'] = sprintf($this->language->get('text_pagination'), ($modification_total) ? (($page - 1) * $this->config->get('config_limit_admin')) + 1 : 0, ((($page - 1) * $this->config->get('config_limit_admin')) > ($modification_total - $this->config->get('config_limit_admin'))) ? $modification_total : ((($page - 1) * $this->config->get('config_limit_admin')) + $this->config->get('config_limit_admin')), $modification_total, ceil($modification_total / $this->config->get('config_limit_admin')));
+
+        $data['return'] = $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true);
+
+        $data['user_token'] = $this->session->data['user_token'];
+
+        $data['header'] = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['footer'] = $this->load->controller('common/footer');
+
+        $this->response->setOutput($this->load->view('marketplace/modification_search', $data));
+    }
+
+	public function files() {
+        $data = $this->load->language('marketplace/modification_files');
+
+        $this->document->setTitle($this->language->get('heading_title'));
+
+        $data['heading_title'] = $this->language->get('heading_title');
+
+        if (isset($this->session->data['error'])) {
+            $data['error_warning'] = $this->session->data['error'];
+
+            unset($this->session->data['error']);
+        } elseif (isset($this->error['warning'])) {
+            $data['error_warning'] = $this->error['warning'];
+        } else {
+            $data['error_warning'] = '';
+        }
+
+        if (isset($this->session->data['empty'])) {
+            $data['error_empty'] = $this->session->data['empty'];
+
+            unset($this->session->data['empty']);
+        } else {
+            $data['error_empty'] = '';
+        }
+
+        if (isset($this->session->data['success'])) {
+            $data['success'] = $this->session->data['success'];
+
+            unset($this->session->data['success']);
+        } else {
+            $data['success'] = '';
+        }
+
+        $data['breadcrumbs'] = array();
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
+        );
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_modifications'),
+            'href' => $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true)
+        );
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('heading_title'),
+            'href' => $this->url->link('marketplace/modification/files', 'user_token=' . $this->session->data['user_token'], true)
+        );
+
+		$data['modified_files']= array();
+
+        $cache_files = $this->getCacheFiles(DIR_MODIFICATION);
+
+        $xml_files = $this->getXmlFiles();
+
+        foreach($cache_files as $cache_file) {
+            if (isset($xml_files[$cache_file])) {
+                $modifications = $xml_files[$cache_file];
+            } else {
+                $modifications = array();
+            }
+
+            $data['modified_files'][] = array(
+                'file' => $cache_file,
+                'view' => $this->url->link('marketplace/modification/diff', 'user_token=' . $this->session->data['user_token'] . '&file_patch=' . $cache_file, true),
+                'modifications' => $modifications
+            );
+        }
+
+        $data['return'] = $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true);
+
+        $data['header'] = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['footer'] = $this->load->controller('common/footer');
+
+        $this->response->setOutput($this->load->view('marketplace/modification_files', $data));
+    }
+
+	public function diff() {
+        $data = $this->load->language('marketplace/modification_diff');
+
+        $this->document->setTitle($this->language->get('heading_title'));
+
+        $data['breadcrumbs'] = array();
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true)
+        );
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_modifications'),
+            'href' => $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true)
+        );
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_modified_files'),
+            'href' => $this->url->link('marketplace/modification/files', 'user_token=' . $this->session->data['user_token'], true)
+        );
+
+        $this->document->addStyle('view/javascript/ace/diff.min.css');
+        $this->document->addScript('view/javascript/ace/diff-patch.min.js');
+
+        if (isset($this->request->get['file_patch'])) {
+            $file_patch = $this->request->get['file_patch'];
+
+            $patch = DIR_MODIFICATION . $file_patch;
+            if (is_file($patch)) {
+                $data['file_patch'] = $file_patch;
+
+                ob_start();
+
+                readfile($patch);
+
+                $data['code_cache'] = htmlentities(ob_get_contents());
+
+                ob_end_clean();
+
+                $dir = str_replace('\\', '/', realpath(DIR_APPLICATION . '../')) . '/';
+
+                ob_start();
+
+                readfile($dir . $file_patch);
+
+                $data['code_original'] = htmlentities(ob_get_contents());
+
+                ob_end_clean();
+
+                $data['breadcrumbs'][] = array(
+                    'text' => $this->language->get('heading_title'),
+                    'href' => $this->url->link('marketplace/modification/diff', 'user_token=' . $this->session->data['user_token'] . '&file_patch=' . $file_patch, true)
+                );
+            } else {
+                $this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true));
+            }
+        } else {
+            $this->response->redirect($this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true));
+        }
+
+        $data['return'] = $this->url->link('marketplace/modification/files', 'user_token=' . $this->session->data['user_token'], true);
+
+        $data['user_token'] = $this->session->data['user_token'];
+
+        $data['header'] = $this->load->controller('common/header');
+        $data['column_left'] = $this->load->controller('common/column_left');
+        $data['footer'] = $this->load->controller('common/footer');
+
+        $this->response->setOutput($this->load->view('marketplace/modification_diff', $data));
+    }
+
+	public function saveDiff() {
+        $json = array();
+
+        $this->load->language('marketplace/modification_diff');
+
+        if (!$this->validate()) {
+            $json['error'] = $this->language->get('error_permission');
+        } else {
+            $file_patch = '';
+
+            if (isset($this->request->get['file_patch'])) {
+                $file_patch = $this->request->get['file_patch'];
+
+                $patch = DIR_MODIFICATION . $file_patch;
+            }
+
+            if ($file_patch && is_file($patch)) {
+                if (isset($this->request->post['code_cache'])) {
+                    $code_cache = html_entity_decode($this->request->post['code_cache']);
+
+                    $result = file_put_contents($patch, $code_cache);
+
+                    if ($result === false) {
+                        $json['error'] = $this->language->get('error_filewrite');
+                    } else {
+                        $json['success'] = sprintf($this->language->get('text_success_edit'), DIR_MODIFICATION . $file_patch);
+                    }
+                } else {
+                    $json['error'] = $this->language->get('error_code');
+                }
+            } else {
+                $json['error'] = $this->language->get('error_file');
+            }
+        }
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
+
+    private function getCacheFiles($directory, $length = 0) {
+        $result = array();
+
+        if (!$length) {
+            $length = strlen($directory);
+        }
+
+        $files = glob(rtrim($directory, '/') . '/*');
+
+        if (is_array($files)) {
+            foreach($files as $file) {
+                if ($file == $directory . 'index.html') {
+                    continue;
+                } elseif (is_file($file)) {
+                    $result[] = substr($file, $length);
+                } elseif (is_dir($file)) {
+                    $result = array_merge($result, $this->getCacheFiles($file, $length));
+                }
+            }
+        }
+
+        return $result;
+    }
+
+    private function getXmlFiles() {
+        $result = array();
+
+        $mods = array();
+
+        $mods[] = array(
+            'extension_install_id' => '',
+            'xml' => file_get_contents(DIR_SYSTEM . 'modification.xml')
+        );
+
+        $files = glob(DIR_SYSTEM . '*.ocmod.xml');
+
+        if ($files) {
+            foreach ($files as $file) {
+                $mods[] = array(
+                    'extension_install_id' => '',
+                    'xml' => file_get_contents($file)
+                );
+            }
+        }
+
+        $this->load->model('setting/modification');
+        $results = $this->model_setting_modification->getModifications();
+
+        foreach ($results as $result) {
+            $extension_install_id = isset($result['extension_install_id']) ? $result['extension_install_id'] : '';
+
+            $mods[] = array(
+                'extension_install_id' => $extension_install_id,
+                'xml' => $result['xml']
+            );
+        }
+
+        foreach ($mods as $mod) {
+            if (empty($mod['xml'])) {
+                continue;
+            }
+
+            $dom = new DOMDocument('1.0', 'UTF-8');
+            $dom->preserveWhiteSpace = false;
+            $dom->loadXml($mod['xml']);
+
+            $files = $dom->getElementsByTagName('modification')->item(0)->getElementsByTagName('file');
+            foreach ($files as $file) {
+
+                $files = explode('|', $file->getAttribute('path'));
+
+                foreach ($files as $file) {
+                    $path = '';
+
+                    if (substr($file, 0, 7) == 'catalog') {
+                        $path = DIR_CATALOG . str_replace('../', '', substr($file, 8));
+                    }
+
+                    if (substr($file, 0, 5) == 'admin') {
+                        $path = DIR_APPLICATION . str_replace('../', '', substr($file, 6));
+                    }
+
+                    if (substr($file, 0, 6) == 'system') {
+                        $path = DIR_SYSTEM . str_replace('../', '', substr($file, 7));
+                    }
+
+                    if ($path) {
+                        $files = glob($path, GLOB_BRACE);
+
+                        if ($files) {
+                            foreach ($files as $file) {
+                                if (substr($file, 0, strlen(DIR_CATALOG)) == DIR_CATALOG) {
+                                    $file = 'catalog/' . substr($file, strlen(DIR_CATALOG));
+                                }
+
+                                if (substr($file, 0, strlen(DIR_APPLICATION)) == DIR_APPLICATION) {
+                                    $file = 'admin/' . substr($file, strlen(DIR_APPLICATION));
+                                }
+
+                                if (substr($file, 0, strlen(DIR_SYSTEM)) == DIR_SYSTEM) {
+                                    $file = 'system/' . substr($file, strlen(DIR_SYSTEM));
+                                }
+
+                                if (!isset($result[$file])) {
+                                    $result[$file] = array();
+                                }
+
+                                if ($dom->getElementsByTagName('version')->length) {
+                                    $version = $dom->getElementsByTagName('version')->item(0)->textContent;
+                                } else {
+                                    $version = '';
+                                }
+
+                                if ($dom->getElementsByTagName('author')->length) {
+                                    $author = $dom->getElementsByTagName('author')->item(0)->textContent;
+                                } else {
+                                    $author = '';
+                                }
+
+                                $result[$file][] = array(
+                                    'code' => $dom->getElementsByTagName('code')->item(0)->textContent,
+                                    'name' => $dom->getElementsByTagName('name')->item(0)->textContent,
+                                    'ocmod_zip_name' => !empty($mod['extension_install_id']) ? $this->model_setting_modification->getExtensionInstallByExtensionInstallId($mod['extension_install_id']) : $this->language->get('error_file_not_found'),
+                                    'version' => $version,
+                                    'author' => $author
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return $result;
+    }
+
+	protected function validateForm($xml = '') {
         if (!$this->user->hasPermission('modify', 'marketplace/modification')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
