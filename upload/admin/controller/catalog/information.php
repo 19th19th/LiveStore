@@ -330,6 +330,11 @@ class ControllerCatalogInformation extends Controller {
 			$information_info = $this->model_catalog_information->getInformation($this->request->get['information_id']);
 		}
 
+		if (isset($this->request->get['information_id'])) {
+			$data['information_id'] = $this->request->get['information_id'];
+			$data['href_shop'] = HTTP_CATALOG . 'index.php?route=information/information&information_id=' . $this->request->get['information_id'];
+		}
+		
 		$data['user_token'] = $this->session->data['user_token'];
 
 		$this->load->model('localisation/language');
