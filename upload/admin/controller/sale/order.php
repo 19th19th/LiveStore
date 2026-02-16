@@ -665,15 +665,15 @@ class ControllerSaleOrder extends Controller {
 				'sort_order'         => $custom_field['sort_order']
 			);
 
-			if ($custom_field['type'] == 'file') {
-				foreach ($custom_field_locations as $location) {
-					if (isset($data[$location][$custom_field['custom_field_id']])) {
+			if($custom_field['type'] == 'file') {
+				foreach($custom_field_locations as $location) {
+					if(isset($data[$location][$custom_field['custom_field_id']])) {
 						$code = $data[$location][$custom_field['custom_field_id']];
 
 						$upload_result = $this->model_tool_upload->getUploadByCode($code);
 
 						$data[$location][$custom_field['custom_field_id']] = array();
-						if ($upload_result) {
+						if($upload_result) {
 							$data[$location][$custom_field['custom_field_id']]['name'] = $upload_result['name'];
 							$data[$location][$custom_field['custom_field_id']]['code'] = $upload_result['code'];
 						} else {
@@ -1214,12 +1214,11 @@ class ControllerSaleOrder extends Controller {
 				}
 
 				if ($content) {
-					$key = 'extension_payment_' . $order_info['payment_code'];
-					$this->load->language('extension/payment/' . $order_info['payment_code'], $key);
+					$this->load->language('extension/payment/' . $order_info['payment_code']);
 
 					$data['tabs'][] = array(
 						'code'    => $order_info['payment_code'],
-						'title'   => $this->language->get($key)->get('heading_title'),
+						'title'   => $this->language->get('heading_title'),
 						'content' => $content
 					);
 				}
@@ -1231,15 +1230,14 @@ class ControllerSaleOrder extends Controller {
 
 			foreach ($extensions as $extension) {
 				if ($this->config->get('fraud_' . $extension . '_status')) {
-					$key = 'extension_fraud_'.$extension;
-					$this->load->language('extension/fraud/' . $extension, $key);
+					$this->load->language('extension/fraud/' . $extension, 'extension');
 
 					$content = $this->load->controller('extension/fraud/' . $extension . '/order');
 
 					if ($content) {
 						$data['tabs'][] = array(
 							'code'    => $extension,
-							'title'   => $this->language->get($key)->get('heading_title'),
+							'title'   => $this->language->get('extension')->get('heading_title'),
 							'content' => $content
 						);
 					}
