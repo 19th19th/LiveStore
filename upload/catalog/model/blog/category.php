@@ -48,7 +48,7 @@ class ModelBlogCategory extends Model {
 		if ($query->num_rows) {
 			return $query->row['layout_id'];
 		} else {
-			return $this->config->get('config_layout_category');
+			return 0;
 		}
 	}
 
