@@ -182,7 +182,7 @@ class ControllerCatalogInformation extends Controller {
 				'title'          => $result['title'],
 				'sort_order'     => $result['sort_order'],
 				'noindex'  	  	 => $result['noindex'],
-				'status'         => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+				'status'         => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
 				'href_shop'  	 => HTTP_CATALOG . 'index.php?route=information/information&information_id=' . ($result['information_id']),
 				'edit'           => $this->url->link('catalog/information/edit', 'user_token=' . $this->session->data['user_token'] . '&information_id=' . $result['information_id'] . $url, true)
 			);
