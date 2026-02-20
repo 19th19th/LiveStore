@@ -758,6 +758,7 @@ class ControllerCatalogCategory extends Controller {
 				'edit'        => $this->url->link('catalog/category/edit', 'user_token=' . $this->session->data['user_token'] . '&category_id=' . $result['category_id'], true),
 				'selected'    => $selected,
 				'action'      => $action,
+				'status'      => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
 				'href'        => $href,
 				'href_shop'   => HTTP_CATALOG . 'index.php?route=product/category&path=' . ($result['category_id']),
 				'indent'      => $indent

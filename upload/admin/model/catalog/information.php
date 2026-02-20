@@ -108,6 +108,7 @@ class ModelCatalogInformation extends Model {
 
 			$sort_data = array(
 				'id.title',
+				'i.status',
 				'i.sort_order'
 			);
 

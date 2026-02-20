@@ -12,6 +12,7 @@ $_['text_edit']         = 'Edit Language';
 $_['column_name']       = 'Language Name';
 $_['column_code']       = 'Code';
 $_['column_sort_order'] = 'Sort Order';
+$_['column_status']     = 'Status';
 $_['column_action']     = 'Action';
 
 // Entry

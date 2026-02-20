@@ -15,6 +15,7 @@ $_['text_edit']               = 'Редактирование';
 $_['column_name']             = 'Название страны';
 $_['column_iso_code_2']       = 'Код ISO (2)';
 $_['column_iso_code_3']       = 'Код ISO (3)';
+$_['column_status']           = 'Статус';
 $_['column_action']           = 'Действие';
 
 // Entry
