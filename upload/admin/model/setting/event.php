@@ -6,6 +6,10 @@ class ModelSettingEvent extends Model {
 		return $this->db->getLastId();
 	}
 
+	public function editEvent($event_id, $data) {
+		$this->db->query("UPDATE `" . DB_PREFIX . "event` SET `code` = '" . $this->db->escape($data['code']) . "',`trigger` = '" . $this->db->escape($data['trigger']) . "', `action` = '" . $this->db->escape($data['action']) . "', `sort_order` = '" . (int)$data['sort_order'] . "', `status` = '" . (int)$data['status'] . "' WHERE `event_id` = '" . (int)$event_id . "'");
+	}
+
 	public function deleteEvent($event_id) {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "event` WHERE `event_id` = '" . (int)$event_id . "'");
 	}
