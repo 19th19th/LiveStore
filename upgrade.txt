@@ -1,8 +1,8 @@
-LiveStore обновление
+ЛайвСтор обновление
 
 1. Сделайте РЕЗЕРВНУЮ КОПИЮ файлов и базы данных вашего магазина!!! Если ваши модули позволяют сделать резервные копии настроек - сделайте это.
 
-2. Загрузите ВСЕ новые файлы ocStore поверх текущей установки, КРОМЕ файлов config.php и admin/config.php.
+2. Загрузите ВСЕ новые файлы ЛайвСтор поверх текущей установки, КРОМЕ файлов config.php и admin/config.php.
 
 3. Перейдите по адресу:
 https://<yourstore.com>/install
@@ -34,5 +34,5 @@ https://<yourstore.com>/install
 
 
 Ссылки:
-Скачать LiveStore - https://liveopencart.ru/news_site/opencart/
+Скачать ЛайвСтор - https://liveopencart.ru/news_site/opencart/
 Как сделать резервную копию - https://liveopencart.ru/docs-opencart3/08-system/backup/

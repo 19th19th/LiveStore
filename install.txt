@@ -1,5 +1,5 @@
 /////////////////////////////////
-///       LiveStore V3.x      ///
+///       ЛайвСтор V3.x       ///
 ///  Инструкция по установке  ///
 ///  https://liveopencart.ru  ///
 /////////////////////////////////
@@ -7,7 +7,6 @@
 
 ПРИМЕЧАНИЕ: ТОЛЬКО ДЛЯ НОВОЙ УСТАНОВКИ!
 ЕСЛИ ОБНОВЛЕНИЕ В СУЩЕСТВУЮЩИЙ МАГАЗИН, НЕ ЗАБУДЬТЕ ПРОЧИТАТЬ UPGRADE.TXT
-
 
 -------
 Установка
@@ -41,7 +40,7 @@ These instructions are for a manual installation using FTP, cPanel or other web 
 4. Убедитесь, что у Вас установлена база данных MySQL и Вы имеете к ней доступ. НИ В КОЕМ СЛУЧАЕ НЕ ИСПОЛЬЗУЙТЕ ROOT ЛОГИН И ПАРОЛЬ.
 
 5. Посетите домашнюю страницу Вашего магазина.
-   Например: http://www.example.com или http://www.examle.com/store/
+   Например: https://example.ru или https://example.ru/store/
 
 6. Следуйте инструкциям на экране.
 
@@ -53,9 +52,7 @@ These instructions are for a manual installation using FTP, cPanel or other web 
 
 1. Загрузите все ваши файлы и папки на ваш сервер из папки «Upload». Можно разархивировать в любое место на Ваш выбор. Наприммер /wwwroot/store или /wwwroot
 
-2. Переименуйте config-dist.php в config.php и admin/config-dist.php в admin/config.php
-
-3. Для Windows убедитесь, что папки и файлы доступны для записи
+2. Для Windows убедитесь, что папки и файлы доступны для записи
 
 		system/storage/cache/
 		system/storage/download/
@@ -70,14 +67,14 @@ These instructions are for a manual installation using FTP, cPanel or other web 
 		config.php
 		admin/config.php
 
-4. Убедитесь, что у Вас установлена база данных MySQL и Вы имеете к ней доступ. НИ В КОЕМ СЛУЧАЕ НЕ ИСПОЛЬЗУЙТЕ ROOT ЛОГИН И ПАРОЛЬ.
+3. Убедитесь, что у Вас установлена база данных MySQL и Вы имеете к ней доступ. НИ В КОЕМ СЛУЧАЕ НЕ ИСПОЛЬЗУЙТЕ ROOT ЛОГИН И ПАРОЛЬ.
 
-5. Посетите домашнюю страницу Вашего магазина.
-   Например: http://www.example.com или http://www.examle.com/store/
+4. Посетите домашнюю страницу Вашего магазина.
+   Например: https://example.ru или https://examle.ru/store/
 
-6. Следуйте инструкциям на экране.
+5. Следуйте инструкциям на экране.
 
-7. Удалите установочную директорию.
+6. Удалите установочную директорию.
 
 - Локальная установка -
 

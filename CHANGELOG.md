@@ -1,4 +1,4 @@
-# LiveStore 3 change log
+# ЛайвСтор 3 change log
 
 ## 16.02.2026
 
