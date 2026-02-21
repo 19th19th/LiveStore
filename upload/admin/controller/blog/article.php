@@ -306,8 +306,8 @@ class ControllerBlogArticle extends Controller {
 				'article_id' => $result['article_id'],
 				'image'      => $image,
 				'name'       => $result['name'],
-				'status'     => ($result['status']) ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
-				'noindex'    => ($result['noindex']) ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
+				'status'     => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
+				'noindex'    => ($result['noindex'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
 				'href_shop'  => HTTP_CATALOG . 'index.php?route=blog/article&article_id=' . ($result['article_id']),
 				'edit'       => $this->url->link('blog/article/edit', 'user_token=' . $this->session->data['user_token'] . '&article_id=' . $result['article_id'] . $url, true)
 			);

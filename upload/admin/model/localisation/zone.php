@@ -32,6 +32,7 @@ class ModelLocalisationZone extends Model {
 		$sort_data = array(
 			'c.name',
 			'z.name',
+			'z.status',
 			'z.code'
 		);
 

@@ -308,6 +308,7 @@ class ModelLocalisationLanguage extends Model {
 			$sort_data = array(
 				'name',
 				'code',
+				'status',
 				'sort_order'
 			);
 

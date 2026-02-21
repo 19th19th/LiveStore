@@ -21,6 +21,7 @@ $_['column_name'] = 'Название настраиваемого поля';
 $_['column_location'] = 'Расположение';
 $_['column_type'] = 'Тип';
 $_['column_sort_order'] = 'Порядок сортировки';
+$_['column_status'] = 'Статус';
 $_['column_action'] = 'Действие';
 $_['entry_name'] = 'Название настраиваемого поля';
 $_['entry_location'] = 'Расположение';
