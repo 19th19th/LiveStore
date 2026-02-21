@@ -45,6 +45,11 @@
                     {% else %}
                     <a href="{{ sort_code }}">{{ column_code }}</a>
                     {% endif %}</td>
+                  <td class="text-left">{% if sort == 'status' %}
+                    <a href="{{ sort_status }}" class="{{ order|lower }}">{{ column_status }}</a>
+                    {% else %}
+                    <a href="{{ sort_status }}">{{ column_status }}</a>
+                    {% endif %}</td>
                   <td class="text-right">{% if sort == 'sort_order' %}
                     <a href="{{ sort_sort_order }}" class="{{ order|lower }}">{{ column_sort_order }}</a>
                     {% else %}
@@ -64,6 +69,7 @@
                     {% endif %}</td>
                   <td class="text-left">{{ language.name }}</td>
                   <td class="text-left">{{ language.code }}</td>
+                  <td class="text-left">{{ language.status }}</td>
                   <td class="text-right">{{ language.sort_order }}</td>
                   <td class="text-right"><a href="{{ language.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
                 </tr>

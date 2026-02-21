@@ -182,6 +182,7 @@ class ControllerCatalogInformation extends Controller {
 				'title'          => $result['title'],
 				'sort_order'     => $result['sort_order'],
 				'noindex'  	  	 => $result['noindex'],
+				'status'         => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
 				'href_shop'  	 => HTTP_CATALOG . 'index.php?route=information/information&information_id=' . ($result['information_id']),
 				'edit'           => $this->url->link('catalog/information/edit', 'user_token=' . $this->session->data['user_token'] . '&information_id=' . $result['information_id'] . $url, true)
 			);
@@ -222,6 +223,7 @@ class ControllerCatalogInformation extends Controller {
 		$data['sort_title'] = $this->url->link('catalog/information', 'user_token=' . $this->session->data['user_token'] . '&sort=id.title' . $url, true);
 		$data['sort_sort_order'] = $this->url->link('catalog/information', 'user_token=' . $this->session->data['user_token'] . '&sort=i.sort_order' . $url, true);
 		$data['sort_noindex'] = $this->url->link('catalog/information', 'user_token=' . $this->session->data['user_token'] . '&sort=i.noindex' . $url, true);
+		$data['sort_status'] = $this->url->link('catalog/information', 'user_token=' . $this->session->data['user_token'] . '&sort=i.status' . $url, true);
 		
 		$url = '';
 

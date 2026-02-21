@@ -15,6 +15,7 @@ $_['text_edit']         = 'Редактирование';
 $_['column_name']       = 'Название языка';
 $_['column_code']       = 'Код';
 $_['column_sort_order'] = 'Порядок сортировки';
+$_['column_status']     = 'Статус';
 $_['column_action']     = 'Действие';
 
 // Entry

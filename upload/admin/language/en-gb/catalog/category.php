@@ -10,6 +10,7 @@ $_['text_keyword'] = 'Do not use spaces, instead replace spaces with - and make 
 $_['column_name'] = 'Category Name';
 $_['column_sort_order'] = 'Sort Order';
 $_['column_noindex'] = 'Index';
+$_['column_status'] = 'Status';
 $_['column_action'] = 'Action';
 $_['entry_name'] = 'Category Name';
 $_['entry_meta_h1'] = 'Meta Tag H1';
