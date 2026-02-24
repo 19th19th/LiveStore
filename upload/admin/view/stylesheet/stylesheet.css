@@ -137,7 +137,7 @@ a:hover, a:focus {text-decoration:none}
 
 div.required .control-label:not(span):before, td.required:before {content:'* ';color:#F00;font-weight:bold}
 
-.btn-group {min-width:74px !important;white-space:nowrap}
+.btn-group {min-width:50px;;white-space:nowrap}
 
 .table thead td span[data-toggle="tooltip"]:after, label.control-label span:after {font-family:FontAwesome;color:#1E91CF;content:"\f059";margin-left:4px}
 
@@ -161,6 +161,7 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 .table a.asc:after {content:" \f106";font-family:FontAwesome}
 .table a.desc:after {content:" \f107";font-family:FontAwesome}
 .table tr{position:relative}
+.table .nowrap{white-space:nowrap}
 
 .pagination {margin:0}
 
@@ -232,18 +233,25 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 	#oc-search-div {display:none}
 }
 
-select, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
-    height:35px !important;
-    margin-bottom:0px !important;
-}
+.form-control{height:35pх}
+.form-control.input-sm{height:32px}
+.form-control:is([multiple]) {height:auto !important}
 
-#oc-search{padding:0;margin:0}
+.btn{height:35px;min-width:35px;line-height:35px;padding:0 12px;border:none;border-radius:var(--border-radius-1);outline:none !important;-moz-user-select:none !important;-webkit-user-select:none !important}
+.btn-xs{height:28px;line-height:28px;padding:0 8px}
+.btn-sm{height:32px;line-height:32px;padding:0 10px}
+.btn-lg{height:38px;line-height:38px;padding:0 15px}
+
+.btn-default{color:#555;background:#eee}
+.btn-default:hover, .btn-default:focus {color:#555;background:#e5e5e5}
+.btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {color:#333;background:#ddd}
+
+#oc-search{margin:5px 0 0}
 #oc-search .dropdown-header{margin:5px 0}
 #oc-search .caret{margin:0 0 0 10px}
 #oc-search .input-group{width:100%}
 #oc-search .input-group-addon, #oc-search .input-group-btn {width:1% !important}
-#oc-search .btn {margin-top:5px}
-#oc-search input {background:#fff none repeat scroll 0 0;border-color:#ddd;box-shadow:none !important;color:#373737 !important;height:35px !important;margin-bottom:0 !important;margin-left:0 !important;margin-right:0 !important;margin-top:5px;padding-top:9px;border-radius:var(--border-radius-0-1-1-0)}
+#oc-search input {border-radius:var(--border-radius-0-1-1-0)}
 #oc-search ul li a span {margin-left:8px}
 #oc-search ul li a{cursor:pointer}
 #oc-search-div{padding-left:1px !important;padding-right:0 !important;padding-top:8px !important}
@@ -258,15 +266,6 @@ select, input[type="text"], input[type="password"], input[type="datetime"], inpu
 #oc-search-result ul li a span{white-space:nowrap;margin-left:10px}
 
 #loader-search {display:none;position:absolute;top:15px;right:15px;z-index:999}
-
-.btn{height:35px;min-width:35px;line-height:35px;padding:0 12px;border:none;border-radius:var(--border-radius-1);outline:none !important;-moz-user-select:none !important;-webkit-user-select:none !important}
-.btn-xs{height:28px;line-height:28px;padding:0 8px}
-.btn-sm{height:32px;line-height:32px;padding:0 10px}
-.btn-lg{height:38px;line-height:38px;padding:0 15px}
-
-.btn-default{color:#555;background:#eee}
-.btn-default:hover, .btn-default:focus {color:#555;background:#e5e5e5}
-.btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {color:#333;background:#ddd}
 
 #filter-product .panel-body{}
 #filter-product .form-group {padding:0 0 20px;border:none}

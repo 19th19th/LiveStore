@@ -32,6 +32,7 @@ class ModelLocalisationCountry extends Model {
 
 			$sort_data = array(
 				'name',
+				'status',
 				'iso_code_2',
 				'iso_code_3'
 			);

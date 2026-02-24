@@ -52,6 +52,7 @@ class ModelLocalisationCurrency extends Model {
 				'title',
 				'code',
 				'value',
+				'status',
 				'date_modified'
 			);
 

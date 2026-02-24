@@ -17,6 +17,7 @@ $_['column_title']         = 'Название валюты';
 $_['column_code']          = 'Код';
 $_['column_value']         = 'Значение';
 $_['column_date_modified'] = 'Дата обновления';
+$_['column_status']        = 'Статус';
 $_['column_action']        = 'Действие';
 
 // Entry

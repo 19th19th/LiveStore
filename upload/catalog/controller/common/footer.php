@@ -67,8 +67,8 @@ class ControllerCommonFooter extends Controller {
 	private function getCookieNotification() {
 		$result = '';
 		
-		if(!$this->customer->isLogged()) {
-			if(!isset($this->request->cookie['CookieNotificationAccept'])) {
+		if (!$this->customer->isLogged()) {
+			if (!isset($this->request->cookie['CookieNotificationAccept'])) {
 				$cookie_article_id = $this->config->get('config_cookie_id');
 			
 				if ($cookie_article_id) {

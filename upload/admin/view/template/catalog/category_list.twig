@@ -43,6 +43,7 @@
 									<td class="text-right">{{ column_id }}</td>
 									<td class="text-left">{{ column_name }}</td>
 									<td class="text-right">{{ column_sort_order }}</td>
+									<td class="text-left">{{ column_status }}</td>
 									<td class="text-right">{{ column_noindex }}</td>
 									<td class="text-right">{{ column_action }}</td>
 								</tr>
@@ -65,6 +66,7 @@
 												<td class="left">{{ category.indent }}{{ category.name }}</td>
 											{% endif %}
 											<td class="text-right">{{ category.sort_order }}</td>
+											<td class="text-left">{{ category.status }}</td>
 											<td class="text-right">{{ category.noindex }}</td>
 											<td class="text-right">
 												<a target="_blank" href="{{ category.href_shop }}" data-toggle="tooltip" title="{{ button_shop }}" class="btn btn-success"><i class="fa fa-eye"></i></a>

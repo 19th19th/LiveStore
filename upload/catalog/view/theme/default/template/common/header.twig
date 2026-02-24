@@ -6,46 +6,46 @@
 <html dir="{{ direction }}" lang="{{ lang }}">
 <!--<![endif]-->
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>{{ title }}</title>
 {% if robots %}
-<meta name="robots" content="{{ robots }}" />
+<meta name="robots" content="{{ robots }}">
 {% endif %}
-<base href="{{ base }}" />
+<base href="{{ base }}">
 {% if description %}
-<meta name="description" content="{{ description }}" />
+<meta name="description" content="{{ description }}">
 {% endif %}
 {% if keywords %}
-<meta name="keywords" content="{{ keywords }}" />
+<meta name="keywords" content="{{ keywords }}">
 {% endif %}
-<meta property="og:title" content="{{ title }}" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="{{ og_url }}" />
+<meta property="og:title" content="{{ title }}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ og_url }}">
 {% if og_image %}
-<meta property="og:image" content="{{ og_image }}" />
+<meta property="og:image" content="{{ og_image }}">
 {% else %}
-<meta property="og:image" content="{{ logo }}" />
+<meta property="og:image" content="{{ logo }}">
 {% endif %}
-<meta property="og:site_name" content="{{ name }}" />
+<meta property="og:site_name" content="{{ name }}">
 <link href="catalog/view/theme/default/fonts/Inter-Regular.woff2" rel="preload" as="font" type="font/woff2" crossorigin>
 <link href="catalog/view/theme/default/fonts/Inter-Medium.woff2" rel="preload" as="font" type="font/woff2" crossorigin>
 <link href="catalog/view/theme/default/fonts/Inter-Bold.woff2" rel="preload" as="font" type="font/woff2" crossorigin>
-<script src="catalog/view/javascript/jquery/jquery-3.7.0.min.js" type="text/javascript"></script>
-<link href="catalog/view/javascript/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen" />
-<script src="catalog/view/javascript/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-<link href="catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+<script src="catalog/view/javascript/jquery/jquery-3.7.0.min.js"></script>
+<link href="catalog/view/javascript/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<script src="catalog/view/javascript/bootstrap/js/bootstrap.min.js"></script>
+<link href="catalog/view/javascript/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="catalog/view/theme/default/stylesheet/stylesheet.css" rel="stylesheet">
 {% for style in styles %}
-<link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}" />
+<link href="{{ style.href }}" type="text/css" rel="{{ style.rel }}" media="{{ style.media }}">
 {% endfor %}
 {% for script in scripts %}
-<script src="{{ script }}" type="text/javascript"></script>
+<script src="{{ script }}"></script>
 {% endfor %}
-<script src="catalog/view/javascript/common.js" type="text/javascript"></script>
+<script src="catalog/view/javascript/common.js"></script>
 {% for link in links %}
-<link href="{{ link.href }}" rel="{{ link.rel }}" />
+<link href="{{ link.href }}" rel="{{ link.rel }}">
 {% endfor %}
 {% for analytic in analytics %}
 {{ analytic }}
@@ -92,9 +92,9 @@
 		<div id="logo">
           {% if logo %}
             {% if home == og_url %}
-              <img src="{{ logo }}" title="{{ name }}" alt="{{ name }}" class="img-responsive" />
+              <img src="{{ logo }}" title="{{ name }}" alt="{{ name }}" class="img-responsive">
             {% else %}
-              <a href="{{ home }}"><img src="{{ logo }}" title="{{ name }}" alt="{{ name }}" class="img-responsive" /></a>
+              <a href="{{ home }}"><img src="{{ logo }}" title="{{ name }}" alt="{{ name }}" class="img-responsive"></a>
             {% endif %}
           {% else %}
             <h1><a href="{{ home }}">{{ name }}</a></h1>
