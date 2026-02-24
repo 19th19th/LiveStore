@@ -247,6 +247,7 @@ class ControllerCatalogRecurring extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
+		$data['sort_recurring_id'] = $this->url->link('catalog/recurring', 'user_token=' . $this->session->data['user_token'] . '&sort=r.recurring_id' . $url, true);
 		$data['sort_name'] = $this->url->link('catalog/recurring', 'user_token=' . $this->session->data['user_token'] . '&sort=rd.name' . $url, true);
 		$data['sort_sort_order'] = $this->url->link('catalog/recurring', 'user_token=' . $this->session->data['user_token'] . '&sort=r.sort_order' . $url, true);
 

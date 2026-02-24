@@ -75,6 +75,7 @@ class ModelCatalogOption extends Model {
 		}
 
 		$sort_data = array(
+			'o.option_id',
 			'od.name',
 			'o.type',
 			'o.sort_order'

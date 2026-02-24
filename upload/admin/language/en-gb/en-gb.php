@@ -151,3 +151,4 @@ $_['error_curl'] = 'CURL: Error Code(%s): %s';
 $_['datepicker'] = 'en-gb';
 $_['tab_seopro'] = 'SeoPro';
 $_['summernote'] = 'en-GB';
+$_['column_id'] = 'ID';

@@ -100,6 +100,7 @@
                   <thead>
                     <tr>
                       <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
+                      <td class="text-right">{% if sort == 'c.customer_id' %}<a href="{{ sort_customer_id }}" class="{{ order|lower }}">{{ column_id }}</a>{% else %}<a href="{{ sort_customer_id }}">{{ column_id }}</a>{% endif %}</td>
                       <td class="text-left">{% if sort == 'name' %}<a href="{{ sort_name }}" class="{{ order|lower }}">{{ column_name }}</a>{% else %}<a href="{{ sort_name }}">{{ column_name }}</a>{% endif %}</td>
                       <td class="text-left">{% if sort == 'c.email' %}<a href="{{ sort_email }}" class="{{ order|lower }}">{{ column_email }}</a>{% else %}<a href="{{ sort_email }}">{{ column_email }}</a>{% endif %}</td>
                       <td class="text-left">{% if sort == 'customer_group' %}<a href="{{ sort_customer_group }}" class="{{ order|lower }}">{{ column_customer_group }}</a> {% else %} <a href="{{ sort_customer_group }}">{{ column_customer_group }}</a>{% endif %}</td>
@@ -119,7 +120,8 @@
                       <input type="checkbox" name="selected[]" value="{{ customer.customer_id }}" />
                       {% endif %}
                     </td>
-                      <td class="text-left">{{ customer.name }}</td>
+                    <td class="text-right">{{ customer.customer_id }}</td>
+                    <td class="text-left">{{ customer.name }}</td>
                     <td class="text-left">{{ customer.email }}</td>
                     <td class="text-left">{{ customer.customer_group }}</td>
                     <td class="text-left">{{ customer.status }}</td>

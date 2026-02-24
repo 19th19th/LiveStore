@@ -126,6 +126,7 @@ class ModelCustomerCustomer extends Model {
 		}
 
 		$sort_data = array(
+			'c.customer_id',
 			'name',
 			'c.email',
 			'customer_group',

@@ -212,6 +212,7 @@ class ControllerCustomerCustomerGroup extends Controller {
 			$url .= '&page=' . $this->request->get['page'];
 		}
 
+		$data['sort_customer_group_id'] = $this->url->link('customer/customer_group', 'user_token=' . $this->session->data['user_token'] . '&sort=cg.customer_group_id' . $url, true);
 		$data['sort_name'] = $this->url->link('customer/customer_group', 'user_token=' . $this->session->data['user_token'] . '&sort=cgd.name' . $url, true);
 		$data['sort_sort_order'] = $this->url->link('customer/customer_group', 'user_token=' . $this->session->data['user_token'] . '&sort=cg.sort_order' . $url, true);
 

@@ -36,6 +36,11 @@
               <thead>
                 <tr>
                   <td class="text-center" width="1"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
+                  <td class="text-right">{% if sort == 'r.recurring_id' %}
+                    <a href="{{ sort_recurring_id }}" class="{{ order|lower }}">{{ column_id }}</a>
+                    {% else %}
+                    <a href="{{ sort_recurring_id }}">{{ column_id }}</a>
+                    {% endif %}</td>
                   <td class="text-left">{% if sort == 'rd.name' %}
                     <a href="{{ sort_name }}" class="{{ order|lower }}">{{ column_name }}</a>
                     {% else %}
@@ -58,6 +63,7 @@
                     {% else %}
                     <input type="checkbox" name="selected[]" value="{{ recurring.recurring_id }}" />
                     {% endif %}</td>
+                  <td class="text-right">{{ recurring.recurring_id }}</td>
                   <td class="text-left">{{ recurring.name }}</td>
                   <td class="text-right">{{ recurring.sort_order }}</td>
                   <td class="text-right"><a href="{{ recurring.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
