@@ -615,7 +615,6 @@ class ControllerBlogCategory extends Controller {
 				$data['breadcrumbs'][] = array(
 					'text'      => $result['name'],
 					'href'      => $href,
-					'separator' => ' :: '
 			);
 				$href = '';
 			}
