@@ -1,12 +1,9 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Heading
 $_['heading_title']      = 'Чек / Денежный перевод';
 
 // Text
-$_['text_payment']       = 'Оплата';
+$_['text_extension']	 = 'Оплата';
 $_['text_success']       = 'Успех: Вы изменили настройки метода оплаты "Чек / Денежный перевод"!';
 $_['text_edit']          = 'Редактирование';
 

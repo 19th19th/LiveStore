@@ -17,8 +17,6 @@ class ControllerBlogMenu extends Controller {
 			$data['text_blog'] = $this->language->get('text_blog');
 		}
 
-		$data['text_all'] = $this->language->get('text_all');
-
 		$data['blog'] = $this->url->link('blog/latest');
 
 		$data['categories'] = array();

@@ -1,5 +1,6 @@
 <?php
 $_['heading_title'] = 'Отчет активности покупателей';
+$_['text_extension'] = 'Отчёты';
 $_['text_list'] = '';
 $_['text_address_add'] = '';
 $_['text_address_edit'] = '';
@@ -22,7 +23,6 @@ $_['entry_customer'] = 'Покупатель';
 $_['entry_ip'] = 'IP';
 $_['entry_date_start'] = 'Дата начала';
 $_['entry_date_end'] = 'Дата окончания';
-$_['text_extension'] = 'Расширения';
 $_['entry_status'] = 'Статус';
 $_['entry_sort_order'] = 'Сортировка';
 $_['text_activity_address_add'] = '<a href="customer_id=%d">%s</a> - добавлен новый адрес.';

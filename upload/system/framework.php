@@ -16,7 +16,7 @@ date_default_timezone_set($config->get('date_timezone'));
 
 set_error_handler(function($code, $message, $file, $line) use($log, $config) {
 	// error suppressed with @
-	if (!(error_reporting() & $code)) {
+	if (error_reporting() === 0) {
 		return false;
 	}
 
@@ -109,7 +109,7 @@ if ($config->get('session_autostart')) {
 
 	$session->start($session_id);
 
-	setcookie($config->get('session_name'), $session->getId(), ini_get('session.cookie_lifetime') > 0 ? (time() + ini_get('session.cookie_lifetime')) : 0, ini_get('session.cookie_path'), ini_get('session.cookie_domain'));
+    setcookie($config->get('session_name'), $session->getId(), (ini_get('session.cookie_lifetime') ? (time() + ini_get('session.cookie_lifetime')) : 0), ini_get('session.cookie_path'), ini_get('session.cookie_domain'));
 }
 
 // Cache

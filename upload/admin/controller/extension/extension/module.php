@@ -1,7 +1,4 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 class ControllerExtensionExtensionModule extends Controller {
 	private $error = array();
 
@@ -9,7 +6,6 @@ class ControllerExtensionExtensionModule extends Controller {
 		$this->load->language('extension/extension/module');
 
 		$this->load->model('setting/extension');
-
 		$this->load->model('setting/module');
 
 		$this->getList();
@@ -19,7 +15,6 @@ class ControllerExtensionExtensionModule extends Controller {
 		$this->load->language('extension/extension/module');
 
 		$this->load->model('setting/extension');
-
 		$this->load->model('setting/module');
 
 		if ($this->validate()) {
@@ -45,7 +40,6 @@ class ControllerExtensionExtensionModule extends Controller {
 		$this->load->language('extension/extension/module');
 
 		$this->load->model('setting/extension');
-
 		$this->load->model('setting/module');
 
 		if ($this->validate()) {
@@ -66,7 +60,6 @@ class ControllerExtensionExtensionModule extends Controller {
 		$this->load->language('extension/extension/module');
 
 		$this->load->model('setting/extension');
-
 		$this->load->model('setting/module');
 
 		if ($this->validate()) {
@@ -84,7 +77,6 @@ class ControllerExtensionExtensionModule extends Controller {
 		$this->load->language('extension/extension/module');
 
 		$this->load->model('setting/extension');
-
 		$this->load->model('setting/module');
 
 		if (isset($this->request->get['module_id']) && $this->validate()) {
@@ -138,7 +130,7 @@ class ControllerExtensionExtensionModule extends Controller {
 		
 		$user_group_info = $this->model_user_user_group->getUserGroup($this->user->getGroupId());
 
-		if (isset($user_group_info['permission']['hiden'])) {
+		if(isset($user_group_info['permission']['hiden'])) {
 			$hiden = $user_group_info['permission']['hiden'];
 		} else {
 			$hiden = array();
@@ -149,11 +141,14 @@ class ControllerExtensionExtensionModule extends Controller {
 		if ($files) {
 			foreach ($files as $file) {
 				$extension = basename($file, '.php');
-			
+				
 				if (!in_array('extension/module/' . $extension, $hiden)) {
 					$this->load->language('extension/module/' . $extension, 'extension');
+					
 					$module_data = array();
+					
 					$modules = $this->model_setting_module->getModulesByCode($extension);
+					
 					foreach ($modules as $module) {
 						if ($module['setting']) {
 							$setting_info = json_decode($module['setting'], true);
@@ -169,6 +164,7 @@ class ControllerExtensionExtensionModule extends Controller {
 							'delete'    => $this->url->link('extension/extension/module/delete', 'user_token=' . $this->session->data['user_token'] . '&module_id=' . $module['module_id'], true)
 						);
 					}
+					
 					$data['extensions'][] = array(
 						'name'      => $this->language->get('extension')->get('heading_title'),
 						'status'    => $this->config->get('module_' . $extension . '_status') ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
@@ -183,8 +179,26 @@ class ControllerExtensionExtensionModule extends Controller {
 				}
 			}
 		}
+		
+		/*
+		
+		$sort_order = array();
 
-		$data['extensions'] = sort_extensions($data['extensions']);
+		foreach ($data['extensions'] as $key => $value) {
+			if($value['installed']) {
+				$add = '0';
+			} else {
+				$add = '1';
+			}
+			
+			echo $sort_order[$key] = $add.$value['name'];
+		}
+
+		array_multisort($sort_order, SORT_ASC, $data['extensions']);
+		
+		*/
+		
+		array_multisort(array_column($data['extensions'], 'installed'), SORT_DESC, array_column($data['extensions'], 'name'), SORT_ASC, $data['extensions']);
 
 		$this->response->setOutput($this->load->view('extension/extension/module', $data));
 	}

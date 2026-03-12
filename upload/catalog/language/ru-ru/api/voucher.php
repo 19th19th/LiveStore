@@ -1,7 +1,4 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Text
 $_['text_success']     = 'Ваш подарочный сертификат успешно применен!';
 $_['text_cart']        = 'Корзина покупок обновлена!';

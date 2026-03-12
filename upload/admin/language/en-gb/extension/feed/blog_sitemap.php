@@ -1,15 +1,8 @@
 <?php
-// Heading
-$_['heading_title']    = 'Blog Sitemap';
-
-// Text
-$_['text_extension']   = 'Extensions';
-$_['text_success']     = 'Settings changed successfully!';
-$_['text_edit']        = 'Edit';
-
-// Entry
-$_['entry_status']     = 'Status';
-$_['entry_data_feed']  = 'Data Feed Url';
-
-// Error
-$_['error_permission'] = 'Warning: You do not have permission to modify Google Sitemap feed!';
+$_['heading_title'] = 'Карта блога';
+$_['text_extension'] = 'Extensions';
+$_['text_success'] = 'Настройки успешно изменены!';
+$_['text_edit'] = 'Редактирование';
+$_['entry_status'] = 'Статус';
+$_['entry_data_feed'] = 'Адрес карты';
+$_['error_permission'] = 'У вас недостаточно прав для внесения изменений!';

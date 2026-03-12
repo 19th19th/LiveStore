@@ -116,7 +116,7 @@ a:hover, a:focus {text-decoration:none}
 #menu li li li li ul a {padding-left:80px}
 
 /* footer */
-#footer {height:100px;padding:0 20px;text-align:center}
+#footer {min-height:80px;padding:20px;text-align:center}
 
 /* Navs
 /* Tabs */
@@ -233,11 +233,12 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 	#oc-search-div {display:none}
 }
 
-.form-control{height:35pх}
+.form-control{height:36pх}
+.form-control.input-xs{height:28px}
 .form-control.input-sm{height:32px}
 .form-control:is([multiple]) {height:auto !important}
 
-.btn{height:35px;min-width:35px;line-height:35px;padding:0 12px;border:none;border-radius:var(--border-radius-1);outline:none !important;-moz-user-select:none !important;-webkit-user-select:none !important}
+.btn{height:36px;min-width:36px;line-height:36px;padding:0 12px;border:none;border-radius:var(--border-radius-1);outline:none !important;-moz-user-select:none !important;-webkit-user-select:none !important}
 .btn-xs{height:28px;line-height:28px;padding:0 8px}
 .btn-sm{height:32px;line-height:32px;padding:0 10px}
 .btn-lg{height:38px;line-height:38px;padding:0 15px}

@@ -247,4 +247,3 @@ class Smtp extends \stdClass {
 		return user_error($text, E_USER_WARNING);
 	}
 }
-

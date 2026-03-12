@@ -103,24 +103,6 @@ class ControllerBlogLatest extends Controller {
 		if (isset($this->request->get['limit'])) {
 			$url .= '&limit=' . $this->request->get['limit'];
 		}
-
-		$data['text_refine'] = $this->language->get('text_refine');
-		$data['text_views'] = $this->language->get('text_views');
-		$data['text_empty'] = $this->language->get('text_empty');			
-		$data['text_display'] = $this->language->get('text_display');
-		$data['text_list'] = $this->language->get('text_list');
-		$data['text_grid'] = $this->language->get('text_grid');
-		$data['text_sort'] = $this->language->get('text_sort');
-		$data['text_limit'] = $this->language->get('text_limit');
-			
-		$data['text_sort_by'] = $this->language->get('text_sort_by');
-		$data['text_sort_name'] = $this->language->get('text_sort_name');
-		$data['text_sort_date'] = $this->language->get('text_sort_date');
-		$data['text_sort_rated'] = $this->language->get('text_sort_rated');
-		$data['text_sort_viewed'] = $this->language->get('text_sort_viewed');
-					
-		$data['button_more'] = $this->language->get('button_more');
-		$data['button_continue'] = $this->language->get('button_continue');
 			
 		$data['configblog_review_status'] = $this->config->get('configblog_review_status');
 
@@ -292,4 +274,3 @@ class ControllerBlogLatest extends Controller {
 		$this->response->setOutput($this->load->view('blog/latest', $data));
 	}
 }
-?>

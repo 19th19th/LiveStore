@@ -31,8 +31,8 @@ $_['text_general'] = 'Общие';
 $_['text_security'] = 'Безопасность';
 $_['text_upload'] = 'Загрузки';
 $_['text_error'] = 'Обработка ошибок';
-$_['text_canonical_ocstore'] = 'ocStore решение';
-$_['text_canonical_opencart'] = 'Оригинальный OpenCart';
+$_['text_canonical_ocstore'] = 'ЛайвСтор (ocStore)';
+$_['text_canonical_opencart'] = 'OpenCart';
 $_['entry_name'] = 'Название магазина';
 $_['entry_owner'] = 'Владелец магазина';
 $_['entry_address'] = 'Адрес';
@@ -133,10 +133,12 @@ $_['entry_config_seo_url_include_path'] = 'ЧПУ товаров с катего
 $_['entry_config_seo_url_cache'] = 'Включить кэш';
 $_['entry_canonical_method'] = 'Способ вывода тегов canonical, prev, next';
 $_['entry_add_prevnext'] = 'Вывести prev, next теги для пагинации';
-$_['entry_add_prevnext_help'] = 'Работает только при включенном способе вывода тегов - ocStore решение';
+$_['entry_add_prevnext_help'] = 'Работает только при включенном способе вывода тегов - ЛайвСтор (ocStore) решение';
 $_['entry_canonical_self'] = 'Выводить тег canonical на основную страницу';
-$_['entry_canonical_self_help'] = 'Работает только при включенном способе вывода тегов - ocStore решение';
-$_['entry_canonical_method_help'] = '1 - Оригинальный способ вывода тегов OpenCart - выводит canonical только на &page=1, на всех других страницах пагинации используется prev, next <br /> 2 - ocStore решение - полностью убирает prev, next и добавляет canonical на страницы с get параметрами';
+$_['entry_canonical_self_help'] = 'Работает только при включенном способе вывода тегов - ЛайвСтор (ocStore) решение';
+$_['entry_canonical_method_help'] = 'ЛайвСтор (ocStore) - полностью убирает prev, next и добавляет canonical на страницы с get параметрами
+<br><br>
+OpenCart - выводит canonical только на &page=1, на всех других страницах пагинации используется prev, next';
 $_['entry_noindex_status'] = 'Использовать noindex для категорий, производителей, товаров, статей и т д';
 $_['entry_noindex_disallow_params'] = 'Игнорировать noindex для страниц с get параметрами:';
 $_['help_geocode'] = 'Пожалуйста, укажите geocode расположение вашего магазина.';

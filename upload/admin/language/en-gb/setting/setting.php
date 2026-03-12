@@ -29,8 +29,8 @@ $_['text_general'] = 'General';
 $_['text_security'] = 'Security';
 $_['text_upload'] = 'Uploads';
 $_['text_error'] = 'Error Handling';
-$_['text_canonical_ocstore'] = 'ocStore solution';
-$_['text_canonical_opencart'] = 'original OpenCart';
+$_['text_canonical_ocstore'] = 'LiveStore (ocStore)';
+$_['text_canonical_opencart'] = 'OpenCart';
 $_['entry_meta_title'] = 'Meta Title';
 $_['entry_meta_description'] = 'Meta Tag Description';
 $_['entry_meta_keyword'] = 'Meta Tag Keywords';
@@ -131,10 +131,12 @@ $_['entry_seopro_addslash'] = 'Add slash for end of url';
 $_['entry_seopro_lowercase'] = 'URLs lowercase';
 $_['entry_canonical_method'] = 'Method for displaying canonical, prev, next tags';
 $_['entry_add_prevnext'] = 'Using prev, next for pagination';
-$_['entry_add_prevnext_help'] = 'Work only with ocStore solution method';
+$_['entry_add_prevnext_help'] = 'Work only with LiveStore (ocStore) solution method';
 $_['entry_canonical_self'] = 'Display tag canonical on base page';
-$_['entry_canonical_self_help'] = 'Work only with ocStore solution method';
-$_['entry_canonical_method_help'] = '1 - Original way to display OpenCart tags - displays canonical only on &page=1, all other pagination pages use prev, next <br /> 2 - ocStore solution - completely removes prev, next and adds canonical to pages with get parameters';
+$_['entry_canonical_self_help'] = 'Work only with LiveStore (ocStore) solution method';
+$_['entry_canonical_method_help'] = 'LiveStore (ocStore) - completely removes prev and next and adds canonical to pages with get parameters.
+<br><br>
+OpenCart - only displays canonical on &page=1; all other pagination pages use prev and next.';
 $_['entry_noindex_status'] = 'Using noindex for category, product, manufacturers, blog etc.';
 $_['entry_noindex_disallow_params'] = 'Not use noindex for page with get params:';
 $_['help_geocode'] = 'Please enter your store location geocode manually.';

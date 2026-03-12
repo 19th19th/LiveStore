@@ -1,7 +1,4 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Heading
 $_['heading_title']          = 'Categories';
 
@@ -17,6 +14,7 @@ $_['text_category_total']    = 'Total Categories: ';
 $_['column_name']            = 'Category Name';
 $_['column_sort_order']      = 'Sort Order';
 $_['column_noindex']         = 'Index';
+$_['column_status'] 		 = 'Status';
 $_['column_action']          = 'Action';
 
 // Entry

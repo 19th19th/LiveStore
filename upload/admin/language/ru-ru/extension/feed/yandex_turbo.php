@@ -3,7 +3,7 @@
 $_['heading_title']    = 'Яндекс Turbo';
 
 // Text
-$_['text_extension']   = 'Расширения';
+$_['text_extension']   = 'Каналы продвижения';
 $_['text_feed']        = 'Каналы продвижения';
 $_['text_success']     = 'Настройки успешно изменены!';
 $_['text_edit']        = 'Редактирование';

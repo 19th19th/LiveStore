@@ -68,13 +68,6 @@ CREATE TABLE `oc_api` (
 
 -----------------------------------------------------------
 												
-  
-
-																								  
-																																																																																														  
-
-														   
-
 --
 -- Table structure for table `oc_api_ip`
 --
@@ -89,17 +82,6 @@ CREATE TABLE `oc_api_ip` (
 
 -----------------------------------------------------------
 												   
-  
-
-															
-					   
-					   
-					 
-					   
-						
-
-														   
-
 --
 -- Table structure for table `oc_api_session`
 --
@@ -122,264 +104,6 @@ CREATE TABLE `oc_api_session` (
 --
 
 DROP TABLE IF EXISTS `oc_attribute`;
-											   
-									
-								 
-											
-												   
-										   
-											
-															   
-																  
-									   
-										 
-							
-														
-
-  
-													
-  
-
-																																												  
-																												 
-																													  
-																													
-																													 
-
-														   
-
-  
-															 
-  
-
-													 
-								
-								 
-							   
-							  
-										   
-									   
-									 
-								  
-					  
-										   
-					 
-									 
-
-  
-																
-  
-
-																																									
-																																																																																																																																																																				
-																																																																																																																																																																																																										 
-																																																																																																																																																																																																																																																																																																																																																																																																	
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								
-																																																																																																																																																																																																																																																																																																																																																																																																																																																				
-																																									 
-																																																																																																																																																																																												   
-																																														 
-
-														   
-
-  
-													   
-  
-
-											   
-													 
-								
-									
-										   
-								  
-									 
-
-														   
-
-  
-														 
-  
-
-												 
-								
-								
-										 
-									 
-
-  
-															
-  
-
-																	
-		   
-		   
-		   
-		   
-		   
-		   
-
-														   
-
-  
-															
-  
-
-													
-								
-									 
-											  
-									 
-
-  
-															   
-  
-
-																			
-		 
-		 
-		 
-		 
-
-														   
-
-  
-																 
-  
-
-														 
-								
-								
-										 
-									 
-
-  
-																	
-  
-
-																			
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-
-														   
-
-  
-															
-  
-
-													
-								
-								 
-										  
-									 
-
-  
-															   
-  
-
-																		
-		  
-		  
-		  
-		  
-		  
-
-														   
-
-  
-																  
-  
-
-														  
-								
-									  
-													   
-											   
-									 
-
-  
-																	 
-  
-
-																										 
-			 
-			 
-			 
-			 
-			 
-
-														   
-
-  
-															 
-  
-
-													 
-								
-								 
-										  
-									 
-
-														   
-
-  
-														   
-  
-
-												   
-								
-							  
-							   
-									   
-									 
-
-  
-															  
-  
-
-																				 
-			
-			
-			
-			
-
-														   
-
-  
-														  
-  
-
-												  
-								
-										  
-									   
-									 
-
-  
-															 
-  
-
-																   
-		 
-		 
-		 
-		 
-
-														   
-
-  
-												   
-  
-
 CREATE TABLE `oc_attribute` (
   `attribute_id` int(11) NOT NULL AUTO_INCREMENT,
   `attribute_group_id` int(11) NOT NULL,
@@ -563,142 +287,13 @@ INSERT INTO `oc_banner_image` (`banner_image_id`, `banner_id`, `language_id`, `t
 (151, 6, 1, 'MAMO Kitchen', 'index.php?route=product/manufacturer/info&amp;manufacturer_id=7', 'catalog/demo/manufacturer/mamo.png', 0),
 (152, 6, 2, 'MAMO Kitchen', 'index.php?route=product/manufacturer/info&amp;manufacturer_id=7', 'catalog/demo/manufacturer/mamo.png', 0);
 																																			
-																  
-																																										  
-									 
-
 -----------------------------------------------------------
 
 --
 -- Table structure for table `oc_cart`
 --
 
-											   
-													 
-									
-										   
-							
-						   
-										   
-							   
-											
-															   
-																  
-								  
-													   
-
-  
-														  
-  
-
-																																								   
-																										
-																									
-																								 
-
-														   
-
-  
-																   
-  
-
-														   
-									  
-								 
-										  
-							  
-										   
-									   
-									 
-								  
-												 
-					 
-									 
-
-  
-								   
-  
-
-																																										 
-									  
-																 
-									 
-																	
-									 
-									 
-
-														   
-
-  
-															
-  
-
 DROP TABLE IF EXISTS `oc_cart`;
-									  
-							 
-						   
-											
-									 
-
-  
-															   
-  
-
-																				   
-			
-			
-			
-			
-
-														   
-
-  
-																 
-  
-
-														 
-									  
-							  
-							   
-											 
-									 
-
-  
-																	
-  
-
-																							 
-		   
-		   
-		   
-
-														   
-
-  
-																
-  
-
-														
-									  
-							  
-											 
-									 
-
-  
-																   
-  
-
-																			   
-		
-		
-		
-
-														   
-
-  
-											  
-  
-
 CREATE TABLE `oc_cart` (
   `cart_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `api_id` int(11) NOT NULL,
@@ -715,13 +310,6 @@ CREATE TABLE `oc_cart` (
 
 -----------------------------------------------------------
 												 
-  
-
-																																				 
-																							  
-
-														   
-
 --
 -- Table structure for table `oc_category`
 --
@@ -1021,18 +609,6 @@ CREATE TABLE `oc_category_to_layout` (
   PRIMARY KEY (`category_id`,`store_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-
 -----------------------------------------------------------
 
 --
@@ -1118,8 +694,7 @@ INSERT INTO `oc_country` (`country_id`, `name`, `iso_code_2`, `iso_code_3`, `add
 (20, 'Белоруссия (Беларусь)', 'BY', 'BLR', '', 0, 1),
 (80, 'Грузия', 'GE', 'GEO', '', 0, 1),
 (109, 'Казахстан', 'KZ', 'KAZ', '', 0, 1),
-(115, 'Киргизия (Кыргызстан)', 'KG', 'KGZ', '', 0, 1),
-											   
+(115, 'Киргизия (Кыргызстан)', 'KG', 'KGZ', '', 0, 1),									   
 (176, 'Российская Федерация', 'RU', 'RUS', '', 0, 1),
 (207, 'Таджикистан', 'TJ', 'TJK', '', 0, 1),
 (216, 'Туркменистан', 'TM', 'TKM', '', 0, 1),
@@ -1235,8 +810,7 @@ INSERT INTO `oc_currency` (`currency_id`, `title`, `code`, `symbol_left`, `symbo
 (1, 'Рубль', 'RUB', '', 'р.', '2', 1.00000000, 1, '2017-07-19 22:28:03'),
 (2, 'US Dollar', 'USD', '$', '', '2', 0.01697793, 1, '2017-07-19 21:28:21'),
 (3, 'Euro', 'EUR', '', '€', '2', 0.01476363, 1, '2017-07-19 21:28:21');
-																					 
-
+	
 -----------------------------------------------------------
 
 --
@@ -1273,22 +847,6 @@ CREATE TABLE `oc_customer` (
 
 -----------------------------------------------------------
 													 
-  
-
-																																																																								 
-																																																									  
-																																																					  
-																																																					   
-																																																						
-																																																				
-																																																				 
-																																																				  
-																																																				 
-																																																					  
-																																																				   
-
-														   
-
 --
 -- Table structure for table `oc_customer_activity`
 --
@@ -1411,38 +969,8 @@ CREATE TABLE `oc_customer_history` (
 --
 -- Table structure for table `oc_customer_login`
 --
-
-											 
-												   
-								 
-							
-								 
-								 
-				 
-													   
-
-  
-														
-  
-
-																						 
-											   
-											   
-												
-												
-											   
-											   
-												
-											  
-												 
-												
-
-														   
-
   
 DROP TABLE IF EXISTS `oc_customer_login`;
-  
-
 CREATE TABLE `oc_customer_login` (
   `customer_login_id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(96) NOT NULL,
@@ -1471,32 +999,6 @@ CREATE TABLE `oc_customer_ip` (
   KEY `ip` (`ip`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 																										 
-																				  
-																			  
-																				
-																				 
-																			   
-																					
-																				
-																									 
-																				  
-																						 
-																									  
-																			   
-																				
-																									  
-																				
-																								 
-																								
-																						 
-																			   
-																								
-																								   
-																			   
-																				
-																				 
-																				 
-
 -----------------------------------------------------------
 
 --
@@ -1579,22 +1081,7 @@ CREATE TABLE `oc_customer_search` (
 -- Table structure for table `oc_customer_wishlist`
 --
 
-													  
-															
-								 
-							  
-							  
-								  
-								 
-										 
-									 
-
-														   
-
-  
 DROP TABLE IF EXISTS `oc_customer_wishlist`;
-  
-
 CREATE TABLE `oc_customer_wishlist` (
   `customer_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
@@ -1603,14 +1090,6 @@ CREATE TABLE `oc_customer_wishlist` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -----------------------------------------------------------
-															  
-  
-
-																					 
-							   
-							   
-
-														   
 
 --
 -- Table structure for table `oc_custom_field`
@@ -1817,46 +1296,7 @@ INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort
 (40, 'advertise_google', 'catalog/view/common/success/after', 'extension/advertise/google/google_dynamic_remarketing_purchase', 1, 0);
 INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 (41, 'advertise_google', 'catalog/view/product/product/after', 'extension/advertise/google/google_dynamic_remarketing_product', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-																																							
-																																								
-																																									 
-																																							 
-																																								  
-																																								 
-																																					  
-																																						  
-																																								  
-																																								 
-																																									 
-																																								  
-																																				  
-																																			 
-																																										  
-																																												  
-																																				 
-																																		  
-																																					 
-																																					  
-																																											 
-																																			 
-																																						
-																																						
-																																											
-																																												  
-																																									  
-																																											  
-																																								  
-																																										  
-																																					
-																																											
-																							 
-																																										
-																																								  
-																												
-																																								
-																																											  
-																														
+INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES																											
 (42, 'advertise_google', 'catalog/view/product/search/after', 'extension/advertise/google/google_dynamic_remarketing_searchresults', 1, 0);
 INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
 (43, 'advertise_google', 'catalog/view/product/category/after', 'extension/advertise/google/google_dynamic_remarketing_category', 1, 0);
@@ -1932,15 +1372,8 @@ INSERT INTO `oc_extension` (`extension_id`, `type`, `code`) VALUES
 (47, 'module', 'featured_product'),
 (48, 'currency', 'cbr'),
 (49, 'currency', 'ecb'),
-(50, 'currency', 'nbu'),
-						 
-						  
-						 
+(50, 'currency', 'nbu'),				 
 (51, 'dashboard', 'chart_by_country_and_region');
-							
-							   
-							 
-									
 
 -----------------------------------------------------------
 
@@ -1960,14 +1393,6 @@ CREATE TABLE `oc_extension_install` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -----------------------------------------------------------
-															  
-  
-
-																													 
-														
-														 
-
-														   
 
 --
 -- Table structure for table `oc_extension_path`
@@ -1985,444 +1410,6 @@ CREATE TABLE `oc_extension_path` (
 
 -----------------------------------------------------------
 														   
-  
-
-																										  
-												   
-																   
-														
-															 
-															   
-														 
-															  
-															   
-																	  
-																  
-																	   
-																 
-																	   
-																	   
-																	  
-																	  
-																	  
-																				 
-																			   
-																			   
-																			   
-																						  
-																			
-																		 
-																		 
-																		 
-																		 
-																		 
-																		 
-																																													 
-																			 
-																																						  
-																																					 
-																		 
-																				  
-																				 
-																				   
-																				  
-																			
-																		  
-																		  
-																				  
-																		
-																				
-																				
-																				
-																				
-																				
-																						 
-																				   
-																				
-																				
-																		  
-																		  
-																					
-																				
-																		   
-																		 
-																			 
-																					 
-																		
-																		  
-																		 
-																				   
-																	  
-																			 
-																				
-																			  
-																		  
-																	  
-																		
-																		 
-																			  
-																				   
-																				
-																		
-																			
-																			   
-																				 
-																			   
-																		 
-																		   
-																			 
-																			
-																				 
-																			
-																			   
-																		   
-																		   
-																			 
-																			 
-																			
-																			  
-																			 
-																		  
-																			   
-																			   
-																			   
-																			 
-																			
-																				 
-																			
-																						   
-																			
-																					
-																																												 
-																						 
-																			  
-																		   
-																	   
-																		 
-																		 
-																		   
-																		   
-																		
-																	  
-																		   
-																		 
-																	 
-																	  
-																	  
-																	  
-																	  
-																	  
-																	  
-																	  
-																	  
-																	  
-																	 
-																	 
-																	 
-																	 
-																	 
-																	 
-																	 
-																																												  
-																																													 
-																																												 
-																			
-																		  
-																							
-																			   
-																			   
-																			   
-																				 
-																				 
-																				  
-																				  
-																				  
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				   
-																				 
-																				   
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																					
-																			 
-																			  
-																		  
-																				
-																				
-																				
-																				
-																																		  
-																																												
-																			 
-																			  
-																			  
-																			  
-																				 
-																		
-																																												
-																																												
-																						  
-																				 
-																			   
-																					
-																			
-																							 
-																							 
-																							 
-																				  
-																				
-																				
-																				  
-																				  
-																				  
-																							 
-																					  
-																				 
-																				  
-																					 
-																					 
-																				  
-																				  
-																				  
-																				  
-																					  
-																			   
-																			   
-																				 
-																						  
-																					 
-																						
-																						
-																						
-																					  
-																						
-																						 
-																																												
-																	   
-																		
-																				
-																																												
-																		   
-																																		  
-																																												
-																																		  
-																																		  
-																			
-																				   
-																				   
-																				   
-																				   
-																				 
-																	   
-																		
-																		
-																		   
-																		   
-																		  
-																		   
-																						   
-																																			  
-																			 
-																			 
-																				
-																			 
-																			 
-																			 
-																																		  
-																			
-																			
-																			
-																		 
-																		   
-																		  
-																																		  
-																																										
-																																										
-																																										
-																			 
-																			  
-																					
-																				
-																			  
-																					  
-																		   
-																					   
-																					 
-																					 
-																				   
-																					  
-																					  
-																					  
-
-														   
-
 --
 -- Table structure for table `oc_filter`
 --
@@ -2508,127 +1495,7 @@ INSERT INTO `oc_geo_zone` (`geo_zone_id`, `name`, `description`, `date_modified`
 -- Table structure for table `oc_information`
 --
 
-														 
-												 
-										  
-								 
-													 
-													   
-									 
-
-														   
-
-  
-																
-  
-
-														
-																		 
-									
-										  
-									   
-																						   
-											 
-										
-											 
-												 
-															 
-													 
-															
-								  
-								   
-									  
-																			 
-							   
-													   
-																					  
-																						   
-							  
-												
-											  
-															
-									 
-
-														   
-
-  
-									
-  
-
 DROP TABLE IF EXISTS `oc_information`;
-											
-										  
-														 
-									   
-									  
-									
-														
-															  
-									 
-
-														   
-
-  
-									
-  
-
-															   
-								
-										  
-														 
-														 
-									 
-
-														   
-
-  
-															   
-  
-
-													   
-														 
-										  
-												   
-										   
-												   
-						
-															 
-								 
-									  
-											 
-							 
-									 
-
-														   
-
-  
-															  
-  
-
-													  
-															
-							   
-										 
-									 
-
-														   
-
-  
-									 
-  
-
-																  
-											 
-								 
-													   
-									 
-
-														   
-
-  
-													 
-  
-
 CREATE TABLE `oc_information` (
   `information_id` int(11) NOT NULL AUTO_INCREMENT,
   `bottom` int(1) NOT NULL DEFAULT '0',
@@ -2647,8 +1514,7 @@ INSERT INTO `oc_information` (`information_id`, `bottom`, `sort_order`, `status`
 (4, 1, 1, 1, 0),
 (5, 1, 4, 1, 1),
 (6, 1, 2, 1, 1);
-				
-
+	
 -- --------------------------------------------------------
 
 --
@@ -2687,7 +1553,6 @@ INSERT INTO `oc_information_description` (`information_id`, `language_id`, `titl
 (7, 1, 'Политика cookie', 'Мы используем файлы cookie для улучшения работы сайта, анализа его использования и предоставления пользователям персонализированного контента. Мы также используем файлы cookie для рекламы и маркетинга. Вы можете изменить настройки браузера и отказаться от использования файлов cookie. Если вы не согласны с использованием файлов cookie, вы можете прекратить использование нашего сайта. Более подробная информация о файлах cookie и их использовании приведена в &lt;a href=&quot;/privacy&quot; target=&quot;_blank&quot;&gt;нашей политике конфиденциальности&lt;/a&gt;.', '', '', '', ''),
 (7, 2, 'Cookie Policy', ' We use cookies to improve website performance, analyze its usage, and provide personalized content to users. We also use cookies for advertising and marketing purposes. You can change your browser settings to refuse the use of cookies. If you do not agree with the use of cookies, you may stop using our website. More detailed information about cookies and how we use them is available in our &lt;a href=&quot;/privacy&quot; target=&quot;_blank&quot;&gt;Privacy Policy&lt;/a&gt;.', '', '', '', '');
 
-
 -- --------------------------------------------------------
 
 --
@@ -2704,14 +1569,6 @@ CREATE TABLE `oc_information_to_layout` (
 
 -----------------------------------------------------------
 																						 
-		  
-
-
-														   
-
-  
-															  
-  
 --
 -- Table structure for table `oc_information_to_store`
 --
@@ -2732,7 +1589,6 @@ INSERT INTO `oc_information_to_store` (`information_id`, `store_id`) VALUES
 (4, 0),
 (5, 0),
 (6, 0);
-
 
 -----------------------------------------------------------
 
@@ -2837,19 +1693,13 @@ INSERT INTO `oc_layout_module` (`layout_module_id`, `layout_id`, `code`, `positi
 (78, 15, 'blog_latest.32', 'column_left', 1),
 (79, 15, 'blog_featured.33', 'content_bottom', 0),
 (80, 16, 'blog_category', 'column_left', 0),
-(81, 16, 'blog_featured.33', 'column_left', 1),
-												 
-												  
+(81, 16, 'blog_featured.33', 'column_left', 1),											  
 (84, 3, 'featured_article.34', 'column_left', 2),
 (85, 3, 'featured_product.35', 'column_left', 3),
 (86, 17, 'featured_article.34', 'column_left', 0),
 (87, 17, 'featured_product.35', 'column_left', 1),
 (88, 2, 'featured_article.34', 'content_bottom', 0);
 										
-
-														   
-
-
 -----------------------------------------------------------
 
 --
@@ -2877,17 +1727,13 @@ INSERT INTO `oc_layout_route` (`layout_route_id`, `layout_id`, `store_id`, `rout
 (42, 1, 0, 'common/home'),
 (20, 2, 0, 'product/product'),
 (24, 11, 0, 'information/information'),
-(23, 7, 0, 'checkout/%'),
-			   
+(23, 7, 0, 'checkout/%'),	   
 (31, 8, 0, 'information/contact'),
 (32, 9, 0, 'information/sitemap'),
-(34, 4, 0, ''),
-							   
-							  
+(34, 4, 0, ''),				  
 (45, 5, 0, 'product/manufacturer'),
 (52, 12, 0, 'product/compare'),
-(53, 13, 0, 'product/search'),
-										 
+(53, 13, 0, 'product/search'),			 
 (57, 14, 0, 'blog/latest'),
 (58, 15, 0, 'blog/category'),
 (56, 16, 0, 'blog/article'),
@@ -3066,19 +1912,7 @@ CREATE TABLE `oc_manufacturer_to_layout` (
   `layout_id` int(11) NOT NULL,
   PRIMARY KEY (`manufacturer_id`,`store_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-  
-
-																			 
-	   
-	   
-	   
-	   
-	   
-		
-
-														   
-
-
+ 
 -- --------------------------------------------------------
 
 --
@@ -3117,8 +1951,6 @@ CREATE TABLE `oc_modification` (
   PRIMARY KEY (`modification_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-															 
-  
 --
 -- Table structure for table `oc_modification_backup`
 --
@@ -3157,14 +1989,12 @@ INSERT INTO `oc_module` (`module_id`, `name`, `code`, `setting`) VALUES
 (30, 'Category', 'banner', '{"name":"Category","banner_id":"6","width":"182","height":"182","status":"1"}'),
 (29, 'Home Page', 'carousel', '{"name":"Home Page","banner_id":"8","width":"130","height":"100","status":"1"}'),
 (28, 'Home Page', 'featured', '{"name":"Home Page","product":["43","40","42","30"],"limit":"4","width":"200","height":"200","status":"1"}'),
-(27, 'Home Page', 'slideshow', '{"name":"Home Page","banner_id":"7","width":"1140","height":"380","status":"1"}'),
-																																																																																									
+(27, 'Home Page', 'slideshow', '{"name":"Home Page","banner_id":"7","width":"1350","height":"380","status":"1"}'),																																																																																								
 (31, 'Banner 1', 'banner', '{"name":"Banner 1","banner_id":"6","width":"182","height":"182","status":"1"}'),
 (32, 'Последние статьи', 'blog_latest', '{"name":"\\u041f\\u043e\\u0441\\u043b\\u0435\\u0434\\u043d\\u0438\\u0435 \\u0441\\u0442\\u0430\\u0442\\u044c\\u0438","limit":"4","width":"200","height":"200","status":"1"}'),
 (33, 'Рекомендуемые статьи', 'blog_featured', '{"name":"\\u0420\\u0435\\u043a\\u043e\\u043c\\u0435\\u043d\\u0434\\u0443\\u0435\\u043c\\u044b\\u0435 \\u0441\\u0442\\u0430\\u0442\\u044c\\u0438","article_name":"","article":["120","123","125","124"],"limit":"4","width":"200","height":"200","status":"1"}'),
 (34, 'Рекомендуемые статьи в товаре, категории и производителе', 'featured_article', '{"name":"\\u0420\\u0435\\u043a\\u043e\\u043c\\u0435\\u043d\\u0434\\u0443\\u0435\\u043c\\u044b\\u0435 \\u0441\\u0442\\u0430\\u0442\\u044c\\u0438 \\u0432 \\u0442\\u043e\\u0432\\u0430\\u0440\\u0435, \\u043a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u0438 \\u0438 \\u043f\\u0440\\u043e\\u0438\\u0437\\u0432\\u043e\\u0434\\u0438\\u0442\\u0435\\u043b\\u0435","limit":"4","width":"200","height":"200","status":"1"}'),
 (35, 'Рекомендуемые товары в категории и производителе', 'featured_product', '{"name":"\\u0420\\u0435\\u043a\\u043e\\u043c\\u0435\\u043d\\u0434\\u0443\\u0435\\u043c\\u044b\\u0435 \\u0442\\u043e\\u0432\\u0430\\u0440\\u044b \\u0432 \\u043a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u0438 \\u0438 \\u043f\\u0440\\u043e\\u0438\\u0437\\u0432\\u043e\\u0434\\u0438\\u0442\\u0435\\u043b\\u0435","limit":"4","width":"200","height":"200","status":"1"}');
-
 
 -----------------------------------------------------------
 
@@ -3401,17 +2231,6 @@ CREATE TABLE `oc_order` (
 
 -----------------------------------------------------------
 																																																																																																																																																																																																																																																																																																											
-																																																																																																																																																																																																									
-
-																																																																																																																																																																																																																																																																							 
-																																																																																																																																																																																																			 
-																																																																																																																																																																																																																								 
-
-														   
-
-  
-													   
-  
 --
 -- Table structure for table `oc_order_history`
 --
@@ -3431,21 +2250,6 @@ CREATE TABLE `oc_order_history` (
 
 -----------------------------------------------------------
 																															
-										
-										
-										
-										
-										
-										
-										
-										
-										
-
-														   
-
-  
-													  
-
 --
 -- Table structure for table `oc_order_option`
 --
@@ -3490,17 +2294,6 @@ CREATE TABLE `oc_order_product` (
 
 -----------------------------------------------------------
 																																					
-																	  
-
-																			
-																	  
-																	  
-
-														   
-
-  
-														 
-  
 --
 -- Table structure for table `oc_order_recurring`
 --
@@ -3608,23 +2401,14 @@ CREATE TABLE `oc_order_status` (
 -- Dumping data for table `oc_order_status`
 --
 
-INSERT INTO `oc_order_status` (`order_status_id`, `language_id`, `name`) VALUES
-					 
-							   
-(2, 1, 'В обработке'),
-										  
+INSERT INTO `oc_order_status` (`order_status_id`, `language_id`, `name`) VALUES			   
+(2, 1, 'В обработке'),					  
 (3, 1, 'Доставлено'),
 (7, 1, 'Отменено'),
-(5, 1, 'Сделка завершена'),
-						 
-				 
-													 
-(8, 1, 'Возврат'),
-								  
-(9, 1, 'Отмена и аннулирование'),
-								  
+(5, 1, 'Сделка завершена'),						 
+(8, 1, 'Возврат'),				  
+(9, 1, 'Отмена и аннулирование'),					  
 (10, 1, 'Неудавшийся'),
-			
 (11, 1, 'Возмещенный'),
 (12, 1, 'Полностью измененный'),
 (13, 1, 'Полный возврат'),
@@ -3639,13 +2423,10 @@ INSERT INTO `oc_order_status` (`order_status_id`, `language_id`, `name`) VALUES
 (1, 2, 'Pending'),
 (9, 2, 'Canceled Reversal'),
 (7, 2, 'Canceled'),
-(12, 2, 'Reversed'),
-				   
+(12, 2, 'Reversed'),   
 (13, 2, 'Chargeback'),
 (5, 2, 'Complete'),
 (14, 2, 'Expired'),
-				  
-	  
 (16, 1, 'Анулированный'),
 (16, 2, 'Voided'),
 (15, 2, 'Processed');
@@ -3670,32 +2451,6 @@ CREATE TABLE `oc_order_total` (
 
 -----------------------------------------------------------
 																										  
-											   
-												   
-										  
-										   
-											   
-												   
-										  
-										   
-											   
-																									  
-										   
-											
-												
-																									  
-										   
-											
-												
-																									  
-										   
-											
-
-														   
-
-  
-													   
-
 --
 -- Table structure for table `oc_order_voucher`
 --
@@ -4153,77 +2908,9 @@ INSERT INTO `oc_product_related` (`product_id`, `related_id`) VALUES
 
 --
 -- Table structure for table `oc_product_reward`
---
-
-										 
-									 
-
-  
-																	
-  
-
-																			
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-
-														   
-
-  
-															
-  
-
-													
-								
+--				
 									
-DROP TABLE IF EXISTS `oc_product_reward`;
-
-  
-															   
-  
-
-																			
-		
-		
-		
-		
-
-														   
-
-  
-															
-  
-
-													
-								
-								
-									 
-
-  
-															   
-  
-
-																		
-		 
-		 
-		 
-		 
-		 
-		 
-
-														   
-
-  
-														
-  
-
-												
-													  
-											
+DROP TABLE IF EXISTS `oc_product_reward`;										
 CREATE TABLE `oc_product_reward` (
   `product_reward_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL DEFAULT '0',
@@ -4369,32 +3056,7 @@ CREATE TABLE `oc_product_to_layout` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -----------------------------------------------------------
-																				 
-		   
-
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-
-														   
-
-  
-														  
-  
+	
 --
 -- Table structure for table `oc_product_to_store`
 --
@@ -4519,10 +3181,8 @@ CREATE TABLE `oc_return_action` (
 --
 
 INSERT INTO `oc_return_action` (`return_action_id`, `language_id`, `name`) VALUES
-(1, 1, 'Возмещенный'),
-											
-(2, 1, 'Возврат средств'),
-						   
+(1, 1, 'Возмещенный'),							
+(2, 1, 'Возврат средств'),			   
 (3, 1, 'Отправлена замена'),
 (1, 2, 'Refunded'),
 (3, 2, 'Replacement Sent'),
@@ -4597,10 +3257,8 @@ INSERT INTO `oc_return_status` (`return_status_id`, `language_id`, `name`) VALUE
 (1, 1, 'В ожидании'),
 (3, 1, 'Выполнен'),
 (2, 1, 'Ожидание товара'),
-(1, 2, 'Pending'),
-				   
-(2, 2, 'Awaiting Products'),
-														   
+(1, 2, 'Pending'),		   
+(2, 2, 'Awaiting Products'),													   
 (3, 2, 'Complete');
 
 -- --------------------------------------------------------
@@ -4926,8 +3584,7 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'module_blog_category', 'module_blog_category_status', '1', 0),
 (0, 'dashboard_chart_by_country_and_region', 'dashboard_chart_by_country_and_region_width', '6', '0'),
 (0, 'dashboard_chart_by_country_and_region', 'dashboard_chart_by_country_and_region_status', '1', '0'),
-(0, 'dashboard_chart_by_country_and_region', 
-'dashboard_chart_by_country_and_region_sort_order', '5', 0),
+(0, 'dashboard_chart_by_country_and_region', 'dashboard_chart_by_country_and_region_sort_order', '5', 0),
 (0, 'config', 'config_seo_pro', '1', 0),
 (0, 'config', 'config_seo_url_include_path', '0', 0),
 (0, 'config', 'config_seo_url_cache', '0', 0),
@@ -4941,8 +3598,6 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'config', 'config_add_prevnext', '0', 0),
 (0, 'config', 'config_noindex_status', '1', 0),
 (0, 'config', 'config_noindex_disallow_params', '', 0);															  
-
-
 
 -----------------------------------------------------------
 
@@ -5117,18 +3772,6 @@ CREATE TABLE `oc_translation` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -----------------------------------------------------------
-					   
-						   
-										   
-															   
-																  
-									
-								 
-													   
-
-  
-														   
-  
 
 --
 -- Table structure for table `oc_upload`
@@ -5382,891 +4025,14 @@ INSERT INTO `oc_seo_url` (`seo_url_id`, `store_id`, `language_id`, `query`, `key
 (1254, 0, 1, 'product_id=28', 'electric-kettle'),
 (1255, 0, 2, 'product_id=28', 'en_electric-kettle');
 
-  
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `oc_user`
 --
 
-DROP TABLE IF EXISTS `oc_user`;
-									 
-
-  
-													
-  
-
-																
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																																						
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																									 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																									   
-																																		 
-																																																						
-																																		 
-																																							 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-															
-																																		 
-															
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-															
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																																					
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																																						
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-															
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																																																																																																																																																																																																																																																																																																																																										  
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-															
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-
-														   
-
-  
-												 
-  
-
-										 
-											   
-										  
-							   
-							  
-						
-								   
-							
-														 
-
-  
-													
-  
-
-																								
-																		 
-																				  
-																			 
-														 
-														
-															   
-														   
-													  
-																
-																  
-															  
-												  
-														  
-													  
-													  
-															
-														
-															
-														
-															
-															   
-															
-														
-															  
-														  
-															  
-															
-																  
-																				
-																	   
-																		
-																	   
-																		
-																		 
-																		  
-																			 
-																			  
-																		 
-																		  
-																		   
-																			
-																		 
-																		  
-																		
-																		 
-																		 
-																		  
-																	  
-																	 
-																		  
-																		  
-																   
-														  
-																	
-																		
-															
-														   
-															  
-															 
-																	
-																   
-																
-															   
-																  
-															  
-															 
-																
-																		
-																	
-																  
-																
-																	
-																   
-															   
-																				
-																					
-																		  
-																			  
-																			
-																				
-																				
-																			
-																					  
-																								 
-															  
-																  
-																		
-																			
-																	
-																		
-																  
-																	  
-																	
-																		
-																		  
-																			   
-																				
-																					 
-																
-																	 
-												 
-												
-														 
-																												   
-																													  
-																															
-																														
-														   
-															
-																		  
-														  
-													   
-															  
-														   
-														  
-														 
-																   
-																	
-																   
-																	
-																   
-																	
-														
-														
-														
-															
-																		
-														   
-																
-															   
-														  
-															  
-														  
-																										 
-																										  
-																											  
-														 
-														  
-															  
-																  
-																	 
-									  
-												  
-												  
-												
-															   
-																
-													   
-											 
-														 
-														
-										 
-										   
-										  
-											 
-												   
-												 
-												 
-												   
-														 
-												 
-													
-														
-													  
-													  
-													
-												   
-														 
-													
-												   
-												  
-													 
-										  
-														 
-														  
-													  
-														
-													  
-														
-																   
-													 
-													 
-												 
-												
-															   
-												  
-													 
-												  
-													  
-																					   
-																  
-													   
-											 
-													
-													
-													 
-														 
-														 
-													 
-														   
-												   
-												
-													   
-											 
-																											
-														  
-														  
-													 
-													
-														
-														
-														
-													  
-														
-													  
-												  
-											  
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															  
-												  
-											 
-											   
-											 
-																																																																																																																																																																																																																																																																																											   
-														 
-																																																										
-																																																																																																																																																													 
-													
-												
-															 
-											  
-														   
-													
-													  
-													   
-												  
-														
-																																																																																							  
-													   
-													 
-												   
-													 
-																 
-
-														   
-
-  
-														  
-  
-
-												  
-										 
-														   
-														   
-									 
-									 
-
-  
-															 
-  
-
-																												  
-				  
-					  
-				  
-								
-											
-								 
-
-														   
-
-  
-													
-  
-
-											
-												  
-							  
-								 
-							   
-													  
-
-  
-													   
-  
-
-																	 
-							 
-								
-							  
-						   
-					   
-					   
-					  
-
-														   
-
-  
-													  
-  
-
-											  
-													
-								 
-							  
-											   
-													  
-
-  
-														 
-  
-
-																			   
-								   
-					   
-									  
-				   
-							
-				   
-							 
-					
-
-														   
-
-  
-											   
-  
-
-									   
-											 
-							  
-							  
-							  
-						  
-									 
-
-														   
-
-  
-												   
-  
-
-										   
-												 
-							   
-									  
-								 
-									
-							  
-													   
-
-  
-													  
-  
-
-																										 
-								   
-
-														   
-
-  
-												  
-  
-
-										  
-												
-											 
-							  
-CREATE TABLE `oc_user` (
-						  
-								 
-									
-							 
-													   
-
-  
-													 
-  
-
-																													  
-																					
-
-														   
-
-  
-																	
-  
-
-															
-								 
-									   
-												 
-									 
-
-  
-									
-  
-
-																					   
-		
-		
-
-														   
-
-  
-												  
-  
-
-										  
-												
-								  
-								 
-							   
-										 
-							 
-														
-
-  
-													 
-  
-
-																									
-						 
-
-														   
-
-  
-											   
-  
-
-									   
-											 
-							  
-							   
-							   
-							 
-								 
-						  
-									 
-
-														   
-
-  
-													 
-  
-
-											 
-												   
-							  
-								 
-							   
-							 
-						
-								 
-								
-									 
-
-														   
-
-  
-												
-  
-
-										
-											  
-							   
-								   
-							   
-								 
-						   
-									 
-
-														   
-
-  
-											  
-  
-
-									  
-											
-								   
-								  
-								  
+DROP TABLE IF EXISTS `oc_user`;					  
+CREATE TABLE `oc_user` (				  
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_group_id` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
@@ -6285,14 +4051,6 @@ CREATE TABLE `oc_user` (
 
 -----------------------------------------------------------
 																																								
-																																														
-
-														   
-
-  
-													
-  
-
 --
 -- Table structure for table `oc_user_group`
 --
@@ -6565,19 +4323,7 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (340, 20, 'Гродно', 'HR', 1),
 (341, 20, 'Могилев', 'MA', 1),
 (342, 20, 'Минская область', 'MI', 1),
-(343, 20, 'Витебск', 'VI', 1),
-							   
-							   
-									
-										 
-														
-											  
-										  
-									
-															  
-											
-															  
-															  
+(343, 20, 'Витебск', 'VI', 1),							  
 (1716, 109, 'Алматинская область', 'AL', 1),
 (1717, 109, 'Алматы', 'ALA', 1),
 (1718, 109, 'Акмолинская область', 'AM', 1),
@@ -6602,18 +4348,7 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (1797, 115, 'Naryn', 'N', 1),
 (1798, 115, 'Osh', 'O', 1),
 (1799, 115, 'Talas', 'T', 1),
-(1800, 115, 'Ysyk-Kol', 'Y', 1),
-							   
-								
-							  
-							   
-								
-								
-										   
-															
-															 
-												 
-																   
+(1800, 115, 'Ysyk-Kol', 'Y', 1),					   
 (2721, 176, 'Республика Хакасия', 'KK', 1),
 (2722, 176, 'Забайкальский край', 'ZAB', 1),
 (2723, 176, 'Чукотский АО', 'CHU', 1),
@@ -6700,19 +4435,10 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (2805, 176, 'Республика  Саха / Якутия', 'SA', 1),
 (2806, 176, 'Ярославская область', 'YAR', 1),
 (2807, 176, 'Свердловская область', 'SVE', 1),
-(2808, 176, 'Республика Марий Эл', 'ME', 1),
-									   
-										  
-									  
-									 
-															
-																
-															  
-													  
+(2808, 176, 'Республика Марий Эл', 'ME', 1),	  
 (3480, 220, 'Черкасская область', '71', 1),
 (3481, 220, 'Черниговская область', '74', 1),
-(3482, 220, 'Черновицкая область', '77', 1),			
-															
+(3482, 220, 'Черновицкая область', '77', 1),													
 (3484, 220, 'Днепропетровская область', '12', 1),
 (3485, 176, 'Донецкая область', '14', 1),
 (3486, 220, 'Ивано-Франковская область', '26', 1),
@@ -6726,8 +4452,7 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (3494, 220, 'Николаевская область', '48', 1),
 (3495, 220, 'Одесская область', '51', 1),
 (3496, 220, 'Полтавская область', '53', 1),
-(3497, 220, 'Ровненская область', '56', 1),
-														  
+(3497, 220, 'Ровненская область', '56', 1),									  
 (3499, 220, 'Сумская область', '59', 1),
 (3500, 220, 'Тернопольская область', '61', 1),
 (3501, 220, 'Винницкая область', '05', 1),
@@ -6755,7 +4480,6 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (4236, 109, 'Улытауская область', 'UL', 1),
 (4237, 109, 'Шымкент', 'SHY', 1),
 (4238, 176, 'Сахалинская область', 'SAK', 1);
-
 
 -- --------------------------------------------------------
 
@@ -7007,7 +4731,6 @@ INSERT INTO `oc_article_description` (`article_id`, `language_id`, `name`, `desc
 (124, 2, 'Важная статья', '&lt;p&gt;Это очень важная статья которую нужно прочитать всем важным людям про важные события важных людей :-)&lt;br&gt;&lt;/p&gt;', '', '', '', '', ''),
 (125, 1, 'Открытие нашего магазина: всё, что нужно - в одном месте!', '&lt;p&gt;Рады сообщить об открытии нашего универсального интернет-магазина! Теперь вам не нужно тратить время на поиски товаров на разных сайтах - мы собрали всё необходимое в одном удобном пространстве. Одежда и обувь, товары для дома, электроника, подарки, косметика и многое другое - доступно в пару кликов.&lt;/p&gt;\r\n&lt;p&gt;Мы делаем ставку на честные цены, быструю доставку и дружелюбный сервис. Удобная навигация, подробные описания и регулярные акции сделают шопинг не только простым, но и приятным. Присоединяйтесь - добро пожаловать в магазин, где каждый найдёт что-то для себя!&lt;/p&gt;&lt;p&gt;&lt;/p&gt;', '', '', '', '', ''),
 (125, 2, 'Открытие нашего магазина: всё, что нужно - в одном месте!', '&lt;p&gt;Это первая новость всем новостям новость :-)&lt;br&gt;&lt;/p&gt;', '', '', '', '', '');
-
 
 -- --------------------------------------------------------
 

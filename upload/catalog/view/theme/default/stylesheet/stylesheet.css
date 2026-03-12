@@ -31,12 +31,18 @@ a {color:#23a1d1}
 a:hover {text-decoration:none}
 legend {font-size:18px;padding:7px 0px}
 label {font-weight:500}
-select.form-control, textarea.form-control, input[type="text"].form-control, input[type="password"].form-control, input[type="datetime"].form-control, input[type="datetime-local"].form-control, input[type="date"].form-control, input[type="month"].form-control, input[type="time"].form-control, input[type="week"].form-control, input[type="number"].form-control, input[type="email"].form-control, input[type="url"].form-control, input[type="search"].form-control, input[type="tel"].form-control, input[type="color"].form-control {
-	height:34px;
+
+.form-control{
 	font-size:12px;
 	border-color:#ddd;
-	box-shadow:none
+	box-shadow:none;
+	border-radius:var(--border-radius-1)
 }
+
+.form-control:not(textarea){
+	height:34px;
+}
+
 .input-group input, .input-group select, .input-group .dropdown-menu, .input-group .popover {font-size:12px}
 .input-group .input-group-addon {font-size:12px;height:30px}
 button,select,.btn,.btn:active,.btn:hover,.btn:focus,.nav-tabs .li {outline:none!important;-moz-user-select:none!important;-webkit-user-select:none!important}

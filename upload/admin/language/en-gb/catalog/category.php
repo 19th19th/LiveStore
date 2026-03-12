@@ -43,3 +43,4 @@ $_['error_keyword'] = 'SEO URL already in use!';
 $_['error_unique'] = 'SEO URL must be unique!';
 $_['error_parent'] = 'The parent category you have chosen is a child of the current one!';
 $_['help_noindex'] = 'Индексация в поисковых сервисах Google, Yandex, Bing и других';
+$_['error_meta_h1'] = 'HTML H1 tag must contain between 0 and 255 characters!';

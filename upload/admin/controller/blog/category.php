@@ -136,7 +136,6 @@ class ControllerBlogCategory extends Controller {
 	}
 
 	protected function getList() {
-		
 		$url = '';
 		
 		$data['breadcrumbs'] = array();
@@ -167,8 +166,8 @@ class ControllerBlogCategory extends Controller {
 				unset($this->session->data['path']);
 			}
 		} elseif (isset($this->session->data['path'])) {
-				$this->path = explode('_', $this->session->data['path']);
-				$this->blog_category_id = end($this->path);
+			$this->path = explode('_', $this->session->data['path']);
+			$this->blog_category_id = end($this->path);
  		}
 		
 		$data['categories'] = $this->getCategories(0);
@@ -291,6 +290,7 @@ class ControllerBlogCategory extends Controller {
 		}
 		
 		$language_id = $this->config->get('config_language_id');
+		
 		if (isset($data['category_description'][$language_id]['name'])) {
 			$data['heading_title'] = $data['category_description'][$language_id]['name'];
 		}
@@ -599,50 +599,52 @@ class ControllerBlogCategory extends Controller {
 	private function getCategories($parent_id, $parent_path = '', $indent = '') {
 		$blog_category_id = array_shift($this->path);
 		$output = array();
+		
 		static $href_category = null;
-		static $href_action = null;
+		
 		if ($href_category === null) {
 			$href_category = $this->url->link('blog/category', 'user_token=' . $this->session->data['user_token'] . '&path=', true);
-			$href_action = $this->url->link('blog/category/update', 'user_token=' . $this->session->data['user_token'] . '&blog_category_id=', true);
 		}
+		
 		$results = $this->model_blog_category->getCategoriesByParentId($parent_id);
+		
 		foreach ($results as $result) {
 			$path = $parent_path . $result['blog_category_id'];
 			$href = ($result['children']) ? $href_category . $path : '';
 			$name = $result['name'];
+			
 			if ($blog_category_id == $result['blog_category_id']) {
-				$name = '<b>' . $name . '</b>';
-				$data['breadcrumbs'][] = array(
-					'text'      => $result['name'],
-					'href'      => $href,
-					'separator' => ' :: '
-			);
+				$new_path = explode('_', $path);
+				array_pop($new_path);
+				
+				$name = '<a href="'.$this->url->link('blog/category', 'user_token=' . $this->session->data['user_token'] . '&path='.implode('_', $new_path), true).'"><b>'. $name .'</b></a>&nbsp;<i class="fa fa-sort-asc"></i>';
+				
 				$href = '';
 			}
+			
 			$selected = isset($this->request->post['selected']) && in_array($result['blog_category_id'], $this->request->post['selected']);
-			$action = array();
-			$action[] = array(
-				'text' => $this->language->get('text_edit'),
-				'href' => $href_action . $result['blog_category_id']
-			);
+			
 			$output[$result['blog_category_id']] = array(
 				'blog_category_id' => $result['blog_category_id'],
 				'name'        => $name,
 				'sort_order'  => $result['sort_order'],
-				'noindex'  	  => $result['noindex'],
+				'noindex'     => $result['noindex'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
 				'edit'        => $this->url->link('blog/category/edit', 'user_token=' . $this->session->data['user_token'] . '&blog_category_id=' . $result['blog_category_id'], true),
 				'selected'    => $selected,
-				'action'      => $action,
+				'status'      => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
 				'href'        => $href,
 				'href_shop'   => HTTP_CATALOG . 'index.php?route=blog/category&blog_category_id=' . ($result['blog_category_id']),
 				'indent'      => $indent
 			);
+			
 			if ($blog_category_id == $result['blog_category_id']) {
-				$output += $this->getCategories($result['blog_category_id'], $path . '_', $indent . str_repeat('&nbsp;', 8));
+				$output += $this->getCategories($result['blog_category_id'], $path . '_', $indent . str_repeat('&nbsp;', 5));
 			}
 		}
+		
 		return $output;
 	}
+	
 	private function getAllCategories($categories, $parent_id = 0, $parent_name = '') {
 		$output = array();
 		if (array_key_exists($parent_id, $categories)) {

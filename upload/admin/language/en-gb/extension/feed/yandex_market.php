@@ -77,7 +77,7 @@ $_['help_currency']          = 'Yandex.Market accepts offers in RUR, RUB or UAH 
 $_['help_in_stock']          = 'In the presence of goods in stock.';
 $_['help_out_of_stock']      = 'With stock balance 0.';
 $_['help_quantity_status']   = 'If yes, then products with zero quantity will be unloaded in the YML file.';
-$_['help_yandex_market']     = 'Topic on the <a target="_blank" href="//forum.opencart.pro/topic/1059-yandexmarket-20/">Forum</a>';
+$_['help_yandex_market']     = '<a target="_blank" href="//forum.liveopencart.ru">Forum</a>';
 
 // Error
 $_['error_image_width'] 	 = 'Specify the width!';

@@ -604,21 +604,27 @@ class ControllerCatalogCategory extends Controller {
         $this->load->language('catalog/category');
         $this->document->setTitle($this->language->get('heading_title'));
         $this->load->model('catalog/category');
+		
         if (isset($this->request->post['selected']) && $this->validateEnable()) {
             foreach ($this->request->post['selected'] as $category_id) {
                 $this->model_catalog_category->editCategoryStatus($category_id, 1);
             }
+			
             $this->session->data['success'] = $this->language->get('text_success');
             $url = '';
+			
             if (isset($this->request->get['page'])) {
                 $url .= '&page=' . $this->request->get['page'];
             }
+			
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
             }
+			
             if (isset($this->request->get['order'])) {
                 $url .= '&order=' . $this->request->get['order'];
             }
+			
 			$this->response->redirect($this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token'] . $url, true));
         }
         $this->getList();
@@ -628,23 +634,30 @@ class ControllerCatalogCategory extends Controller {
         $this->load->language('catalog/category');
         $this->document->setTitle($this->language->get('heading_title'));
         $this->load->model('catalog/category');
+		
         if (isset($this->request->post['selected']) && $this->validateDisable()) {
             foreach ($this->request->post['selected'] as $category_id) {
                 $this->model_catalog_category->editCategoryStatus($category_id, 0);
             }
+			
             $this->session->data['success'] = $this->language->get('text_success');
             $url = '';
+			
             if (isset($this->request->get['page'])) {
                 $url .= '&page=' . $this->request->get['page'];
             }
+			
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
             }
+			
             if (isset($this->request->get['order'])) {
                 $url .= '&order=' . $this->request->get['order'];
             }
+			
             $this->response->redirect($this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token'] . $url, true));
         }
+		
         $this->getList();
     }
 
@@ -721,11 +734,9 @@ class ControllerCatalogCategory extends Controller {
 		$output = array();
 		
 		static $href_category = null;
-		static $href_action = null;
 		
 		if ($href_category === null) {
 			$href_category = $this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token'] . '&path=', true);
-			$href_action = $this->url->link('catalog/category/update', 'user_token=' . $this->session->data['user_token'] . '&category_id=', true);
 		}
 		
 		$results = $this->model_catalog_category->getCategoriesByParentId($parent_id);
@@ -745,19 +756,13 @@ class ControllerCatalogCategory extends Controller {
 			
 			$selected = isset($this->request->post['selected']) && in_array($result['category_id'], $this->request->post['selected']);
 			
-			$action = array(
-				'text' => $this->language->get('text_edit'),
-				'href' => $href_action . $result['category_id']
-			);
-			
 			$output[$result['category_id']] = array(
 				'category_id' => $result['category_id'],
 				'name'        => $name,
 				'sort_order'  => $result['sort_order'],
-				'noindex'  	  => $result['noindex'],
+				'noindex'    => $result['noindex'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
 				'edit'        => $this->url->link('catalog/category/edit', 'user_token=' . $this->session->data['user_token'] . '&category_id=' . $result['category_id'], true),
 				'selected'    => $selected,
-				'action'      => $action,
 				'status'      => ($result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
 				'href'        => $href,
 				'href_shop'   => HTTP_CATALOG . 'index.php?route=product/category&path=' . ($result['category_id']),
@@ -768,14 +773,17 @@ class ControllerCatalogCategory extends Controller {
 				$output += $this->getCategories($result['category_id'], $path . '_', $indent . str_repeat('&nbsp;', 5));
 			}
 		}
+		
 		return $output;
 	}
 	private function getAllCategories($categories, $parent_id = 0, $parent_name = '') {
 		$output = array();
+		
 		if (array_key_exists($parent_id, $categories)) {
 			if ($parent_name != '') {
 				$parent_name .= $this->language->get('text_separator');
 			}
+			
 			foreach ($categories[$parent_id] as $category) {
 				$output[$category['category_id']] = array(
 					'category_id' => $category['category_id'],
@@ -784,6 +792,7 @@ class ControllerCatalogCategory extends Controller {
 				$output += $this->getAllCategories($categories, $category['category_id'], $parent_name . $category['name']);
 			}
 		}
+		
 		return $output;
-		}
+	}
 }

@@ -3,22 +3,20 @@
 // *	@license	GNU General Public License version 3; see LICENSE.txt
 
 class ControllerStartupSeoUrl extends Controller {
-	
 	//seopro start
-		private $seo_pro;
-		public function __construct($registry) {
-			parent::__construct($registry);	
+	private $seo_pro;
+	
+	public function __construct($registry) {
+		parent::__construct($registry);	
 			$this->seo_pro = new SeoPro($registry);
-		}
+	}
 	//seopro end
 	
 	public function index() {
-
 		// Add rewrite to url class
 		if ($this->config->get('config_seo_url')) {
 			$this->url->addRewrite($this);
 		}
-
 	
 		// Decode URL
 		if (isset($this->request->get['_route_'])) {
@@ -90,17 +88,16 @@ class ControllerStartupSeoUrl extends Controller {
 		if($this->config->get('config_seo_pro')){		
 			$this->seo_pro->validate();
 		}
-	//seopro validate
-		
+		//seopro validate
 	}
 
 	public function rewrite($link) {
 		$url_info = parse_url(str_replace('&amp;', '&', $link));
 
-		if($this->config->get('config_seo_pro')){		
-		$url = null;
-			} else {
-		$url = '';
+		if($this->config->get('config_seo_pro')) {		
+			$url = null;
+		} else {
+			$url = '';
 		}
 
 		$data = array();
@@ -111,10 +108,6 @@ class ControllerStartupSeoUrl extends Controller {
 		if($this->config->get('config_seo_pro')){		
 			list($url, $data, $postfix) =  $this->seo_pro->baseRewrite($data, (int)$this->config->get('config_language_id'));	
 		}
-		
-		
-
-		
 		//seo_pro baseRewrite
 
 		foreach ($data as $key => $value) {
