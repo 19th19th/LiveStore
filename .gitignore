@@ -9,11 +9,6 @@ upload/admin/view/template/extension/module/cr_translate_mate.twig
 upload/admin/view/template/extension/module/cr_translate_mate_table.twig
 
 
-# ===== Local configs =====
-upload/config.php
-upload/admin/config.php
-
-
 # ===== Disable install on server =====
 install_
 upload/install_
