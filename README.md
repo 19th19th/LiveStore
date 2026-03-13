@@ -4,6 +4,7 @@
 ## Ссылки
 
 - [liveopencart.ru](https://liveopencart.ru/)
+- [Демо-сайт](https://лайвстор.рф)
 - [Форум](https://forum.liveopencart.ru/)
 - [Документация](https://liveopencart.ru/docs-opencart3/)
 
