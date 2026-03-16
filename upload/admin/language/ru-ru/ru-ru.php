@@ -148,3 +148,4 @@ $_['summernote'] = 'ru-RU';
 $_['datepicker'] = 'ru';
 $_['button_translation_add'] = 'Добавить перевод';
 $_['error_curl'] = 'CURL: Error Code(%s): %s';
+$_['column_id'] = 'ID';

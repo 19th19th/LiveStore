@@ -46,90 +46,16 @@
               <label class="control-label" for="input-status">{{ entry_status }}</label>
               <select name="filter_status" id="input-status" class="form-control">
                 <option value=""></option>
-                
-                  
-              
-              
-          
-          
-                  
-                  
-                  
                   {% if filter_status == '1' %}
-                  
-                  
-                  
-                  
-          
-          
-              
-              
-                  
-                <option value="1" selected="selected">{{ text_enabled }}</option>
-                
-                  
-              
-              
-          
-          
-                  
-                  
-                  
+                  <option value="1" selected="selected">{{ text_enabled }}</option>
                   {% else %}
-                  
-                  
-                  
-                  
-          
-          
-              
-              
-                  
-                <option value="1">{{ text_enabled }}</option>
-                
-                  
-              
-              
-          
-          
-                  
-                  
-                  
+                  <option value="1">{{ text_enabled }}</option>
                   {% endif %}
                   {% if filter_status == '0' %}
-                  
-                  
-                  
-                  
-          
-          
-              
-              
-                  
-                <option value="0" selected="selected">{{ text_disabled }}</option>
-                
-                  
-              
-              
-          
-          
-                  
-                  
-                  
+                  <option value="0" selected="selected">{{ text_disabled }}</option>
                   {% else %}
-                  
-                  
-                  
-                  
-          
-          
-              
-              
-                  
-                <option value="0">{{ text_disabled }}</option>
-                
+                  <option value="0">{{ text_disabled }}</option>
                   {% endif %}
-                
               </select>
             </div>
             <div class="form-group">
@@ -158,6 +84,7 @@
                   <thead>
                     <tr>
                       <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
+                      <td class="text-right">{% if sort == 'r.review_id' %} <a href="{{ sort_review_id }}" class="{{ order|lower }}">{{ column_id }}</a> {% else %} <a href="{{ sort_review_id }}">{{ column_id }}</a> {% endif %}</td>
                       <td class="text-left">{% if sort == 'pd.name' %} <a href="{{ sort_product }}" class="{{ order|lower }}">{{ column_product }}</a> {% else %} <a href="{{ sort_product }}">{{ column_product }}</a> {% endif %}</td>
                       <td class="text-left">{% if sort == 'r.author' %} <a href="{{ sort_author }}" class="{{ order|lower }}">{{ column_author }}</a> {% else %} <a href="{{ sort_author }}">{{ column_author }}</a> {% endif %}</td>
                       <td class="text-right">{% if sort == 'r.rating' %} <a href="{{ sort_rating }}" class="{{ order|lower }}">{{ column_rating }}</a> {% else %} <a href="{{ sort_rating }}">{{ column_rating }}</a> {% endif %}</td>
@@ -167,7 +94,6 @@
                     </tr>
                   </thead>
                   <tbody>
-                  
                   {% if reviews %}
                   {% for review in reviews %}
                   <tr>
@@ -176,6 +102,7 @@
                       {% else %}
                       <input type="checkbox" name="selected[]" value="{{ review.review_id }}" />
                       {% endif %}</td>
+                    <td class="text-right">{{ review.review_id }}</td>
                     <td class="text-left">{{ review.name }}</td>
                     <td class="text-left">{{ review.author }}</td>
                     <td class="text-right">{{ review.rating }}</td>
@@ -190,7 +117,6 @@
                   </tr>
                   {% endif %}
                     </tbody>
-                  
                 </table>
               </div>
             </form>

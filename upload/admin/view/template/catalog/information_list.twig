@@ -37,6 +37,11 @@
               <thead>
                 <tr>
                   <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
+                  <td class="text-right">{% if sort == 'i.information_id' %}
+                    <a href="{{ sort_information_id }}" class="{{ order|lower }}">{{ column_id }}</a>
+                    {% else %}
+                    <a href="{{ sort_information_id }}">{{ column_id }}</a>
+                    {% endif %}</td>
                   <td class="text-left">{% if sort == 'id.title' %}
                     <a href="{{ sort_title }}" class="{{ order|lower }}">{{ column_title }}</a>
                     {% else %}
@@ -52,11 +57,11 @@
                     {% else %}
                     <a href="{{ sort_status }}">{{ column_status }}</a>
                     {% endif %}</td>
-				  <td class="text-right">{% if sort == 'i.noindex' %}
+				          <td class="text-right">{% if sort == 'i.noindex' %}
                     <a href="{{ sort_noindex }}" class="{{ order|lower }}">{{ column_noindex }}</a>
                     {% else %}
                     <a href="{{ sort_noindex }}">{{ column_noindex }}</a>
-					{% endif %}</td>
+					          {% endif %}</td>
                   <td class="text-right">{{ column_action }}</td>
                 </tr>
               </thead>
@@ -69,14 +74,15 @@
                     {% else %}
                     <input type="checkbox" name="selected[]" value="{{ information.information_id }}" />
                     {% endif %}</td>
+                  <td class="text-right">{{ information.information_id }}</td>
                   <td class="text-left">{{ information.title }}</td>
                   <td class="text-right">{{ information.sort_order }}</td>
                   <td class="text-left">{{ information.status }}</td>
-				  <td class="text-right">{{ information.noindex }}</td>
+				          <td class="text-right">{{ information.noindex }}</td>
                   <td class="text-right">
-					<a target="_blank" href="{{ information.href_shop }}" data-toggle="tooltip" title="{{ button_shop }}" class="btn btn-success"><i class="fa fa-eye"></i></a>
-					<a href="{{ information.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
-				  </td>
+                    <a target="_blank" href="{{ information.href_shop }}" data-toggle="tooltip" title="{{ button_shop }}" class="btn btn-success"><i class="fa fa-eye"></i></a>
+                    <a href="{{ information.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                  </td>
                 </tr>
                 {% endfor %}
                 {% else %}

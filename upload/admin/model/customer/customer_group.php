@@ -41,6 +41,7 @@ class ModelCustomerCustomerGroup extends Model {
 		$sql = "SELECT * FROM " . DB_PREFIX . "customer_group cg LEFT JOIN " . DB_PREFIX . "customer_group_description cgd ON (cg.customer_group_id = cgd.customer_group_id) WHERE cgd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 
 		$sort_data = array(
+			'cg.customer_group_id',
 			'cgd.name',
 			'cg.sort_order'
 		);

@@ -67,6 +67,7 @@ class ModelCatalogRecurring extends Model {
 		}
 
 		$sort_data = array(
+			'r.recurring_id',
 			'rd.name',
 			'r.sort_order'
 		);
