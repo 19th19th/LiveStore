@@ -46,3 +46,5 @@ vendor/
 
 # ===== IDE =====
 .idea/
+upload/system/for_livestore_demo.ocmod.xml
+upload/system/demo_demo.ocmod.xml
