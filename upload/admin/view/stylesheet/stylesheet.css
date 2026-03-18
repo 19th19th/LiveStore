@@ -146,6 +146,7 @@ fieldset legend {margin:0 0 15px;padding-bottom:5px;font-weight:700;font-size:1.
 input[type="radio"], input[type="checkbox"] {margin:2px 0 0}
 
 .radio, .checkbox {min-height:18px}
+.form-horizontal .control-label {word-wrap:break-word}
 
 input[type="radio"], .radio input[type="radio"], .radio-inline input[type="radio"], input[type="checkbox"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {position:relative;width:13px;width:16px \0;height:13px;height:16px \0;-webkit-appearance:none;background:white;border:1px solid #dcdcdc;border:1px solid transparent \0;border-radius:1px}
 input[type="radio"]:focus, .radio input[type="radio"]:focus, .radio-inline input[type="radio"]:focus, input[type="checkbox"]:focus, .checkbox input[type="checkbox"]:focus, .checkbox-inline input[type="checkbox"]:focus {border-color:#4d90fe;outline:0}
