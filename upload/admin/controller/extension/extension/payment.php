@@ -97,6 +97,7 @@ class ControllerExtensionExtensionPayment extends Controller {
 		}
 		
 		$data['hiden'] = false;
+		$data['links'] = false;
 
 		if ($files) {
 			foreach ($files as $file) {
@@ -127,9 +128,13 @@ class ControllerExtensionExtensionPayment extends Controller {
 					$data['hiden'] = true;
 				}
 			}
+			
+			if(count(array_filter(array_column($data['extensions'], 'link')))) {
+				$data['links'] = true;
+			}
+			
+			array_multisort(array_column($data['extensions'], 'installed'), SORT_DESC, array_column($data['extensions'], 'name'), SORT_ASC, $data['extensions']);
 		}
-
-		$data['extensions'] = sort_extensions($data['extensions']);
 		
 		$this->response->setOutput($this->load->view('extension/extension/payment', $data));
 	}
