@@ -106,13 +106,14 @@ a:hover, a:focus {text-decoration:none}
 
 /* 2nd lvl */
 #menu li li a {color:#7f8a9b}
-#menu li li a:before {content:"\f101";font-size:13px;font-family:FontAwesome;margin-left:10px;margin-right:10px;transition:margin ease 0.5s}
-#menu li li a:hover:before {margin-right:20px}
+#menu li li a:before {content:"\f101";font-size:13px;font-family:FontAwesome;margin-left:10px;margin-right:10px}
+
 #menu li li a:hover {color:#fff;background-color:#242d37}
 #menu li li.active > a {color:#0b91d2;background-color:#242d37}
-#menu li ul a {padding-left:20px}
-#menu li li ul a {padding-left:40px}
-#menu li li li ul a {padding-left:60px}
+#menu li ul a {padding-left:12px}
+#menu li li ul a {padding-left:20px;}
+#menu li li ul a:before {content:"\f105"}
+#menu li li li ul a {padding-left:30px}
 #menu li li li li ul a {padding-left:80px}
 
 /* footer */

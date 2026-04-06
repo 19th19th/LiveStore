@@ -323,6 +323,14 @@ class ControllerCommonColumnLeft extends Controller {
 					'children' => $voucher
 				);
 			}
+			
+			if ($this->user->hasPermission('access', 'tool/upload')) {
+				$sale[] = array(
+					'name'	   => $this->language->get('text_upload'),
+					'href'     => $this->url->link('tool/upload', 'user_token=' . $this->session->data['user_token'], true),
+					'children' => array()
+				);
+			}
 
 			if ($sale) {
 				$data['menus'][] = array(
@@ -625,7 +633,8 @@ class ControllerCommonColumnLeft extends Controller {
 					'children' => array()
 				);
 			}
-
+			
+			/*
 			if ($this->user->hasPermission('access', 'tool/upload')) {
 				$maintenance[] = array(
 					'name'	   => $this->language->get('text_upload'),
@@ -633,6 +642,7 @@ class ControllerCommonColumnLeft extends Controller {
 					'children' => array()
 				);
 			}
+			*/
 
 			if ($this->user->hasPermission('access', 'tool/log')) {
 				$maintenance[] = array(
