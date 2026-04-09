@@ -86,34 +86,33 @@ a:hover, a:focus {text-decoration:none}
 }
 
 /* Navigation */
-#navigation {font-weight:700;text-transform:uppercase;padding:15px 15px 15px 21px;color:#fff;background:#19222E;display:block;}
-#navigation .fa{width:18px;margin:0 5px 0 0;font-size:16px;}
+#navigation {font-weight:700;text-transform:uppercase;padding:15px 15px 15px 15px;color:#fff;background:#19222E;display:block;}
+#navigation .fa{margin:0 5px 0 0;font-size:16px;}
 
 /* Menu */
 #menu, #menu ul, #menu li {padding:0;margin:0;list-style:none}
 #menu {margin-bottom:25px}
-#menu li a {text-decoration:none;display:block;padding:10px;cursor:pointer;border-bottom:0px solid #515151}
+#menu li a {text-decoration:none;display:block;padding:12px;cursor:pointer;border-bottom:0px solid #515151}
 #menu li a.parent:after {font-family:FontAwesome;content:"\f107";float:right;margin-right:8px}
 #menu li a.collapsed:after {content:"\f105"}
 
 /* 1st lvl */
 #menu > li {position:relative;border-bottom:1px solid #2b3642}
-#menu > li > a {font-size:14px;color:#b3cbdd;padding-left:20px;border-bottom:0px solid #585858}
+#menu > li > a {font-size:14px;color:#b3cbdd;padding-left:15px;border-bottom:0px solid #585858}
 #menu > li > a:hover {background-color:#444}
-#menu > li > a > i {font-size:16px;width:18px;margin-right:5px}
+#menu > li > a > i {font-size:16px;margin-right:5px}
 #menu > li.active > a {color:#0b91d2;background-color:#171b21}
 #menu > li > ul {background-color:#293141}
 
 /* 2nd lvl */
 #menu li li a {color:#7f8a9b}
 #menu li li a:before {content:"\f101";font-size:13px;font-family:FontAwesome;margin-left:10px;margin-right:10px}
-
 #menu li li a:hover {color:#fff;background-color:#242d37}
 #menu li li.active > a {color:#0b91d2;background-color:#242d37}
-#menu li ul a {padding-left:12px}
-#menu li li ul a {padding-left:20px;}
-#menu li li ul a:before {content:"\f105"}
-#menu li li li ul a {padding-left:30px}
+#menu li ul a {padding-left:16px}
+#menu li li ul a:before {content:"\f105";font-size:13px;font-family:FontAwesome;margin-left:10px;margin-right:10px}
+#menu li li ul a {padding-left:32px}
+#menu li li li ul a {padding-left:48px}
 #menu li li li li ul a {padding-left:80px}
 
 /* footer */
