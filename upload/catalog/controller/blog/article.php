@@ -12,8 +12,7 @@ class ControllerBlogArticle extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text'      => $this->language->get('text_home'),
-			'href'      => $this->url->link('common/home'),			
-			'separator' => false
+			'href'      => $this->url->link('common/home')
 		);
 		
 		$configblog_name = $this->config->get('configblog_name');
@@ -397,8 +396,6 @@ class ControllerBlogArticle extends Controller {
 		}
 
 		$download_info = $this->model_blog_article->getDownload($article_id, $download_id);
-		
-		
 
 		if ($download_info) {
 			$file = DIR_DOWNLOAD . $download_info['filename'];
@@ -425,7 +422,7 @@ class ControllerBlogArticle extends Controller {
 				exit('Error: Headers already sent out!');
 			}
 		} else {
-			$this->redirect(HTTP_SERVER . 'index.php?route=account/download');
+			$this->response->redirect($this->url->link('account/download'));
 		}
 	}
 	
@@ -438,13 +435,15 @@ class ControllerBlogArticle extends Controller {
 			$page = $this->request->get['page'];
 		} else {
 			$page = 1;
-		}  
+		} 
+		
+		$limit = 5;
 		
 		$data['reviews'] = array();
 		
 		$review_total = $this->model_blog_review->getTotalReviewsByArticleId($this->request->get['article_id']);
 			
-		$results = $this->model_blog_review->getReviewsByArticleId($this->request->get['article_id'], ($page - 1) * 5, 5);
+		$results = $this->model_blog_review->getReviewsByArticleId($this->request->get['article_id'], ($page - 1) * $limit, $limit);
       		
 		foreach ($results as $result) {
         	$data['reviews'][] = array(
@@ -459,12 +458,12 @@ class ControllerBlogArticle extends Controller {
 		$pagination = new Pagination();
 		$pagination->total = $review_total;
 		$pagination->page = $page;
-		$pagination->limit = 5;
+		$pagination->limit = $limit;
 		$pagination->url = $this->url->link('blog/article/review', 'article_id=' . $this->request->get['article_id'] . '&page={page}');
 
 		$data['pagination'] = $pagination->render();
 
-		$data['results'] = sprintf($this->language->get('text_pagination'), ($review_total) ? (($page - 1) * 5) + 1 : 0, ((($page - 1) * 5) > ($review_total - 5)) ? $review_total : ((($page - 1) * 5) + 5), $review_total, ceil($review_total / 5));
+		$data['results'] = sprintf($this->language->get('text_pagination'), ($review_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($review_total - $limit)) ? $review_total : ((($page - 1) * $limit) + $limit), $review_total, ceil($review_total / $limit));
 
 		$this->response->setOutput($this->load->view('blog/review', $data));
 		

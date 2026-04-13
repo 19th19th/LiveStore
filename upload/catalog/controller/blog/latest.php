@@ -251,7 +251,6 @@ class ControllerBlogLatest extends Controller {
 		$pagination->total = $article_total;
 		$pagination->page = $page;
 		$pagination->limit = $limit;
-		$pagination->text = $this->language->get('text_pagination');
 		$pagination->url = $this->url->link('blog/latest', $url . '&page={page}');
 
 		$data['pagination'] = $pagination->render();
