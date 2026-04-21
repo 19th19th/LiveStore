@@ -320,7 +320,7 @@ class ControllerAccountAddress extends Controller {
 		} elseif (!empty($address_info)) {
 			$data['firstname'] = $address_info['firstname'];
 		} else {
-			$data['firstname'] = '';
+			$data['firstname'] = $this->customer->getFirstName();
 		}
 
 		if (isset($this->request->post['lastname'])) {
@@ -328,7 +328,7 @@ class ControllerAccountAddress extends Controller {
 		} elseif (!empty($address_info)) {
 			$data['lastname'] = $address_info['lastname'];
 		} else {
-			$data['lastname'] = '';
+			$data['lastname'] = $this->customer->getLastName();
 		}
 
 		if (isset($this->request->post['company'])) {
