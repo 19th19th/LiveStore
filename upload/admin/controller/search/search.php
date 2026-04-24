@@ -27,15 +27,13 @@ class ControllerSearchSearch extends Controller {
 
         if(!empty($this->request->get['query'])) {
             $_data['query'] = $this->request->get['query'];
-        }
-        else{
+        } else {
             $json['error'] = $this->language->get('text_empty_query');
         }
 
         if(!empty($this->request->get['search-option'])) {
             $search_option = $this->request->get['search-option'];
-        }
-        else{
+        } else {
             $search_option = 'catalog';
         }
 
@@ -54,8 +52,7 @@ class ControllerSearchSearch extends Controller {
                 foreach($data['products'] as $key => $product){
                     if(!empty($product['image'])) {
                         $data['products'][$key]['image'] = $this->model_tool_image->resize($product['image'], 30, 30);
-                    }
-                    else{
+                    } else {
                         $data['products'][$key]['image'] = $this->model_tool_image->resize('no_image.png', 30, 30);
                     }
 
@@ -68,8 +65,7 @@ class ControllerSearchSearch extends Controller {
                 foreach($data['categories'] as $key => $category){
                     if(!empty($category['image'])) {
                         $data['categories'][$key]['image'] = $this->model_tool_image->resize($category['image'], 30, 30);
-                    }
-                    else{
+                    } else {
                         $data['categories'][$key]['image'] = $this->model_tool_image->resize('no_image.png', 30, 30);
                     }
 
@@ -82,8 +78,7 @@ class ControllerSearchSearch extends Controller {
                 foreach($data['manufacturers'] as $key => $manufacturer){
                     if(!empty($manufacturer['image'])) {
                         $data['manufacturers'][$key]['image'] = $this->model_tool_image->resize($manufacturer['image'], 30, 30);
-                    }
-                    else{
+                    } else {
                         $data['manufacturers'][$key]['image'] = $this->model_tool_image->resize('no_image.png', 30, 30);
                     }
 
@@ -96,7 +91,7 @@ class ControllerSearchSearch extends Controller {
             case 'customers':
                 $data['customers'] = $this->model_search_search->getCustomers($_data);
 
-                foreach($data['customers'] as $key => $customer){
+                foreach($data['customers'] as $key => $customer) {
                     $data['customers'][$key]['url'] = $this->url->link('customer/customer/edit', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $customer['customer_id'], true);
                 }
 
@@ -106,7 +101,7 @@ class ControllerSearchSearch extends Controller {
             case 'orders':
                 $data['orders'] = $this->model_search_search->getOrders($_data);
 
-                foreach($data['orders'] as $key => $order){
+                foreach($data['orders'] as $key => $order) {
                     $data['orders'][$key]['url'] = $this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $order['order_id'], true);
                 }
 
