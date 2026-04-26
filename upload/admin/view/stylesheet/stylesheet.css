@@ -165,6 +165,8 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 .table .nowrap{white-space:nowrap}
 
 .pagination {margin:0}
+.pagination > li:first-child > a, .pagination > li:first-child > span {border-radius:var(--border-radius-1-0-0-1)}
+.pagination > li:last-child > a, .pagination > li:last-child > span {border-radius:var(--border-radius-0-1-1-0)}
 
 .form-group {padding-top:15px;padding-bottom:15px;margin-bottom:0}
 .form-group + .form-group {border-top:1px solid #ededed}
@@ -248,7 +250,7 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 .btn-default:hover, .btn-default:focus {color:#555;background:#e5e5e5}
 .btn-default:active, .btn-default.active, .open > .btn-default.dropdown-toggle {color:#333;background:#ddd}
 
-#oc-search{margin:5px 0 0}
+#oc-search{margin:5px 0 0;padding:0}
 #oc-search .dropdown-header{margin:5px 0}
 #oc-search .caret{margin:0 0 0 10px}
 #oc-search .input-group{width:100%}
