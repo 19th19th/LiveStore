@@ -1335,7 +1335,7 @@ $('input[name=\'product_related_article_input\']').autocomplete({
 		});
 	},
 	'select': function(item) {
-		$('input[name=\'product_related_article\']').val('');
+		$('input[name=\'product_related_article_input\']').val('');
 
 		$('#article-related' + item['value']).remove();
 
