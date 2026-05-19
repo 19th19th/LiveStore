@@ -36,6 +36,7 @@ h1, h2, h3, h4, h5, h6, p {margin-top:0}
 .breadcrumb li + li:before {content:"\f105";font-family:FontAwesome;color:#bbb;padding:0 5px; font-size:10px}
 
 a:hover, a:focus {text-decoration:none}
+a, a:focus, a:hover, a:visited{outline:none !important}
 
 #container {min-height:100%;width:100%;position:relative;background:#f7f7f7;overflow:hidden}
 
