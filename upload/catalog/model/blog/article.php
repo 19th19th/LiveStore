@@ -240,7 +240,6 @@ class ModelBlogArticle extends Model {
 	}
 	
 	public function getArticleRelatedByProduct($data) {
-		
 		$article_data = array();
 		
 		$this->load->model('blog/article');
@@ -258,7 +257,6 @@ class ModelBlogArticle extends Model {
 	
 	//category manuf
 	public function getArticleRelatedByCategory($data) {
-
 		$article_data = array();
 				
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "article_related_wb pr LEFT JOIN " . DB_PREFIX . "article p ON (pr.article_id = p.article_id) LEFT JOIN " . DB_PREFIX . "article_to_store p2s ON (p.article_id = p2s.article_id) WHERE pr.category_id = '" . (int)$data['category_id'] . "' AND p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "' LIMIT " . (int)$data['limit']); 
@@ -272,7 +270,6 @@ class ModelBlogArticle extends Model {
 	}
 	
 	public function getArticleRelatedByManufacturer($data) {
-
 		$article_data = array();
 
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "article_related_mn pr LEFT JOIN " . DB_PREFIX . "article p ON (pr.article_id = p.article_id) LEFT JOIN " . DB_PREFIX . "article_to_store p2s ON (p.article_id = p2s.article_id) WHERE pr.manufacturer_id = '" . (int)$data['manufacturer_id'] . "' AND p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "' LIMIT " . (int)$data['limit']); 
@@ -281,8 +278,6 @@ class ModelBlogArticle extends Model {
 			$article_data[$result['article_id']] = $this->getArticle($result['article_id']);
 		}
 
-		
-
 		return $article_data;
 
 	}
@@ -290,7 +285,9 @@ class ModelBlogArticle extends Model {
 	
 	public function getArticleRelatedProduct($article_id) {
 		$product_data = array();
+		
 		$this->load->model('catalog/product');
+		
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "article_related_product np LEFT JOIN " . DB_PREFIX . "product p ON (np.product_id = p.product_id) LEFT JOIN " . DB_PREFIX . "product_to_store p2s ON (p.product_id = p2s.product_id) WHERE np.article_id = '" . (int)$article_id . "' AND p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'");
 		
 		foreach ($query->rows as $result) { 
@@ -304,9 +301,9 @@ class ModelBlogArticle extends Model {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "article_to_layout WHERE article_id = '" . (int)$article_id . "' AND store_id = '" . (int)$this->config->get('config_store_id') . "'");
 		
 		if ($query->num_rows) {
-			return $query->row['layout_id'];
+			return (int)$query->row['layout_id'];
 		} else {
-			return  $this->config->get('config_layout_article');
+			return 0;
 		}
 	}
 	
@@ -317,15 +314,18 @@ class ModelBlogArticle extends Model {
 	}
 
 	public function getDownloads($article_id) {
-
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "article_to_download pd LEFT JOIN " . DB_PREFIX . "download d ON(pd.download_id=d.download_id) LEFT JOIN " . DB_PREFIX . "download_description dd ON(pd.download_id=dd.download_id) WHERE article_id = '" . (int)$article_id . "' AND dd.language_id = '" . (int)$this->config->get('config_language_id')."'");
 
 		return $query->rows;
 	}
 
 	public function getDownload($article_id, $download_id) {
-	$download="";
-	if($download_id!=0)$download=" AND d.download_id=".(int)$download_id;
+		$download = "";
+	
+		if($download_id != 0) {
+			$download = " AND d.download_id=".(int)$download_id;
+		}
+		
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "article_to_download pd LEFT JOIN " . DB_PREFIX . "download d ON(pd.download_id=d.download_id) LEFT JOIN " . DB_PREFIX . "download_description dd ON(pd.download_id=dd.download_id) WHERE article_id = '" . (int)$article_id . "' ".$download." AND dd.language_id = '" . (int)$this->config->get('config_language_id')."'");
 
 		return $query->row;
@@ -432,6 +432,4 @@ class ModelBlogArticle extends Model {
 		
 		return $article_data;
 	}
-		
 }
-?>

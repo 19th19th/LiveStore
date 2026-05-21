@@ -46,9 +46,9 @@ class ModelBlogCategory extends Model {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "blog_category_to_layout WHERE blog_category_id = '" . (int)$blog_category_id . "' AND store_id = '" . (int)$this->config->get('config_store_id') . "'");
 
 		if ($query->num_rows) {
-			return $query->row['layout_id'];
+			return (int)$query->row['layout_id'];
 		} else {
-			return $this->config->get('config_layout_category');
+			return 0;
 		}
 	}
 
@@ -56,4 +56,3 @@ class ModelBlogCategory extends Model {
 		return count($this->getCategories((int)$parent_id));
 	}
 }
-?>

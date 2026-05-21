@@ -1,10 +1,14 @@
 <nav id="column-left">
-	<div id="navigation"><span class="fa fa-bars"></span> {{ text_navigation }}</div>
+	<div id="navigation"><i class="fa fa-bars fa-fw"></i> {{ text_navigation }}</div>
 	<ul id="menu">
 		{% set i = 0 %}
 		{% for menu in menus %}
 			<li id="{{ menu.id }}">
-				{% if menu.href %}<a href="{{ menu.href }}"><i class="fa {{ menu.icon }} fw"></i> {{ menu.name }}</a>{% else %}<a href="#collapse{{ i }}" data-toggle="collapse" class="parent collapsed"><i class="fa {{ menu.icon }} fw"></i> {{ menu.name }}</a>{% endif %}
+				{% if menu.href %}
+					<a href="{{ menu.href }}"><i class="fa {{ menu.icon }} fa-fw"></i> {{ menu.name }}</a>
+				{% else %}
+					<a href="#collapse{{ i }}" data-toggle="collapse" class="parent collapsed"><i class="fa {{ menu.icon }} fa-fw"></i> {{ menu.name }}</a>
+				{% endif %}
 				{% if menu.children %}
 					<ul id="collapse{{ i }}" class="collapse">
 						{% set j = 0 %}

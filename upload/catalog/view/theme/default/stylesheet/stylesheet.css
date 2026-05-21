@@ -29,6 +29,7 @@ h5 {font-size:1.1em}
 h6 {font-size:1em}
 a {color:#23a1d1}
 a:hover {text-decoration:none}
+a, a:focus, a:hover, a:visited{outline:none !important}
 legend {font-size:18px;padding:7px 0px}
 label {font-weight:500}
 

@@ -9,18 +9,31 @@
 ЕСЛИ ОБНОВЛЕНИЕ В СУЩЕСТВУЮЩИЙ МАГАЗИН, НЕ ЗАБУДЬТЕ ПРОЧИТАТЬ UPGRADE.TXT
 
 -------
+Требования
+-------
+
+Для работы ЛайвСтор требуется:
+
+- PHP 7.3-8.1
+- MySQL/MariaDB
+- mod_rewrite или nginx rewrite
+- Расширения PHP:
+    - curl
+    - gd или imagick
+    - mbstring
+    - zip
+    - openssl
+    - mysqli
+
+-------
 Установка
 -------
-These instructions are for a manual installation using FTP, cPanel or other web hosting Control Panel.
-
 - Установка на Linux -
 
 1. Загрузите все ваши файлы и папки на ваш сервер из папки «Upload». Можно разархивировать в любое место на Ваш выбор.
    Например: В cPanel должно быть в папке public_html/ и в Plesk должно быть в httpdocs/.
 
-2. Переименуйте config-dist.php в config.php и admin/config-dist.php в admin/config.php
-
-3. Для Linux/Unix убедитесь, что папки и файлы доступны для записи.
+2. Для Linux/Unix убедитесь, что папки и файлы доступны для записи.
 
 		chmod 0755 or 0777 system/storage/cache/
 		chmod 0755 or 0777 system/storage/download/
@@ -37,16 +50,14 @@ These instructions are for a manual installation using FTP, cPanel or other web 
 
 		Если при правах 0755 не работает, попробуйте 0777.
 
-4. Убедитесь, что у Вас установлена база данных MySQL и Вы имеете к ней доступ. НИ В КОЕМ СЛУЧАЕ НЕ ИСПОЛЬЗУЙТЕ ROOT ЛОГИН И ПАРОЛЬ.
+3. Убедитесь, что у Вас установлена база данных MySQL и Вы имеете к ней доступ. НИ В КОЕМ СЛУЧАЕ НЕ ИСПОЛЬЗУЙТЕ ROOT ЛОГИН И ПАРОЛЬ.
 
-5. Посетите домашнюю страницу Вашего магазина.
-   Например: https://example.ru или https://example.ru/store/
+4. Посетите домашнюю страницу Вашего магазина.
+   Например: https://вашмагазин.ру или https://вашмагазин.ру/store/
 
-6. Следуйте инструкциям на экране.
+5. Следуйте инструкциям на экране.
 
-7. Удалите установочную директорию.
-
-8. Если вы загрузили скомпилированную версию с папкой «vendor» - она должна быть загружена выше корневой директории (в той же папке, где public_html или httpdocs)
+6. Удалите установочную директорию /install
 
 - Установка на Windows -
 
@@ -70,30 +81,16 @@ These instructions are for a manual installation using FTP, cPanel or other web 
 3. Убедитесь, что у Вас установлена база данных MySQL и Вы имеете к ней доступ. НИ В КОЕМ СЛУЧАЕ НЕ ИСПОЛЬЗУЙТЕ ROOT ЛОГИН И ПАРОЛЬ.
 
 4. Посетите домашнюю страницу Вашего магазина.
-   Например: https://example.ru или https://examle.ru/store/
+   Например: https://вашмагазин.ру или https://вашмагазин.ру/store/
 
 5. Следуйте инструкциям на экране.
 
-6. Удалите установочную директорию.
+6. Удалите установочную директорию /install
 
 - Локальная установка -
 
 Есть много веб-серверов для локальной установки, и большинство из них должны работать с LiveStore из коробки. Например...
 
-http://www.apachefriends.org/en/xampp.html
-http://www.ampps.com/
-http://www.usbwebserver.net
-http://www.wampserver.com/
-http://www.denwer.ru/
-
-
-
-----------------------------
-COMPOSER OR NOT TO COMPOSER
-----------------------------
-From version 2.2 composer has been added to aid developers who want to use composer libraries. 2 versions of OpenCart
-will become available, one compiled and one non-compiled (composer.json only - no files in vendor folder).
-
-We STRONGLY advise leaving the vendor folder outside of the webroot - so files cannot be accessed directly.
-
-Composer installing is extremely simple - https://getcomposer.org
+https://www.apachefriends.org/
+https://www.ampps.com/
+https://www.wampserver.com/

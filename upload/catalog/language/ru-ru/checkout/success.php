@@ -1,5 +1,6 @@
 <?php
 $_['heading_title'] = 'Ваш заказ сформирован!';
+$_['heading_title_customer'] = 'Ваш заказ #%s сформирован!';
 $_['text_basket'] = 'Корзина покупок';
 $_['text_checkout'] = 'Оформление заказа';
 $_['text_success'] = 'Успешно';

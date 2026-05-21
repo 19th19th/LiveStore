@@ -20,6 +20,9 @@
 			<thead>
 				<tr>
 					<td class="text-left">{{ column_name }}</td>
+					{% if links %}
+						<td class="text-center"></td>
+					{% endif %}
 					<td class="text-right">{{ column_sort_order }}</td>
 					<td class="text-left">{{ column_status }}</td>
 					<td class="text-right">{{ column_action }}</td>
@@ -30,6 +33,9 @@
 					{% for extension in extensions %}
 						<tr>
 							<td class="text-left">{{ extension.name }}</td>
+							{% if links %}
+								<td class="text-center">{{ extension.link }}</td>
+							{% endif %}
 							<td class="text-right">{{ extension.sort_order }}</td>
 							<td class="text-left">{{ extension.status }}</td>
 							<td class="text-right">

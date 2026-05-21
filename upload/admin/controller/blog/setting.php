@@ -128,7 +128,7 @@ class ControllerBlogSetting extends Controller {
 
 		$data['action'] = $this->url->link('blog/setting', 'user_token=' . $this->session->data['user_token'], true);
 
-		$data['cancel'] = $this->url->link('setting/store', 'user_token=' . $this->session->data['user_token'], true);
+		$data['cancel'] = $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'], true);
 
 		$data['user_token'] = $this->session->data['user_token'];
 		
@@ -260,7 +260,7 @@ class ControllerBlogSetting extends Controller {
 	}
 
 	protected function validate() {
-		if (!$this->user->hasPermission('modify', 'setting/setting')) {
+		if (!$this->user->hasPermission('modify', 'blog/setting')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
