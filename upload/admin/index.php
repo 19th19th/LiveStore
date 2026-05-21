@@ -1,7 +1,7 @@
 <?php
 
 // Version
-define('VERSION', '3.0.4.3');
+define('VERSION', '3.0.4.4');
 define('IS_LIVESTORE', true);
 
 // Configuration
