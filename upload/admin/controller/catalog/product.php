@@ -980,6 +980,11 @@ class ControllerCatalogProduct extends Controller {
 			$product_info = $this->model_catalog_product->getProduct($this->request->get['product_id']);
 		}
 
+		if (isset($this->request->get['product_id'])) {
+			$data['product_id'] = $this->request->get['product_id'];
+			$data['href_shop'] = HTTP_CATALOG . 'index.php?route=product/product&product_id=' . $this->request->get['product_id'];
+		}
+
 		$data['user_token'] = $this->session->data['user_token'];
 
 		$this->load->model('localisation/language');
