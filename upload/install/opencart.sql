@@ -3333,6 +3333,7 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'config', 'config_product_count', '0', 0),
 (0, 'config', 'config_limit_admin', '25', 0),
 (0, 'config', 'config_limit_autocomplete', '5', 0),
+(0, 'config', 'config_limit_filemanager', '16', 0),
 (0, 'config', 'config_review_status', '1', 0),
 (0, 'config', 'config_review_guest', '1', 0),
 (0, 'config', 'config_voucher_min', '1', 0),
