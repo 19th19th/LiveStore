@@ -150,6 +150,7 @@ class ModelCatalogManufacturer extends Model {
 
 		$sort_data = array(
 			'name',
+			'noindex',
 			'sort_order'
 		);
 
@@ -226,7 +227,7 @@ class ModelCatalogManufacturer extends Model {
 		return $query->row['total'];
 	}
 	
-		public function getManufacturerDescriptions($manufacturer_id) {
+	public function getManufacturerDescriptions($manufacturer_id) {
 		$manufacturer_description_data = array();
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "manufacturer_description WHERE manufacturer_id = '" . (int)$manufacturer_id . "'");
 		foreach ($query->rows as $result) {
