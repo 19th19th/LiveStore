@@ -8,12 +8,6 @@ class ModelBlogArticle extends Model {
 	}
 	
 	public function getArticle($article_id) {
-		if ($this->customer->isLogged()) {
-			$customer_group_id = $this->customer->getGroupId();
-		} else {
-			$customer_group_id = $this->config->get('config_customer_group_id');
-		}	
-				
 		$query = $this->db->query("SELECT DISTINCT *, pd.name AS name, p.image, (SELECT AVG(rating) AS total FROM " . DB_PREFIX . "review_article r1 WHERE r1.article_id = p.article_id AND r1.status = '1' GROUP BY r1.article_id) AS rating, (SELECT COUNT(*) AS total FROM " . DB_PREFIX . "review_article r2 WHERE r2.article_id = p.article_id AND r2.status = '1' GROUP BY r2.article_id) AS reviews, p.sort_order FROM " . DB_PREFIX . "article p LEFT JOIN " . DB_PREFIX . "article_description pd ON (p.article_id = pd.article_id) LEFT JOIN " . DB_PREFIX . "article_to_store p2s ON (p.article_id = p2s.article_id)  WHERE p.article_id = '" . (int)$article_id . "' AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND p.status = '1' AND p.date_available <= NOW() AND p2s.store_id = '" . (int)$this->config->get('config_store_id') . "'");
 		
 		if ($query->num_rows) {
@@ -26,13 +20,14 @@ class ModelBlogArticle extends Model {
 				'description'      => $query->row['description'],
 				'meta_description' => $query->row['meta_description'],
 				'meta_keyword'     => $query->row['meta_keyword'],
+				'tag'              => $query->row['tag'],
 				'image'            => $query->row['image'],
 				'rating'           => $query->row['rating'] ? round($query->row['rating']) : 0,
 				'reviews'          => $query->row['reviews'],
 				'sort_order'       => $query->row['sort_order'],
 				'article_review'   => $query->row['article_review'],
 				'status'           => $query->row['status'],
-				'gstatus'           => $query->row['gstatus'],
+				'gstatus'          => $query->row['gstatus'],
 				'date_added'       => $query->row['date_added'],
 				'date_modified'    => $query->row['date_modified'],
 				'viewed'           => $query->row['viewed']
@@ -81,35 +76,7 @@ class ModelBlogArticle extends Model {
 					$sql .= "MATCH(pd.tag) AGAINST('" . $this->db->escape(utf8_strtolower($data['filter_tag'])) . "')";
 				}
 			
-				$sql .= ")";
-				
-				if (!empty($data['filter_name'])) {
-					$sql .= " OR LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				}
-				
-				if (!empty($data['filter_name'])) {
-					$sql .= " OR LCASE(p.sku) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				}	
-				
-				if (!empty($data['filter_name'])) {
-					$sql .= " OR LCASE(p.upc) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				}		
-
-				if (!empty($data['filter_name'])) {
-					$sql .= " OR LCASE(p.ean) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				}
-
-				if (!empty($data['filter_name'])) {
-					$sql .= " OR LCASE(p.jan) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				}
-				
-				if (!empty($data['filter_name'])) {
-					$sql .= " OR LCASE(p.isbn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				}		
-				
-				if (!empty($data['filter_name'])) {
-					$sql .= " OR LCASE(p.mpn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				}					
+				$sql .= ")";				
 			}
 			
 			if (!empty($data['filter_blog_category_id'])) {
@@ -266,7 +233,6 @@ class ModelBlogArticle extends Model {
 		}
 
 		return $article_data;
-
 	}
 	
 	public function getArticleRelatedByManufacturer($data) {
@@ -279,7 +245,6 @@ class ModelBlogArticle extends Model {
 		}
 
 		return $article_data;
-
 	}
 	//category manuf
 	
@@ -322,7 +287,7 @@ class ModelBlogArticle extends Model {
 	public function getDownload($article_id, $download_id) {
 		$download = "";
 	
-		if($download_id != 0) {
+		if ($download_id != 0) {
 			$download = " AND d.download_id=".(int)$download_id;
 		}
 		
@@ -372,35 +337,7 @@ class ModelBlogArticle extends Model {
 					$sql .= "MATCH(pd.tag) AGAINST('" . $this->db->escape(utf8_strtolower($data['filter_tag'])) . "')";
 				}
 			
-				$sql .= ")";
-				
-				if (!empty($data['filter_name'])) {
-					$sql .= " OR LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				}
-				
-				if (!empty($data['filter_name'])) {
-					$sql .= " OR LCASE(p.sku) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				}	
-				
-				if (!empty($data['filter_name'])) {
-					$sql .= " OR LCASE(p.upc) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				}		
-
-				if (!empty($data['filter_name'])) {
-					$sql .= " OR LCASE(p.ean) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				}
-
-				if (!empty($data['filter_name'])) {
-					$sql .= " OR LCASE(p.jan) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				}
-				
-				if (!empty($data['filter_name'])) {
-					$sql .= " OR LCASE(p.isbn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				}		
-				
-				if (!empty($data['filter_name'])) {
-					$sql .= " OR LCASE(p.mpn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
-				}				
+				$sql .= ")";				
 			}
 						
 			if (!empty($data['filter_blog_category_id'])) {

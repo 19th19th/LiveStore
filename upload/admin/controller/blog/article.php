@@ -582,6 +582,14 @@ class ControllerBlogArticle extends Controller {
 			$data['noindex'] = 1;
 		}
 
+		if (isset($this->request->post['date_available'])) {
+			$data['date_available'] = $this->request->post['date_available'];
+		} elseif (!empty($article_info)) {
+			$data['date_available'] = ($article_info['date_available'] != '0000-00-00') ? $article_info['date_available'] : '';
+		} else {
+			$data['date_available'] = date('Y-m-d');
+		}
+
 		// Categories
 		$this->load->model('blog/category');
 		
