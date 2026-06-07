@@ -82,10 +82,10 @@ class ControllerCommonHeader extends Controller {
 					'href' => $result['url']
 				);
 			}
+
+			$data['search'] = $this->load->controller('search/search');
 		}
-
-		$data['search'] = $this->load->controller('search/search');
-
+		
 		return $this->load->view('common/header', $data);
 	}
 }
