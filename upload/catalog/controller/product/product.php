@@ -567,6 +567,10 @@ class ControllerProductProduct extends Controller {
 			$page = 1;
 		}
 
+		if (!isset($this->request->get['product_id'])) {
+			$this->request->get['product_id'] = 0;
+		}
+
 		$data['reviews'] = array();
 
 		$review_total = $this->model_catalog_review->getTotalReviewsByProductId($this->request->get['product_id']);
@@ -611,6 +615,10 @@ class ControllerProductProduct extends Controller {
 
 			if (empty($this->request->post['rating']) || $this->request->post['rating'] < 0 || $this->request->post['rating'] > 5) {
 				$json['error'] = $this->language->get('error_rating');
+			}
+
+			if (!isset($this->request->get['product_id']) || $this->request->get['product_id'] <= 0) {
+				$json['error'] = $this->language->get('error_product_id');
 			}
 
 			// Captcha
