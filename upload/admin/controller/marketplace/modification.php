@@ -196,7 +196,7 @@ class ControllerMarketplaceModification extends Controller {
             $json['error'] = $this->language->get('error_permission');
         }
 
-		if($modification) {
+		if ($modification) {
 			if (!$json) {
 				if (!empty($this->request->files['file']['name'])) {
 					if ($this->request->files['file']['name'] != $modification['code'].".ocmod.xml") {
@@ -448,7 +448,6 @@ class ControllerMarketplaceModification extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
 
 	public function delete() {
 		$this->load->language('marketplace/modification');
@@ -1147,10 +1146,10 @@ class ControllerMarketplaceModification extends Controller {
 				'status'          => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
 				'date_added'      => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 				'link'            => $result['link'],
-                'edit'            => $this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
+                'edit'            => $this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'] . $url, true),
                 'download'        => $this->url->link('marketplace/modification/download', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
-                'enable'          => $this->url->link('marketplace/modification/enable', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
-				'disable'         => $this->url->link('marketplace/modification/disable', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
+                'enable'          => $this->url->link('marketplace/modification/enable', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'] . $url, true),
+				'disable'         => $this->url->link('marketplace/modification/disable', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'] . $url, true),
 				'enabled'         => $result['status']
 			);
 		}
@@ -1269,6 +1268,20 @@ class ControllerMarketplaceModification extends Controller {
 		$this->document->addScript('view/javascript/codemirror/lib/xml.js');
 		$this->document->addScript('view/javascript/codemirror/lib/formatting.js');
 
+		$url = '';
+
+		if (isset($this->request->get['sort'])) {
+			$url .= '&sort=' . $this->request->get['sort'];
+		}
+
+		if (isset($this->request->get['order'])) {
+			$url .= '&order=' . $this->request->get['order'];
+		}
+
+		if (isset($this->request->get['page'])) {
+			$url .= '&page=' . $this->request->get['page'];
+		}
+
 		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = [
@@ -1278,7 +1291,7 @@ class ControllerMarketplaceModification extends Controller {
 
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true)
+			'href' => $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . $url, true)
 		];
 
 		$data['user_token'] = $this->session->data['user_token'];
@@ -1294,8 +1307,6 @@ class ControllerMarketplaceModification extends Controller {
 
 		$is_create = empty($this->request->get['modification_id']);
 		$modification_id = $is_create ? 0 : (int)$this->request->get['modification_id'];
-
-		$url = '';
 
 		if ($is_create) {
 			$data['action'] = $this->url->link('marketplace/modification/add', 'user_token=' . $this->session->data['user_token'] . $url, true);

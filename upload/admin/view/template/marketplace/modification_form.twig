@@ -52,7 +52,7 @@
 											<td class="text-left">{{ column_id }}</td>
 											<td class="text-left">{{ column_code }}</td>
 											<td class="text-left">{{ column_date_added }}</td>
-											<td class="text-right">{{ column_restore }} <a type="button" href="{{ history }}" data-toggle="tooltip" title="{{ button_history }}" class="btn btn-default"><i class="fa fa-trash"></i></a></td>
+											<td class="text-right">{{ column_restore }} <a type="button" href="{{ history }}" onclick="return confirm('{{ text_confirm }}');" data-toggle="tooltip" title="{{ button_history }}" class="btn btn-default"><i class="fa fa-trash"></i></a></td>
 										</tr>
 									</thead>
 									<tbody>
@@ -62,7 +62,7 @@
 													<td class="text-left">{{ backup['backup_id'] }}</td>
 													<td class="text-left">{{ backup['code'] }}</td>
 													<td class="text-left">{{ backup['date_added'] }}</td>
-													<td class="text-right"><a href="{{ backup['restore'] }}" data-toggle="tooltip" title="{{ button_restore }}" class="btn btn-primary"><i class="fa fa-share-square"></i></a></td>
+													<td class="text-right"><a href="{{ backup['restore'] }}" onclick="return confirm('{{ text_confirm }}');" data-toggle="tooltip" title="{{ button_restore }}" class="btn btn-primary"><i class="fa fa-share-square"></i></a></td>
 												</tr>
 											{% endfor %}
 										{% else %}
