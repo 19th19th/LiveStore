@@ -119,8 +119,9 @@ class ControllerMarketplaceModification extends Controller {
 
     public function restore() {
         $this->load->language('marketplace/extension');
+		$this->load->language('marketplace/modification');
 
-        $this->load->model('setting/modification');
+		$this->load->model('setting/modification');
 		
 		$this->document->setTitle($this->language->get('heading_title'));
 		
@@ -147,6 +148,8 @@ class ControllerMarketplaceModification extends Controller {
 
 				$this->model_setting_modification->editModification($modification_id, $data);
             }
+			
+			$this->session->data['success'] = $this->language->get('text_success');
 			
 			$this->response->redirect($this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $this->request->get['modification_id'], true));
         }
