@@ -53,6 +53,8 @@ class ModelCatalogManufacturer extends Model {
 		
 		$this->cache->delete('manufacturer');
 
+		$this->clearSeoCache();
+
 		return $manufacturer_id;
 	}
 
@@ -92,8 +94,6 @@ class ModelCatalogManufacturer extends Model {
 			foreach ($data['product_related'] as $related_id) {
 				$this->db->query("DELETE FROM " . DB_PREFIX . "product_related_mn WHERE manufacturer_id = '" . (int)$manufacturer_id . "' AND product_id = '" . (int)$related_id . "'");
 				$this->db->query("INSERT INTO " . DB_PREFIX . "product_related_mn SET manufacturer_id = '" . (int)$manufacturer_id . "', product_id = '" . (int)$related_id . "'");
-				
-	
 			}
 		}
 		
@@ -103,8 +103,6 @@ class ModelCatalogManufacturer extends Model {
 			foreach ($data['article_related'] as $related_id) {
 				$this->db->query("DELETE FROM " . DB_PREFIX . "article_related_mn WHERE manufacturer_id = '" . (int)$manufacturer_id . "' AND article_id = '" . (int)$related_id . "'");
 				$this->db->query("INSERT INTO " . DB_PREFIX . "article_related_mn SET manufacturer_id = '" . (int)$manufacturer_id . "', article_id = '" . (int)$related_id . "'");
-				
-	
 			}
 		}
 
@@ -121,6 +119,8 @@ class ModelCatalogManufacturer extends Model {
 		}
 
 		$this->cache->delete('manufacturer');
+
+		$this->clearSeoCache();
 	}
 
 	public function deleteManufacturer($manufacturer_id) {
@@ -133,6 +133,8 @@ class ModelCatalogManufacturer extends Model {
 		$this->db->query("DELETE FROM `" . DB_PREFIX . "article_related_mn` WHERE manufacturer_id = '" . (int)$manufacturer_id . "'");
 
 		$this->cache->delete('manufacturer');
+		
+		$this->clearSeoCache();
 	}
 
 	public function getManufacturer($manufacturer_id) {
@@ -264,5 +266,11 @@ class ModelCatalogManufacturer extends Model {
 		}
 		
 		return $article_related_data;
-	}	
+	}
+
+	private function clearSeoCache() {
+		if ($this->config->get('config_seo_pro') && $this->config->get('config_seo_url_cache')) {		
+			$this->cache->delete('seopro');
+		}
+	}
 }
