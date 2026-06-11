@@ -54,6 +54,8 @@ class ControllerDesignSeoUrl extends Controller {
 				$url .= '&page=' . $this->request->get['page'];
 			}
 
+			$this->clearSeoCache();
+
 			$this->response->redirect($this->url->link('design/seo_url', 'user_token=' . $this->session->data['user_token'] . $url, true));
 		}
 
@@ -101,6 +103,8 @@ class ControllerDesignSeoUrl extends Controller {
 			if (isset($this->request->get['page'])) {
 				$url .= '&page=' . $this->request->get['page'];
 			}
+
+			$this->clearSeoCache();
 
 			$this->response->redirect($this->url->link('design/seo_url', 'user_token=' . $this->session->data['user_token'] . $url, true));
 		}
@@ -151,6 +155,8 @@ class ControllerDesignSeoUrl extends Controller {
 			if (isset($this->request->get['page'])) {
 				$url .= '&page=' . $this->request->get['page'];
 			}
+
+			$this->clearSeoCache();
 
 			$this->response->redirect($this->url->link('design/seo_url', 'user_token=' . $this->session->data['user_token'] . $url, true));
 		}
@@ -556,5 +562,11 @@ class ControllerDesignSeoUrl extends Controller {
 		}
 
 		return !$this->error;
+	}
+
+	private function clearSeoCache() {
+		if ($this->config->get('config_seo_pro') && $this->config->get('config_seo_url_cache')) {		
+			$this->cache->delete('seopro');
+		}
 	}
 }
