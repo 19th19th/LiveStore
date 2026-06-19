@@ -133,6 +133,12 @@ class ControllerSettingSetting extends Controller {
             $data['error_limit_autocomplete'] = '';
         }
 
+		if (isset($this->error['limit_filemanager'])) {
+            $data['error_limit_filemanager'] = $this->error['limit_filemanager'];
+        } else {
+            $data['error_limit_filemanager'] = '';
+        }
+
 		if (isset($this->error['encryption'])) {
 			$data['error_encryption'] = $this->error['encryption'];
 		} else {
@@ -438,6 +444,14 @@ class ControllerSettingSetting extends Controller {
 			$data['config_limit_autocomplete'] = $this->config->get('config_limit_autocomplete');
 		} else {
             $data['config_limit_autocomplete'] = 5;
+        }
+
+		if (isset($this->request->post['config_limit_filemanager'])) {
+			$data['config_limit_filemanager'] = $this->request->post['config_limit_filemanager'];
+        } elseif ($this->config->get('config_limit_filemanager')) {
+			$data['config_limit_filemanager'] = $this->config->get('config_limit_filemanager');
+		} else {
+            $data['config_limit_filemanager'] = 16;
         }
 
 		if (isset($this->request->post['config_product_count'])) {
@@ -1068,6 +1082,10 @@ class ControllerSettingSetting extends Controller {
 
 		if (!$this->request->post['config_limit_autocomplete']) {
 			$this->error['limit_autocomplete'] = $this->language->get('error_limit');
+		}
+
+		if (!$this->request->post['config_limit_filemanager']) {
+			$this->error['limit_filemanager'] = $this->language->get('error_limit');
 		}
 
 		if ($this->request->post['config_login_attempts'] < 1) {

@@ -404,6 +404,14 @@
                     <div class="text-danger">{{ error_limit_autocomplete }}</div>
                     {% endif %} </div>
                 </div>
+                <div class="form-group required">
+                  <label class="col-sm-2 control-label" for="input-filemanager-limit"><span data-toggle="tooltip" title="{{ help_limit_filemanager }}">{{ entry_limit_filemanager }}</span></label>
+                  <div class="col-sm-10">
+                    <input type="text" name="config_limit_filemanager" value="{{ config_limit_filemanager }}" placeholder="{{ entry_limit_filemanager }}" id="input-filemanager-limit" class="form-control" />
+                    {% if error_limit_filemanager %}
+                    <div class="text-danger">{{ error_limit_filemanager }}</div>
+                    {% endif %} </div>
+                </div>
               </fieldset>
               <fieldset>
                 <legend>{{ text_review }}</legend>
