@@ -53,7 +53,6 @@ class ControllerCommonHeader extends Controller {
 
 		$this->load->language('common/header');
 		
-		
 		$host = isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1')) ? HTTPS_SERVER : HTTP_SERVER;
 		if ($this->request->server['REQUEST_URI'] == '/') {
 			$data['og_url'] = $this->url->link('common/home');
@@ -91,12 +90,13 @@ class ControllerCommonHeader extends Controller {
 		
 		$data['language'] = $this->load->controller('common/language');
 		$data['currency'] = $this->load->controller('common/currency');
-		$data['currency'] = $this->load->controller('common/currency');
+
 		if ($this->config->get('configblog_blog_menu')) {
 			$data['blog_menu'] = $this->load->controller('blog/menu');
 		} else {
 			$data['blog_menu'] = '';
 		}
+		
 		$data['search'] = $this->load->controller('common/search');
 		$data['cart'] = $this->load->controller('common/cart');
 		$data['menu'] = $this->load->controller('common/menu');
