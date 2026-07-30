@@ -3,6 +3,8 @@ class ControllerCommonColumnLeft extends Controller {
 	public function index() {
 		if (isset($this->request->get['user_token']) && isset($this->session->data['user_token']) && ($this->request->get['user_token'] == $this->session->data['user_token'])) {
 			$this->load->language('common/column_left');
+			
+			$maintenance = [];
 
 			// Create a 3 level menu array
 			// Level 2 can not have children
@@ -624,7 +626,7 @@ class ControllerCommonColumnLeft extends Controller {
 			}
 
 			// Tools
-			$maintenance = array();
+			$maintenance = $maintenance ? $maintenance : [];
 
 			if ($this->user->hasPermission('access', 'tool/backup')) {
 				$maintenance[] = array(
@@ -633,16 +635,6 @@ class ControllerCommonColumnLeft extends Controller {
 					'children' => array()
 				);
 			}
-			
-			/*
-			if ($this->user->hasPermission('access', 'tool/upload')) {
-				$maintenance[] = array(
-					'name'	   => $this->language->get('text_upload'),
-					'href'     => $this->url->link('tool/upload', 'user_token=' . $this->session->data['user_token'], true),
-					'children' => array()
-				);
-			}
-			*/
 
 			if ($this->user->hasPermission('access', 'tool/log')) {
 				$maintenance[] = array(
