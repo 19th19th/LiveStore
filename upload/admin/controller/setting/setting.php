@@ -1147,4 +1147,19 @@ class ControllerSettingSetting extends Controller {
 			$this->response->setOutput($server . 'image/no_image.png');
 		}
 	}
+
+	public function maintenance() {
+		$json = array();
+
+		if ($this->user->hasPermission('modify', 'setting/setting')) {
+			$this->load->model('setting/setting');
+
+			$this->model_setting_setting->editSettingValue('config', 'config_maintenance', (int)!$this->config->get('config_maintenance'));
+
+			$json['success'] = true;
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
 }

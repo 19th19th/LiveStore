@@ -53,6 +53,7 @@
       {{ search }}
     </div>
     <ul class="nav navbar-nav navbar-right">
+	  <li{% if maintenance %} class="bg-danger"{% endif %}><a href="{{ maintenance_url }}" id="button-maintenance" title="{{ text_maintenance }}: {% if maintenance %}{{ text_enabled }}{% else %}{{ text_disabled }}{% endif %}"><i class="fa fa-wrench"></i></a></li>
       <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ image }}" alt="{{ firstname }} {{ lastname }}" title="{{ username }}" id="user-profile" class="img-circle" />{{ firstname }} {{ lastname }} <i class="fa fa-caret-down fa-fw"></i></a>
         <ul class="dropdown-menu dropdown-menu-right">
           <li><a href="{{ profile }}"><i class="fa fa-user-circle-o fa-fw"></i> {{ text_profile }}</a></li>
@@ -72,3 +73,11 @@
     </ul>
     {% endif %}</div>
 </header>
+<script type="text/javascript"><!--
+$('#button-maintenance').on('click', function(e) {
+	e.preventDefault();
+	$.getJSON(this.href, function(json) {
+		if (json.success) location.reload();
+	});
+});
+//--></script>

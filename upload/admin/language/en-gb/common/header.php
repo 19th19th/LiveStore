@@ -20,3 +20,6 @@ $_['text_new_customer']      = 'Customer';
 $_['text_new_download']      = 'Download';
 $_['text_new_manufacturer']  = 'Manufacturer';
 $_['text_new_product']       = 'Product';
+$_['text_maintenance']       = 'Maintenance';
+$_['text_enabled']           = 'Enabled';
+$_['text_disabled']          = 'Disabled';
