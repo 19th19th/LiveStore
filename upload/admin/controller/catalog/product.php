@@ -1062,6 +1062,14 @@ class ControllerCatalogProduct extends Controller {
 		} else {
 			$data['location'] = '';
 		}
+		
+		if (isset($this->request->post['certification_link'])) {
+			$data['certification_link'] = $this->request->post['certification_link'];
+		} elseif (!empty($product_info)) {
+			$data['certification_link'] = $product_info['certification_link'];
+		} else {
+			$data['certification_link'] = '';
+		}
 
 		$this->load->model('setting/store');
 

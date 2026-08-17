@@ -453,6 +453,14 @@ class ControllerSettingSetting extends Controller {
 		} else {
             $data['config_limit_filemanager'] = 16;
         }
+		
+		if (isset($this->request->post['config_certification_link_status'])) {
+			$data['config_certification_link_status'] = $this->request->post['config_certification_link_status'];
+        } elseif ($this->config->get('config_certification_link_status')) {
+			$data['config_certification_link_status'] = $this->config->get('config_certification_link_status');
+		} else {
+            $data['config_certification_link_status'] = 0;
+        }
 
 		if (isset($this->request->post['config_product_count'])) {
 			$data['config_product_count'] = $this->request->post['config_product_count'];

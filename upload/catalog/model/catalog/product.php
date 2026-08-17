@@ -29,6 +29,7 @@ class ModelCatalogProduct extends Model {
 				'isbn'             => $query->row['isbn'],
 				'mpn'              => $query->row['mpn'],
 				'location'         => $query->row['location'],
+				'certification_link'=> $query->row['certification_link'],
 				'quantity'         => $query->row['quantity'],
 				'stock_status'     => $query->row['stock_status'],
 				'image'            => $query->row['image'],

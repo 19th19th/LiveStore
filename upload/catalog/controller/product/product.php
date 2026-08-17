@@ -257,6 +257,22 @@ class ControllerProductProduct extends Controller {
 			$data['reward'] = $product_info['reward'];
 			$data['points'] = $product_info['points'];
 			$data['description'] = html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8');
+			
+			$certification_link_status = $this->config->get('config_certification_link_status');
+			
+			if($certification_link_status) {
+				if($certification_link_status == 1 && $data['certification_link']) {
+					$data['certification_link'] = sprint_f($this->language->get('text_certification_link'), html_entity_decode($data['certification_link'], ENT_QUOTES, 'UTF-8'));
+				} else {
+					if($data['certification_link']) {
+						$data['certification_link'] = sprint_f($this->language->get('text_certification_link'), html_entity_decode($data['certification_link'], ENT_QUOTES, 'UTF-8'));
+					} else {
+						$data['certification_link'] = $this->language->get('text_certification_link_default');
+					}
+				}
+			} else {
+				$data['certification_link'] == '';
+			}
 
 			if ($product_info['quantity'] <= 0) {
 				$data['stock'] = $product_info['stock_status'];

@@ -2446,6 +2446,7 @@ CREATE TABLE `oc_product` (
   `isbn` varchar(17) NOT NULL,
   `mpn` varchar(64) NOT NULL,
   `location` varchar(128) NOT NULL,
+  `certification_link` varchar(512) NOT NULL,
   `quantity` int(4) NOT NULL DEFAULT '0',
   `stock_status_id` int(11) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
