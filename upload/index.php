@@ -14,6 +14,8 @@ if (!defined('DIR_APPLICATION')) {
 	exit;
 }
 
+ini_set('display_errors', 1);
+
 // Startup
 require_once(DIR_SYSTEM . 'startup.php');
 

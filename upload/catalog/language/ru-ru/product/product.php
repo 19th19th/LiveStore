@@ -29,7 +29,7 @@ $_['text_week'] = 'Неделя';
 $_['text_semi_month'] = 'Полмесяца';
 $_['text_month'] = 'Месяц';
 $_['text_year'] = 'Год';
-$_['text_certification_link'] = 'Ссылка на сертификат товара в реестре';
+$_['text_certification_link'] = '<a href="%s" target_"blank">Ссылка на сертификат товара в реестре</a>';
 $_['text_certification_link_default'] = 'Товар не подлежит обязательной сертификации';
 $_['entry_qty'] = 'Кол-во';
 $_['entry_name'] = 'Ваше имя';

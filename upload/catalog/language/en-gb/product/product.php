@@ -30,6 +30,7 @@ $_['text_week']                = 'week';
 $_['text_semi_month']          = 'half-month';
 $_['text_month']               = 'month';
 $_['text_year']                = 'year';
+$_['text_certification_link'] = '<a href="%s">Link to the product certificate in the register</a>';
 
 // Entry
 $_['entry_qty']                = 'Qty';

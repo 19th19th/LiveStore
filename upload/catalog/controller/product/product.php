@@ -261,11 +261,11 @@ class ControllerProductProduct extends Controller {
 			$certification_link_status = $this->config->get('config_certification_link_status');
 			
 			if($certification_link_status) {
-				if($certification_link_status == 1 && $data['certification_link']) {
-					$data['certification_link'] = sprint_f($this->language->get('text_certification_link'), html_entity_decode($data['certification_link'], ENT_QUOTES, 'UTF-8'));
+				if($certification_link_status == 1 && $product_info['certification_link']) {
+					$data['certification_link'] = sprintf($this->language->get('text_certification_link'), html_entity_decode($product_info['certification_link'], ENT_QUOTES, 'UTF-8'));
 				} else {
-					if($data['certification_link']) {
-						$data['certification_link'] = sprint_f($this->language->get('text_certification_link'), html_entity_decode($data['certification_link'], ENT_QUOTES, 'UTF-8'));
+					if($product_info['certification_link']) {
+						$data['certification_link'] = sprintf($this->language->get('text_certification_link'), html_entity_decode($product_info['certification_link'], ENT_QUOTES, 'UTF-8'));
 					} else {
 						$data['certification_link'] = $this->language->get('text_certification_link_default');
 					}
