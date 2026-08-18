@@ -31,6 +31,7 @@ $_['text_semi_month']          = 'half-month';
 $_['text_month']               = 'month';
 $_['text_year']                = 'year';
 $_['text_certification_link'] = '<a href="%s">Link to the product certificate in the register</a>';
+$_['text_certification_text'] = '<p class="certification-text">The product is not subject to mandatory certification</p>';
 
 // Entry
 $_['entry_qty']                = 'Qty';

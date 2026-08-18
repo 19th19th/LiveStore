@@ -242,6 +242,21 @@ class ControllerProductProduct extends Controller {
 			$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment/moment-with-locales.min.js');
 			$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
 			$this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
+			
+			$cert_link_status = $this->config->get('config_certification_link_status');
+			$cert_link = $product_info['certification_link'];
+			
+			if($cert_link_status) {
+				if($cert_link_status == 1 && $cert_link) {
+					$product_info['description'] .= sprintf($this->language->get('text_certification_link'), $cert_link);
+				} else if($cert_link_status == 2) {
+					if($cert_link) {
+						$product_info['description'] .= sprintf($this->language->get('text_certification_link'), $cert_link);
+					} else {
+						$product_info['description'] .= $this->language->get('text_certification_text');
+					}
+				}
+			}
 
 			$data['text_minimum'] = sprintf($this->language->get('text_minimum'), $product_info['minimum']);
 			$data['text_login'] = sprintf($this->language->get('text_login'), $this->url->link('account/login', '', true), $this->url->link('account/register', '', true));
@@ -257,22 +272,6 @@ class ControllerProductProduct extends Controller {
 			$data['reward'] = $product_info['reward'];
 			$data['points'] = $product_info['points'];
 			$data['description'] = html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8');
-			
-			$certification_link_status = $this->config->get('config_certification_link_status');
-			
-			if($certification_link_status) {
-				if($certification_link_status == 1 && $product_info['certification_link']) {
-					$data['certification_link'] = sprintf($this->language->get('text_certification_link'), html_entity_decode($product_info['certification_link'], ENT_QUOTES, 'UTF-8'));
-				} else {
-					if($product_info['certification_link']) {
-						$data['certification_link'] = sprintf($this->language->get('text_certification_link'), html_entity_decode($product_info['certification_link'], ENT_QUOTES, 'UTF-8'));
-					} else {
-						$data['certification_link'] = $this->language->get('text_certification_link_default');
-					}
-				}
-			} else {
-				$data['certification_link'] == '';
-			}
 
 			if ($product_info['quantity'] <= 0) {
 				$data['stock'] = $product_info['stock_status'];
