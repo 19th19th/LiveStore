@@ -246,15 +246,11 @@ class ControllerProductProduct extends Controller {
 			$cert_link_status = $this->config->get('config_certification_link_status');
 			$cert_link = $product_info['certification_link'];
 			
-			if($cert_link_status) {
-				if($cert_link_status == 1 && $cert_link) {
+			if ($cert_link_status) {
+				if ($cert_link) {
 					$product_info['description'] .= sprintf($this->language->get('text_certification_link'), $cert_link);
-				} else if($cert_link_status == 2) {
-					if($cert_link) {
-						$product_info['description'] .= sprintf($this->language->get('text_certification_link'), $cert_link);
-					} else {
-						$product_info['description'] .= $this->language->get('text_certification_text');
-					}
+				} elseif ($cert_link_status == 2) {
+					$product_info['description'] .= $this->language->get('text_certification_text');
 				}
 			}
 
