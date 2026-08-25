@@ -262,6 +262,9 @@ h2.price {margin:0}
 .certification-link, .certification-text{margin:10px 0 0;padding:10px 0 0;border-top:solid 1px rgba(0 0 0 / .1);font-weight:700;font-size:.85em}
 .certification-text{color:#888}
 
+#product-manufacturer .manufacturer-thumb{margin:0 0 25px;padding:15px;text-align:center;border:solid 1px #ddd;border-radius:var(--border-radius-1)}
+#product-manufacturer .manufacturer-thumb img{margin:0 auto 10px}
+
 @media (max-width:478px) {
 	#cart .dropdown-menu {width:100%}
 	#cart .dropdown-menu li > div {min-width:100%}

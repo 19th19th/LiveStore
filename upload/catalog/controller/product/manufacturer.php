@@ -25,6 +25,12 @@ class ControllerProductManufacturer extends Controller {
 		$results = $this->model_catalog_manufacturer->getManufacturers();
 
 		foreach ($results as $result) {
+			if ($result['image']) {
+				$image = $this->model_tool_image->resize($result['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_manufacturer_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_manufacturer_height'));
+			} else {
+				$image = $this->model_tool_image->resize('placeholder.png', $this->config->get('theme_' . $this->config->get('config_theme') . '_image_manufacturer_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_manufacturer_height'));
+			}
+			
 			if (is_numeric(utf8_substr($result['name'], 0, 1))) {
 				$key = '0 - 9';
 			} else {
@@ -37,6 +43,7 @@ class ControllerProductManufacturer extends Controller {
 
 			$data['categories'][$key]['manufacturer'][] = array(
 				'name' => $result['name'],
+				'thumb'=> $image,
 				'href' => $this->url->link('product/manufacturer/info', 'manufacturer_id=' . $result['manufacturer_id'])
 			);
 		}
