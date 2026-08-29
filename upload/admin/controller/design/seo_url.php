@@ -54,6 +54,8 @@ class ControllerDesignSeoUrl extends Controller {
 				$url .= '&page=' . $this->request->get['page'];
 			}
 
+			$this->clearSeoCache();
+
 			$this->response->redirect($this->url->link('design/seo_url', 'user_token=' . $this->session->data['user_token'] . $url, true));
 		}
 
@@ -101,6 +103,8 @@ class ControllerDesignSeoUrl extends Controller {
 			if (isset($this->request->get['page'])) {
 				$url .= '&page=' . $this->request->get['page'];
 			}
+
+			$this->clearSeoCache();
 
 			$this->response->redirect($this->url->link('design/seo_url', 'user_token=' . $this->session->data['user_token'] . $url, true));
 		}
@@ -151,6 +155,8 @@ class ControllerDesignSeoUrl extends Controller {
 			if (isset($this->request->get['page'])) {
 				$url .= '&page=' . $this->request->get['page'];
 			}
+
+			$this->clearSeoCache();
 
 			$this->response->redirect($this->url->link('design/seo_url', 'user_token=' . $this->session->data['user_token'] . $url, true));
 		}
@@ -411,6 +417,22 @@ class ControllerDesignSeoUrl extends Controller {
 
 		$url = '';
 
+		if (isset($this->request->get['filter_query'])) {
+			$url .= '&filter_query=' . urlencode(html_entity_decode($this->request->get['filter_query'], ENT_QUOTES, 'UTF-8'));
+		}
+
+		if (isset($this->request->get['filter_keyword'])) {
+			$url .= '&filter_keyword=' . urlencode(html_entity_decode($this->request->get['filter_keyword'], ENT_QUOTES, 'UTF-8'));
+		}
+
+		if (isset($this->request->get['filter_store_id'])) {
+			$url .= '&filter_store_id=' . $this->request->get['filter_store_id'];
+		}
+
+		if (isset($this->request->get['filter_language_id'])) {
+			$url .= '&filter_language_id=' . $this->request->get['filter_language_id'];
+		}
+
 		if (isset($this->request->get['sort'])) {
 			$url .= '&sort=' . $this->request->get['sort'];
 		}
@@ -540,5 +562,11 @@ class ControllerDesignSeoUrl extends Controller {
 		}
 
 		return !$this->error;
+	}
+
+	private function clearSeoCache() {
+		if ($this->config->get('config_seo_pro') && $this->config->get('config_seo_url_cache')) {		
+			$this->cache->delete('seopro');
+		}
 	}
 }
