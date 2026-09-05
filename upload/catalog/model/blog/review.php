@@ -50,7 +50,6 @@ class ModelBlogReview extends Model {
 				}
 			}
 		}
-
 	}
 
 	public function getReviewsByArticleId($article_id, $start = 0, $limit = 20) {
