@@ -422,6 +422,8 @@ class ControllerDesignLayout extends Controller {
 		$this->load->model('catalog/category');
 		$this->load->model('catalog/information');
 		$this->load->model('catalog/manufacturer');
+		$this->load->model('blog/category');
+		$this->load->model('blog/article');
 
 		foreach ($this->request->post['selected'] as $layout_id) {
 			if ($this->config->get('config_layout_id') == $layout_id) {
@@ -456,6 +458,18 @@ class ControllerDesignLayout extends Controller {
 
 			if ($information_total) {
 				$this->error['warning'] = sprintf($this->language->get('error_information'), $information_total);
+			}
+
+			$blog_category_total = $this->model_blog_category->getTotalCategoriesByLayoutId($layout_id);
+
+			if ($blog_category_total) {
+				$this->error['warning'] = sprintf($this->language->get('error_blog_category'), $blog_category_total);
+			}
+
+			$blog_article_total = $this->model_blog_article->getTotalArticlesByLayoutId($layout_id);
+
+			if ($blog_article_total) {
+				$this->error['warning'] = sprintf($this->language->get('error_blog_article'), $blog_article_total);
 			}
 		}
 
