@@ -441,6 +441,49 @@ class ModelCatalogProduct extends Model {
 			$sql .= " AND pd.name LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
 		}
 
+		if (!empty($data['filter_search'])) {
+			$sql .= " AND (";
+
+			$implode = [];
+
+			$words = explode(' ', trim(preg_replace('/\s+/', ' ', $data['filter_search'])));
+
+			foreach ($words as $word) {
+				$implode[] = "pd.name LIKE '%" . $this->db->escape($word) . "%'";
+			}
+
+			if ($implode) {
+				$sql .= " " . implode(" AND ", $implode) . "";
+			}
+
+			if (!empty($data['filter_description'])) {
+				$sql .= " OR pd.description LIKE '%" . $this->db->escape($data['filter_search']) . "%'";
+			}
+
+			$sql .= " OR ";
+
+			$implode = [];
+
+			$words = explode(' ', trim(preg_replace('/\s+/', ' ', $data['filter_search'])));
+
+			foreach ($words as $word) {
+				$implode[] = "pd.tag LIKE '%" . $this->db->escape($word) . "%'";
+			}
+
+			if ($implode) {
+				$sql .= " " . implode(" AND ", $implode) . "";
+			}
+
+			$sql .= " OR LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
+			$sql .= " OR LCASE(p.sku) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
+			$sql .= " OR LCASE(p.upc) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
+			$sql .= " OR LCASE(p.ean) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
+			$sql .= " OR LCASE(p.jan) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
+			$sql .= " OR LCASE(p.isbn) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
+			$sql .= " OR LCASE(p.mpn) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
+			$sql .= ")";
+		}
+
 		if (!empty($data['filter_model'])) {
 			$sql .= " AND p.model LIKE '%" . $this->db->escape($data['filter_model']) . "%'";
 		}
@@ -787,6 +830,49 @@ class ModelCatalogProduct extends Model {
 
 		if (!empty($data['filter_name'])) {
 			$sql .= " AND pd.name LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
+		}
+
+		if (!empty($data['filter_search'])) {
+			$sql .= " AND (";
+
+			$implode = [];
+
+			$words = explode(' ', trim(preg_replace('/\s+/', ' ', $data['filter_search'])));
+
+			foreach ($words as $word) {
+				$implode[] = "pd.name LIKE '%" . $this->db->escape($word) . "%'";
+			}
+
+			if ($implode) {
+				$sql .= " " . implode(" AND ", $implode) . "";
+			}
+
+			if (!empty($data['filter_description'])) {
+				$sql .= " OR pd.description LIKE '%" . $this->db->escape($data['filter_search']) . "%'";
+			}
+
+			$sql .= " OR ";
+
+			$implode = [];
+
+			$words = explode(' ', trim(preg_replace('/\s+/', ' ', $data['filter_search'])));
+
+			foreach ($words as $word) {
+				$implode[] = "pd.tag LIKE '%" . $this->db->escape($word) . "%'";
+			}
+
+			if ($implode) {
+				$sql .= " " . implode(" AND ", $implode) . "";
+			}
+
+			$sql .= " OR LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
+			$sql .= " OR LCASE(p.sku) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
+			$sql .= " OR LCASE(p.upc) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
+			$sql .= " OR LCASE(p.ean) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
+			$sql .= " OR LCASE(p.jan) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
+			$sql .= " OR LCASE(p.isbn) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
+			$sql .= " OR LCASE(p.mpn) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
+			$sql .= ")";
 		}
 
 		if (!empty($data['filter_model'])) {
