@@ -19,6 +19,10 @@ class ModelCatalogReview extends Model {
 		$this->cache->delete('product');
 	}
 
+	public function editReviewStatus($review_id, $status) {
+        $this->db->query("UPDATE " . DB_PREFIX . "review SET status = '" . (int)$status . "', date_modified = NOW() WHERE review_id = '" . (int)$review_id . "'");
+    }
+
 	public function deleteReview($review_id) {
 		$this->db->query("DELETE FROM " . DB_PREFIX . "review WHERE review_id = '" . (int)$review_id . "'");
 
