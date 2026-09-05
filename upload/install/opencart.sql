@@ -3555,7 +3555,8 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'config', 'config_canonical_self', '1', 0),
 (0, 'config', 'config_add_prevnext', '0', 0),
 (0, 'config', 'config_noindex_status', '1', 0),
-(0, 'config', 'config_noindex_disallow_params', '', 0);															  
+(0, 'config', 'config_noindex_disallow_params', '', 0),
+(0, 'config', 'config_certification_link_status', '0', 0);														  
 
 -----------------------------------------------------------
 
