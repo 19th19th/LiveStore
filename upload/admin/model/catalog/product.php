@@ -474,13 +474,13 @@ class ModelCatalogProduct extends Model {
 				$sql .= " " . implode(" AND ", $implode) . "";
 			}
 
-			$sql .= " OR LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
-			$sql .= " OR LCASE(p.sku) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
-			$sql .= " OR LCASE(p.upc) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
-			$sql .= " OR LCASE(p.ean) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
-			$sql .= " OR LCASE(p.jan) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
-			$sql .= " OR LCASE(p.isbn) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
-			$sql .= " OR LCASE(p.mpn) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
+			$sql .= " OR LCASE(p.model) LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "%'";
+			$sql .= " OR LCASE(p.sku) LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "%'";
+			$sql .= " OR LCASE(p.upc) LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "%'";
+			$sql .= " OR LCASE(p.ean) LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "%'";
+			$sql .= " OR LCASE(p.jan) LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "%'";
+			$sql .= " OR LCASE(p.isbn) LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "%'";
+			$sql .= " OR LCASE(p.mpn) LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "%'";
 			$sql .= ")";
 		}
 
@@ -865,13 +865,13 @@ class ModelCatalogProduct extends Model {
 				$sql .= " " . implode(" AND ", $implode) . "";
 			}
 
-			$sql .= " OR LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
-			$sql .= " OR LCASE(p.sku) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
-			$sql .= " OR LCASE(p.upc) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
-			$sql .= " OR LCASE(p.ean) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
-			$sql .= " OR LCASE(p.jan) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
-			$sql .= " OR LCASE(p.isbn) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
-			$sql .= " OR LCASE(p.mpn) = '" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "'";
+			$sql .= " OR LCASE(p.model) LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "%'";
+			$sql .= " OR LCASE(p.sku) LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "%'";
+			$sql .= " OR LCASE(p.upc) LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "%'";
+			$sql .= " OR LCASE(p.ean) LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "%'";
+			$sql .= " OR LCASE(p.jan) LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "%'";
+			$sql .= " OR LCASE(p.isbn) LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "%'";
+			$sql .= " OR LCASE(p.mpn) LIKE '%" . $this->db->escape(utf8_strtolower($data['filter_search'])) . "%'";
 			$sql .= ")";
 		}
 
