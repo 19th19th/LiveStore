@@ -1,16 +1,36 @@
 <?php
 class ModelUpgrade1013 extends Model {
 	public function upgrade() {
-		$config = new Config();
-		
-		$query = $this->db->query("show columns FROM `" . DB_PREFIX . "product` WHERE Field = 'certification_link'");
-				
-		if (!$query->num_rows) { 
-			$this->db->query("ALTER TABLE `" . DB_PREFIX . "product` ADD `certification_link` varchar(512) SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' AFTER `location`");
+		// Product
+		$query = $this->db->query("SHOW COLUMNS FROM `" . DB_PREFIX . "product` WHERE Field = 'certification_link'");
+
+		if (!$query->num_rows) {
+			$this->db->query("ALTER TABLE `" . DB_PREFIX . "product` ADD `certification_link` varchar(512) NOT NULL DEFAULT '' AFTER `location`");
 		}
-		
-		if($config->get('config_certification_status') == null) {
-			$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET store_id = '0', `code` = 'config', `key` = 'certification_link_status', `value` = '0'");
+
+		// Setting
+		$store_ids = array(0);
+
+		$stores = $this->db->query("SELECT store_id FROM `" . DB_PREFIX . "store`");
+
+		foreach ($stores->rows as $store) {
+			$store_ids[] = (int)$store['store_id'];
+		}
+
+		foreach ($store_ids as $store_id) {
+			$query = $this->db->query("SELECT setting_id FROM `" . DB_PREFIX . "setting`
+				WHERE store_id = '" . (int)$store_id . "'
+					AND `code` = 'config'
+					AND `key` = 'config_certification_link_status'");
+
+			if (!$query->num_rows) {
+				$this->db->query("INSERT INTO `" . DB_PREFIX . "setting`
+					SET store_id = '" . (int)$store_id . "',
+						`code` = 'config',
+						`key` = 'config_certification_link_status',
+						`value` = '0',
+						serialized = '0'");
+			}
 		}
 	}
 }
