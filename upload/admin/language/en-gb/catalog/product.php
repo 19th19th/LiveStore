@@ -21,6 +21,7 @@ $_['column_quantity'] = 'Quantity';
 $_['column_status'] = 'Status';
 $_['column_noindex'] = 'Index';
 $_['column_action'] = 'Action';
+$_ ['entry_search'] = 'Search';
 $_['entry_name'] = 'Product Name';
 $_['entry_description'] = 'Description';
 $_['entry_meta_title'] = 'Meta Tag Title';

@@ -25,6 +25,7 @@ $_['column_quantity'] = 'Количество';
 $_['column_status'] = 'Статус';
 $_['column_noindex'] = 'Индексация';
 $_['column_action'] = 'Действие';
+$_['entry_search'] = 'Поиск';
 $_['entry_name'] = 'Название товара';
 $_['entry_description'] = 'Описание';
 $_['entry_description_mini'] = '';
