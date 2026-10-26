@@ -14,7 +14,7 @@
 
 Для работы ЛайвСтор требуется:
 
-- PHP 7.3-8.1
+- PHP 7.3-8.3
 - MySQL/MariaDB
 - mod_rewrite или nginx rewrite
 - Расширения PHP:
