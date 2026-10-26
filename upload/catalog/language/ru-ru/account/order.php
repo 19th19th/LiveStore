@@ -24,6 +24,7 @@ $_['column_order_id']       = '№ Заказа';
 $_['column_product']        = 'Количество Товаров';
 $_['column_customer']       = 'Покупатель';
 $_['column_name']           = 'Название товара';
+$_['column_image'] 			= 'Изображение';
 $_['column_model']          = 'Код товара';
 $_['column_quantity']       = 'Количество';
 $_['column_price']          = 'Цена';

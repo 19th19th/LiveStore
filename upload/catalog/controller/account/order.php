@@ -105,6 +105,7 @@ class ControllerAccountOrder extends Controller {
 		}
 
 		$this->load->model('account/order');
+		$this->load->model('tool/image');
 
 		$order_info = $this->model_account_order->getOrder($order_id);
 
@@ -276,8 +277,16 @@ class ControllerAccountOrder extends Controller {
 					$reorder = '';
 				}
 
+				if ($product_info['image']) {
+					$image = $this->model_tool_image->resize($product_info['image'], $this->config->get('theme_' . $this->config->get('config_theme') . '_image_cart_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_cart_height'));
+				} else {
+					$image = $this->model_tool_image->resize('placeholder.png', $this->config->get('theme_' . $this->config->get('config_theme') . '_image_cart_width'), $this->config->get('theme_' . $this->config->get('config_theme') . '_image_cart_height'));
+				}
+
 				$data['products'][] = array(
 					'name'     => $product['name'],
+					'image'    => $image,
+					'href'	   => $this->url->link('product/product', 'product_id=' . $product['product_id'], true),
 					'model'    => $product['model'],
 					'option'   => $option_data,
 					'quantity' => $product['quantity'],
