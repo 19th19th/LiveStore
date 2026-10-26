@@ -565,62 +565,69 @@ class ControllerBlogReview extends Controller {
 		return !$this->error;
 	}
 	
-		public function enable() {
+	public function enable() {
         $this->load->language('blog/review');
         $this->document->setTitle($this->language->get('heading_title'));
         $this->load->model('blog/review');
+
         if (isset($this->request->post['selected']) && $this->validateEnable()) {
             foreach ($this->request->post['selected'] as $review_article_id) {
-                $data = array();
-                $result = $this->model_blog_review->getReview($review_article_id);
-                foreach ($result as $key => $value) {
-                    $data[$key] = $value;
-                }
-                $data['status'] = 1;
-                $this->model_blog_review->editReview($review_article_id, $data);
+                $this->model_blog_review->editReviewStatus($review_article_id, 1);
             }
+
+			$this->cache->delete('article');
+
             $this->session->data['success'] = $this->language->get('text_success');
             $url = '';
+
             if (isset($this->request->get['page'])) {
                 $url .= '&page=' . $this->request->get['page'];
             }
+
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
             }
+
             if (isset($this->request->get['order'])) {
                 $url .= '&order=' . $this->request->get['order'];
             }
+
             $this->response->redirect($this->url->link('blog/review', 'user_token=' . $this->session->data['user_token'] . $url, true));
         }
+
         $this->getList();
     }
+
     public function disable() {
         $this->load->language('blog/review');
         $this->document->setTitle($this->language->get('heading_title'));
         $this->load->model('blog/review');
+
         if (isset($this->request->post['selected']) && $this->validateDisable()) {
             foreach ($this->request->post['selected'] as $review_article_id) {
-                $data = array();
-                $result = $this->model_blog_review->getReview($review_article_id);
-                foreach ($result as $key => $value) {
-                    $data[$key] = $value;
-                }
-                $data['status'] = 0;
-                $this->model_blog_review->editReview($review_article_id, $data);
+                $this->model_blog_review->editReviewStatus($review_article_id, 0);
             }
+
+			$this->cache->delete('article');
+			
             $this->session->data['success'] = $this->language->get('text_success');
             $url = '';
+
             if (isset($this->request->get['page'])) {
                 $url .= '&page=' . $this->request->get['page'];
             }
+
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
             }
+
             if (isset($this->request->get['order'])) {
                 $url .= '&order=' . $this->request->get['order'];
             }
+
             $this->response->redirect($this->url->link('blog/review', 'user_token=' . $this->session->data['user_token'] . $url, true));
         }
+
         $this->getList();
     }
 	

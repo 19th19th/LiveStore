@@ -565,60 +565,68 @@ class ControllerCatalogReview extends Controller {
 		return !$this->error;
 	}
 	
-		public function enable() {
+	public function enable() {
         $this->load->language('catalog/review');
         $this->document->setTitle($this->language->get('heading_title'));
         $this->load->model('catalog/review');
+
         if (isset($this->request->post['selected']) && $this->validateEnable()) {
             foreach ($this->request->post['selected'] as $review_id) {
-                $data = array();
-                $result = $this->model_catalog_review->getReview($review_id);
-                foreach ($result as $key => $value) {
-                    $data[$key] = $value;
-                }
-                $data['status'] = 1;
-                $this->model_catalog_review->editReview($review_id, $data);
+                $this->model_catalog_review->editReviewStatus($review_id, 1);
             }
+
+			$this->cache->delete('product');
+
             $this->session->data['success'] = $this->language->get('text_success');
-            $url = '';
-            if (isset($this->request->get['page'])) {
+            
+			$url = '';
+            
+			if (isset($this->request->get['page'])) {
                 $url .= '&page=' . $this->request->get['page'];
             }
+
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
             }
+
             if (isset($this->request->get['order'])) {
                 $url .= '&order=' . $this->request->get['order'];
             }
+
             $this->response->redirect($this->url->link('catalog/review', 'user_token=' . $this->session->data['user_token'] . $url, true));
         }
+		
         $this->getList();
     }
+
     public function disable() {
         $this->load->language('catalog/review');
         $this->document->setTitle($this->language->get('heading_title'));
         $this->load->model('catalog/review');
+
         if (isset($this->request->post['selected']) && $this->validateDisable()) {
             foreach ($this->request->post['selected'] as $review_id) {
-                $data = array();
-                $result = $this->model_catalog_review->getReview($review_id);
-                foreach ($result as $key => $value) {
-                    $data[$key] = $value;
-                }
-                $data['status'] = 0;
-                $this->model_catalog_review->editReview($review_id, $data);
+                $this->model_catalog_review->editReviewStatus($review_id, 0);
             }
+
+			$this->cache->delete('product');
+			
             $this->session->data['success'] = $this->language->get('text_success');
+
             $url = '';
+
             if (isset($this->request->get['page'])) {
                 $url .= '&page=' . $this->request->get['page'];
             }
+
             if (isset($this->request->get['sort'])) {
                 $url .= '&sort=' . $this->request->get['sort'];
             }
+			
             if (isset($this->request->get['order'])) {
                 $url .= '&order=' . $this->request->get['order'];
             }
+
             $this->response->redirect($this->url->link('catalog/review', 'user_token=' . $this->session->data['user_token'] . $url, true));
         }
         $this->getList();

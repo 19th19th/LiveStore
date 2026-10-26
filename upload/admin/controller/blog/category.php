@@ -660,5 +660,5 @@ class ControllerBlogCategory extends Controller {
 			}
 		}
 		return $output;
-		}
+	}
 }
