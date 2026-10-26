@@ -34,14 +34,14 @@
         }
 
         if($.support.leadingWhitespace == false) {
-              return false;
+            return false;
         }
 
         $('#loader-search').css('display', 'block');
 
         $.ajax({
             type: 'get',
-            url: 'index.php?route=search/search/search' + '&user_token={{ user_token }}',		
+            url: 'index.php?route=search/search/search&user_token={{ user_token }}',		
 			data: $('#oc-search').serialize(),
             dataType: 'json',
             success:function(json){
