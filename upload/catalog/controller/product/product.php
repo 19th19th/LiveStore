@@ -242,6 +242,17 @@ class ControllerProductProduct extends Controller {
 			$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment/moment-with-locales.min.js');
 			$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
 			$this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
+			
+			$cert_link_status = $this->config->get('config_certification_link_status');
+			$cert_link = $product_info['certification_link'];
+			
+			if ($cert_link_status) {
+				if ($cert_link) {
+					$product_info['description'] .= sprintf($this->language->get('text_certification_link'), $cert_link);
+				} elseif ($cert_link_status == 2) {
+					$product_info['description'] .= $this->language->get('text_certification_text');
+				}
+			}
 
 			$data['text_minimum'] = sprintf($this->language->get('text_minimum'), $product_info['minimum']);
 			$data['text_login'] = sprintf($this->language->get('text_login'), $this->url->link('account/login', '', true), $this->url->link('account/register', '', true));
@@ -567,6 +578,10 @@ class ControllerProductProduct extends Controller {
 			$page = 1;
 		}
 
+		if (!isset($this->request->get['product_id'])) {
+			$this->request->get['product_id'] = 0;
+		}
+
 		$data['reviews'] = array();
 
 		$review_total = $this->model_catalog_review->getTotalReviewsByProductId($this->request->get['product_id']);
@@ -611,6 +626,10 @@ class ControllerProductProduct extends Controller {
 
 			if (empty($this->request->post['rating']) || $this->request->post['rating'] < 0 || $this->request->post['rating'] > 5) {
 				$json['error'] = $this->language->get('error_rating');
+			}
+
+			if (!isset($this->request->get['product_id']) || $this->request->get['product_id'] <= 0) {
+				$json['error'] = $this->language->get('error_product_id');
 			}
 
 			// Captcha

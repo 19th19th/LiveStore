@@ -32,6 +32,10 @@ class ControllerCheckoutLogin extends Controller {
 			$json['redirect'] = $this->url->link('checkout/cart');
 		}
 
+		if (!isset($this->request->post['email']) || !isset($this->request->post['password'])) {
+			$json['error']['warning'] = $this->language->get('error_login');
+		}
+
 		if (!$json) {
 			$this->load->model('account/customer');
 

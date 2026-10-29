@@ -20,3 +20,6 @@ $_['text_new_customer']    		  = 'Пользователя';
 $_['text_new_download']           = 'Загрузку';
 $_['text_new_manufacturer']		  = 'Производителя';
 $_['text_new_product']     		  = 'Товар';
+$_['text_maintenance']			  = 'Режим обслуживания';
+$_['text_enabled']              = 'Включен';
+$_['text_disabled']             = 'Выключен';

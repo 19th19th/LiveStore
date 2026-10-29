@@ -133,6 +133,12 @@ class ControllerSettingSetting extends Controller {
             $data['error_limit_autocomplete'] = '';
         }
 
+		if (isset($this->error['limit_filemanager'])) {
+            $data['error_limit_filemanager'] = $this->error['limit_filemanager'];
+        } else {
+            $data['error_limit_filemanager'] = '';
+        }
+
 		if (isset($this->error['encryption'])) {
 			$data['error_encryption'] = $this->error['encryption'];
 		} else {
@@ -438,6 +444,22 @@ class ControllerSettingSetting extends Controller {
 			$data['config_limit_autocomplete'] = $this->config->get('config_limit_autocomplete');
 		} else {
             $data['config_limit_autocomplete'] = 5;
+        }
+
+		if (isset($this->request->post['config_limit_filemanager'])) {
+			$data['config_limit_filemanager'] = $this->request->post['config_limit_filemanager'];
+        } elseif ($this->config->get('config_limit_filemanager')) {
+			$data['config_limit_filemanager'] = $this->config->get('config_limit_filemanager');
+		} else {
+            $data['config_limit_filemanager'] = 16;
+        }
+		
+		if (isset($this->request->post['config_certification_link_status'])) {
+			$data['config_certification_link_status'] = $this->request->post['config_certification_link_status'];
+        } elseif ($this->config->get('config_certification_link_status')) {
+			$data['config_certification_link_status'] = $this->config->get('config_certification_link_status');
+		} else {
+            $data['config_certification_link_status'] = 0;
         }
 
 		if (isset($this->request->post['config_product_count'])) {
@@ -1070,6 +1092,10 @@ class ControllerSettingSetting extends Controller {
 			$this->error['limit_autocomplete'] = $this->language->get('error_limit');
 		}
 
+		if (!$this->request->post['config_limit_filemanager']) {
+			$this->error['limit_filemanager'] = $this->language->get('error_limit');
+		}
+
 		if ($this->request->post['config_login_attempts'] < 1) {
 			$this->error['login_attempts'] = $this->language->get('error_login_attempts');
 		}
@@ -1128,5 +1154,20 @@ class ControllerSettingSetting extends Controller {
 		} else {
 			$this->response->setOutput($server . 'image/no_image.png');
 		}
+	}
+
+	public function maintenance() {
+		$json = array();
+
+		if ($this->user->hasPermission('modify', 'setting/setting')) {
+			$this->load->model('setting/setting');
+
+			$this->model_setting_setting->editSettingValue('config', 'config_maintenance', (int)!$this->config->get('config_maintenance'));
+
+			$json['success'] = true;
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
 	}
 }

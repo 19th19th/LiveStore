@@ -1442,8 +1442,8 @@ CREATE TABLE `oc_geo_zone` (
 --
 
 INSERT INTO `oc_geo_zone` (`geo_zone_id`, `name`, `description`, `date_modified`, `date_added`) VALUES
-(3, 'UK VAT Zone', 'UK VAT', '2010-02-26 22:33:24', '2009-01-06 23:26:25'),
-(4, 'UK Shipping', 'UK Shipping Zones', '2010-12-15 15:18:13', '2009-06-23 01:14:53');
+(3, 'Тестовая гео зона 1', 'Тестовая гео зона 1', '2010-02-26 22:33:24', '2009-01-06 23:26:25'),
+(4, 'Тестовая гео зона 2', 'Тестовая гео зона 2', '2010-12-15 15:18:13', '2009-06-23 01:14:53');
 
 -----------------------------------------------------------
 
@@ -2446,6 +2446,7 @@ CREATE TABLE `oc_product` (
   `isbn` varchar(17) NOT NULL,
   `mpn` varchar(64) NOT NULL,
   `location` varchar(128) NOT NULL,
+  `certification_link` varchar(512) NOT NULL,
   `quantity` int(4) NOT NULL DEFAULT '0',
   `stock_status_id` int(11) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
@@ -3333,6 +3334,7 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'config', 'config_product_count', '0', 0),
 (0, 'config', 'config_limit_admin', '25', 0),
 (0, 'config', 'config_limit_autocomplete', '5', 0),
+(0, 'config', 'config_limit_filemanager', '16', 0),
 (0, 'config', 'config_review_status', '1', 0),
 (0, 'config', 'config_review_guest', '1', 0),
 (0, 'config', 'config_voucher_min', '1', 0),
@@ -3553,7 +3555,8 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'config', 'config_canonical_self', '1', 0),
 (0, 'config', 'config_add_prevnext', '0', 0),
 (0, 'config', 'config_noindex_status', '1', 0),
-(0, 'config', 'config_noindex_disallow_params', '', 0);															  
+(0, 'config', 'config_noindex_disallow_params', '', 0),
+(0, 'config', 'config_certification_link_status', '0', 0);														  
 
 -----------------------------------------------------------
 
@@ -3644,7 +3647,7 @@ CREATE TABLE `oc_tax_rate` (
 --
 
 INSERT INTO `oc_tax_rate` (`tax_rate_id`, `geo_zone_id`, `name`, `rate`, `type`, `date_added`, `date_modified`) VALUES
-(86, 3, 'НДС (20%)', 20.0000, 'P', '2011-03-09 21:17:10', '2022-03-15 10:09:29');
+(86, 3, 'НДС (22%)', 22.0000, 'P', '2011-03-09 21:17:10', '2022-03-15 10:09:29');
 
 -----------------------------------------------------------
 

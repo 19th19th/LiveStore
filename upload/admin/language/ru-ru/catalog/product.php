@@ -41,6 +41,7 @@ $_['entry_jan'] = 'JAN';
 $_['entry_isbn'] = 'ISBN';
 $_['entry_mpn'] = 'MPN';
 $_['entry_location'] = 'Расположение';
+$_['entry_certification_link'] = 'Ссылка на сертификат';
 $_['entry_shipping'] = 'Необходима доставка';
 $_['entry_manufacturer'] = 'Производитель';
 $_['entry_store'] = 'Магазины';
