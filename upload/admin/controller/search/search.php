@@ -3,24 +3,9 @@
 // *	@license	GNU General Public License version 3; see LICENSE.txt
 
 class ControllerSearchSearch extends Controller {
-	public function index() {
-		if (empty($this->session->data['user_token'])) {
-			return;
-		}
-	
+	public function index() {	
 		$this->load->language('search/search');
-
-        $data = array();
-		
-		$data['text_search_options'] = $this->language->get('text_search_options');
-		$data['text_catalog'] = $this->language->get('text_catalog');
-		$data['text_customers'] = $this->language->get('text_customers');
-		$data['text_orders'] = $this->language->get('text_orders');
-		$data['text_catalog_placeholder'] = $this->language->get('text_catalog_placeholder');
-		$data['text_customers_placeholder'] = $this->language->get('text_customers_placeholder');
-		$data['text_orders_placeholder'] = $this->language->get('text_orders_placeholder');
-		$data['text_search_placeholder'] = $this->language->get('text_search_placeholder');
-		
+        		
 		$data['user_token'] = $this->session->data['user_token'];
 		
 		return $this->load->view('search/search', $data);
@@ -28,13 +13,9 @@ class ControllerSearchSearch extends Controller {
 
     public function search() {
         $this->load->language('search/search');
-        $data['text_products'] = $this->language->get('text_products');
-		$data['text_categories'] = $this->language->get('text_categories');
-		$data['text_manufacturers'] = $this->language->get('text_manufacturers');
-		$data['text_orders'] = $this->language->get('text_orders');
-		$data['text_order_id'] = $this->language->get('text_order_id');
-		$data['text_customers'] = $this->language->get('text_customers');
-		$data['text_no_result'] = $this->language->get('text_no_result');
+		
+		$this->load->model('tool/image');
+		$this->load->model('search/search');
 
         $data['user_token'] = $this->session->data['user_token'];
 
@@ -55,11 +36,8 @@ class ControllerSearchSearch extends Controller {
             return;
         }
 
-        $this->load->model('tool/image');
         $data['no_image'] = $this->model_tool_image->resize('no_image.png', 30, 30);
-
-        $this->load->model('search/search');
-
+        
         switch ($search_option) {
             case 'catalog':
                 // Get products
@@ -73,12 +51,12 @@ class ControllerSearchSearch extends Controller {
                     }
 
                     $data['products'][$key]['url'] = $this->url->link('catalog/product/edit', 'user_token=' . $this->session->data['user_token'] . '&product_id=' . $product['product_id'], true);
-                }				
-				
+                }
+
                 // Get categories
                 $data['categories'] = $this->model_search_search->getCategories($_data);
 
-                foreach ($data['categories'] as $key => $category){
+                foreach ($data['categories'] as $key => $category) {
                     if (!empty($category['image'])) {
                         $data['categories'][$key]['image'] = $this->model_tool_image->resize($category['image'], 30, 30);
                     } else {
@@ -91,7 +69,7 @@ class ControllerSearchSearch extends Controller {
                 // Get manufacturers
                 $data['manufacturers'] = $this->model_search_search->getManufacturers($_data);
 
-                foreach ($data['manufacturers'] as $key => $manufacturer){
+                foreach ($data['manufacturers'] as $key => $manufacturer) {
                     if (!empty($manufacturer['image'])) {
                         $data['manufacturers'][$key]['image'] = $this->model_tool_image->resize($manufacturer['image'], 30, 30);
                     } else {
@@ -102,20 +80,22 @@ class ControllerSearchSearch extends Controller {
                 }
 
                 $json['result'] = $this->load->view('search/catalog_result', $data);
+
                 break;
             case 'customers':
                 $data['customers'] = $this->model_search_search->getCustomers($_data);
 
-                foreach ($data['customers'] as $key => $customer){
+                foreach ($data['customers'] as $key => $customer) {
                     $data['customers'][$key]['url'] = $this->url->link('customer/customer/edit', 'user_token=' . $this->session->data['user_token'] . '&customer_id=' . $customer['customer_id'], true);
                 }
-				
-                $json['result'] = $this->load->view('search/customers_result', $data);					
+
+                $json['result'] = $this->load->view('search/customers_result', $data);
+					
                 break;
             case 'orders':
                 $data['orders'] = $this->model_search_search->getOrders($_data);
 
-                foreach ($data['orders'] as $key => $order){
+                foreach ($data['orders'] as $key => $order) {
                     $data['orders'][$key]['url'] = $this->url->link('sale/order/info', 'user_token=' . $this->session->data['user_token'] . '&order_id=' . $order['order_id'], true);
                 }
 
@@ -124,8 +104,8 @@ class ControllerSearchSearch extends Controller {
             default:
                 break;
         }
-        
-        $this->response->addHeader('Content-Type: application/json');
+		
+		$this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
 }

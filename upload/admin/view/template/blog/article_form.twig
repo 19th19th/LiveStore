@@ -49,17 +49,17 @@
                       <div class="text-danger">{{ error_name[language.language_id] }}</div>
                       {% endif %} </div>
                   </div>
-				  <div class="form-group">
+				          <div class="form-group">
                     <label class="col-sm-2 control-label" for="input-meta-h1{{ language.language_id }}">{{ entry_meta_h1 }}</label>
                     <div class="col-sm-10">
                       <input type="text" name="article_description[{{ language.language_id }}][meta_h1]" value="{{ article_description[language.language_id] ? article_description[language.language_id].meta_h1 }}" placeholder="{{ entry_meta_h1 }}" id="input-meta-h1{{ language.language_id }}" class="form-control" />
-					</div>
-				  </div>
+                    </div>
+                    </div>
                   <div class="form-group">
                     <label class="col-sm-2 control-label" for="input-meta-title{{ language.language_id }}">{{ entry_meta_title }}</label>
                     <div class="col-sm-10">
                       <input type="text" name="article_description[{{ language.language_id }}][meta_title]" value="{{ article_description[language.language_id] ? article_description[language.language_id].meta_title }}" placeholder="{{ entry_meta_title }}" id="input-meta-title{{ language.language_id }}" class="form-control" />
-					</div>
+					        </div>
                   </div>
                   <div class="form-group">
                     <label class="col-sm-2 control-label" for="input-meta-description{{ language.language_id }}">{{ entry_meta_description }}</label>
@@ -73,10 +73,16 @@
                       <textarea name="article_description[{{ language.language_id }}][meta_keyword]" rows="5" placeholder="{{ entry_meta_keyword }}" id="input-meta-keyword{{ language.language_id }}" class="form-control">{{ article_description[language.language_id] ? article_description[language.language_id].meta_keyword }}</textarea>
                     </div>
                   </div>
-				  <div class="form-group">
+				          <div class="form-group">
                     <label class="col-sm-2 control-label" for="input-description{{ language.language_id }}">{{ entry_description }}</label>
                     <div class="col-sm-10">
                       <textarea name="article_description[{{ language.language_id }}][description]" placeholder="{{ entry_description }}" id="input-description{{ language.language_id }}" data-toggle="summernote" data-lang="{{ summernote }}" class="form-control">{{ article_description[language.language_id] ? article_description[language.language_id].description }}</textarea>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input-tag{{ language.language_id }}"><span data-toggle="tooltip" title="{{ help_tag }}">{{ entry_tag }}</span></label>
+                    <div class="col-sm-10">
+                      <input type="text" name="article_description[{{ language.language_id }}][tag]" value="{{ article_description[language.language_id] ? article_description[language.language_id].tag }}" placeholder="{{ entry_tag }}" id="input-tag{{ language.language_id }}" class="form-control" />
                     </div>
                   </div>
                 </div>
@@ -87,26 +93,23 @@
                 <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
                 <div class="col-sm-10">
                   <select name="status" id="input-status" class="form-control">
-                    
-
                     {% if status %}
-
-                    
                     <option value="1" selected="selected">{{ text_enabled }}</option>
                     <option value="0">{{ text_disabled }}</option>
-                    
-
                     {% else %}
-
-                    
                     <option value="1">{{ text_enabled }}</option>
                     <option value="0" selected="selected">{{ text_disabled }}</option>
-                    
-
                     {% endif %}
-
-                  
                   </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-date-available">{{ entry_date_available }}</label>
+                <div class="col-sm-3">
+                  <div class="input-group date">
+                    <input type="text" name="date_available" value="{{ date_available }}" placeholder="{{ entry_date_available }}" data-date-format="YYYY-MM-DD" id="input-date-available" class="form-control"/> <span class="input-group-btn">
+                    <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
+                    </span></div>
                 </div>
               </div>
               <div class="form-group">
@@ -128,21 +131,21 @@
                     {% endfor %}</div>
                 </div>
               </div>
-			  <div class="form-group">
-			<label class="col-sm-2 control-label" for="select-main_category_id"><span data-toggle="tooltip" title="{{ help_main_category }}">{{ entry_main_category }}</span></label>
-			<div class="col-sm-10">
-			<select name="main_blog_category_id" class="form-control">
-				<option value="0" selected="selected">{{ text_none }}</option>
-				{% for category in categories %}
-				  {% if category.blog_category_id == main_blog_category_id %}
-					<option value="{{ category.blog_category_id }}" selected="selected">{{ category.name }}</option>
-					{% else %}
-					<option value="{{ category.blog_category_id }}">{{ category.name }}</option>
-				  {% endif %}
-				{% endfor %}
-			</select>
-			</div>
-			</div>
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="select-main_category_id"><span data-toggle="tooltip" title="{{ help_main_category }}">{{ entry_main_category }}</span></label>
+                <div class="col-sm-10">
+                <select name="main_blog_category_id" class="form-control">
+                  <option value="0" selected="selected">{{ text_none }}</option>
+                  {% for category in categories %}
+                    {% if category.blog_category_id == main_blog_category_id %}
+                    <option value="{{ category.blog_category_id }}" selected="selected">{{ category.name }}</option>
+                    {% else %}
+                    <option value="{{ category.blog_category_id }}">{{ category.name }}</option>
+                    {% endif %}
+                  {% endfor %}
+                </select>
+                </div>
+              </div>
               <div class="form-group">
                 <label class="col-sm-2 control-label">{{ entry_store }}</label>
                 <div class="col-sm-10">

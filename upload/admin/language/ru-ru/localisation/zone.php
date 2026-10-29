@@ -15,6 +15,7 @@ $_['text_edit']              = 'Редактирование';
 $_['column_name']            = 'Название региона';
 $_['column_code']            = 'Код региона';
 $_['column_country']         = 'Страна';
+$_['column_status']          = 'Статус';
 $_['column_action']          = 'Действие';
 
 // Entry

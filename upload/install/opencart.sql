@@ -68,13 +68,6 @@ CREATE TABLE `oc_api` (
 
 -----------------------------------------------------------
 												
-  
-
-																								  
-																																																																																														  
-
-														   
-
 --
 -- Table structure for table `oc_api_ip`
 --
@@ -89,17 +82,6 @@ CREATE TABLE `oc_api_ip` (
 
 -----------------------------------------------------------
 												   
-  
-
-															
-					   
-					   
-					 
-					   
-						
-
-														   
-
 --
 -- Table structure for table `oc_api_session`
 --
@@ -122,264 +104,6 @@ CREATE TABLE `oc_api_session` (
 --
 
 DROP TABLE IF EXISTS `oc_attribute`;
-											   
-									
-								 
-											
-												   
-										   
-											
-															   
-																  
-									   
-										 
-							
-														
-
-  
-													
-  
-
-																																												  
-																												 
-																													  
-																													
-																													 
-
-														   
-
-  
-															 
-  
-
-													 
-								
-								 
-							   
-							  
-										   
-									   
-									 
-								  
-					  
-										   
-					 
-									 
-
-  
-																
-  
-
-																																									
-																																																																																																																																																																				
-																																																																																																																																																																																																										 
-																																																																																																																																																																																																																																																																																																																																																																																																	
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								
-																																																																																																																																																																																																																																																																																																																																																																																																																																																				
-																																									 
-																																																																																																																																																																																												   
-																																														 
-
-														   
-
-  
-													   
-  
-
-											   
-													 
-								
-									
-										   
-								  
-									 
-
-														   
-
-  
-														 
-  
-
-												 
-								
-								
-										 
-									 
-
-  
-															
-  
-
-																	
-		   
-		   
-		   
-		   
-		   
-		   
-
-														   
-
-  
-															
-  
-
-													
-								
-									 
-											  
-									 
-
-  
-															   
-  
-
-																			
-		 
-		 
-		 
-		 
-
-														   
-
-  
-																 
-  
-
-														 
-								
-								
-										 
-									 
-
-  
-																	
-  
-
-																			
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-
-														   
-
-  
-															
-  
-
-													
-								
-								 
-										  
-									 
-
-  
-															   
-  
-
-																		
-		  
-		  
-		  
-		  
-		  
-
-														   
-
-  
-																  
-  
-
-														  
-								
-									  
-													   
-											   
-									 
-
-  
-																	 
-  
-
-																										 
-			 
-			 
-			 
-			 
-			 
-
-														   
-
-  
-															 
-  
-
-													 
-								
-								 
-										  
-									 
-
-														   
-
-  
-														   
-  
-
-												   
-								
-							  
-							   
-									   
-									 
-
-  
-															  
-  
-
-																				 
-			
-			
-			
-			
-
-														   
-
-  
-														  
-  
-
-												  
-								
-										  
-									   
-									 
-
-  
-															 
-  
-
-																   
-		 
-		 
-		 
-		 
-
-														   
-
-  
-												   
-  
-
 CREATE TABLE `oc_attribute` (
   `attribute_id` int(11) NOT NULL AUTO_INCREMENT,
   `attribute_group_id` int(11) NOT NULL,
@@ -563,142 +287,13 @@ INSERT INTO `oc_banner_image` (`banner_image_id`, `banner_id`, `language_id`, `t
 (151, 6, 1, 'MAMO Kitchen', 'index.php?route=product/manufacturer/info&amp;manufacturer_id=7', 'catalog/demo/manufacturer/mamo.png', 0),
 (152, 6, 2, 'MAMO Kitchen', 'index.php?route=product/manufacturer/info&amp;manufacturer_id=7', 'catalog/demo/manufacturer/mamo.png', 0);
 																																			
-																  
-																																										  
-									 
-
 -----------------------------------------------------------
 
 --
 -- Table structure for table `oc_cart`
 --
 
-											   
-													 
-									
-										   
-							
-						   
-										   
-							   
-											
-															   
-																  
-								  
-													   
-
-  
-														  
-  
-
-																																								   
-																										
-																									
-																								 
-
-														   
-
-  
-																   
-  
-
-														   
-									  
-								 
-										  
-							  
-										   
-									   
-									 
-								  
-												 
-					 
-									 
-
-  
-								   
-  
-
-																																										 
-									  
-																 
-									 
-																	
-									 
-									 
-
-														   
-
-  
-															
-  
-
 DROP TABLE IF EXISTS `oc_cart`;
-									  
-							 
-						   
-											
-									 
-
-  
-															   
-  
-
-																				   
-			
-			
-			
-			
-
-														   
-
-  
-																 
-  
-
-														 
-									  
-							  
-							   
-											 
-									 
-
-  
-																	
-  
-
-																							 
-		   
-		   
-		   
-
-														   
-
-  
-																
-  
-
-														
-									  
-							  
-											 
-									 
-
-  
-																   
-  
-
-																			   
-		
-		
-		
-
-														   
-
-  
-											  
-  
-
 CREATE TABLE `oc_cart` (
   `cart_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `api_id` int(11) NOT NULL,
@@ -715,13 +310,6 @@ CREATE TABLE `oc_cart` (
 
 -----------------------------------------------------------
 												 
-  
-
-																																				 
-																							  
-
-														   
-
 --
 -- Table structure for table `oc_category`
 --
@@ -1021,18 +609,6 @@ CREATE TABLE `oc_category_to_layout` (
   PRIMARY KEY (`category_id`,`store_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-
 -----------------------------------------------------------
 
 --
@@ -1118,8 +694,7 @@ INSERT INTO `oc_country` (`country_id`, `name`, `iso_code_2`, `iso_code_3`, `add
 (20, 'Белоруссия (Беларусь)', 'BY', 'BLR', '', 0, 1),
 (80, 'Грузия', 'GE', 'GEO', '', 0, 1),
 (109, 'Казахстан', 'KZ', 'KAZ', '', 0, 1),
-(115, 'Киргизия (Кыргызстан)', 'KG', 'KGZ', '', 0, 1),
-											   
+(115, 'Киргизия (Кыргызстан)', 'KG', 'KGZ', '', 0, 1),									   
 (176, 'Российская Федерация', 'RU', 'RUS', '', 0, 1),
 (207, 'Таджикистан', 'TJ', 'TJK', '', 0, 1),
 (216, 'Туркменистан', 'TM', 'TKM', '', 0, 1),
@@ -1235,8 +810,7 @@ INSERT INTO `oc_currency` (`currency_id`, `title`, `code`, `symbol_left`, `symbo
 (1, 'Рубль', 'RUB', '', 'р.', '2', 1.00000000, 1, '2017-07-19 22:28:03'),
 (2, 'US Dollar', 'USD', '$', '', '2', 0.01697793, 1, '2017-07-19 21:28:21'),
 (3, 'Euro', 'EUR', '', '€', '2', 0.01476363, 1, '2017-07-19 21:28:21');
-																					 
-
+	
 -----------------------------------------------------------
 
 --
@@ -1273,22 +847,6 @@ CREATE TABLE `oc_customer` (
 
 -----------------------------------------------------------
 													 
-  
-
-																																																																								 
-																																																									  
-																																																					  
-																																																					   
-																																																						
-																																																				
-																																																				 
-																																																				  
-																																																				 
-																																																					  
-																																																				   
-
-														   
-
 --
 -- Table structure for table `oc_customer_activity`
 --
@@ -1411,38 +969,8 @@ CREATE TABLE `oc_customer_history` (
 --
 -- Table structure for table `oc_customer_login`
 --
-
-											 
-												   
-								 
-							
-								 
-								 
-				 
-													   
-
-  
-														
-  
-
-																						 
-											   
-											   
-												
-												
-											   
-											   
-												
-											  
-												 
-												
-
-														   
-
   
 DROP TABLE IF EXISTS `oc_customer_login`;
-  
-
 CREATE TABLE `oc_customer_login` (
   `customer_login_id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(96) NOT NULL,
@@ -1471,32 +999,6 @@ CREATE TABLE `oc_customer_ip` (
   KEY `ip` (`ip`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 																										 
-																				  
-																			  
-																				
-																				 
-																			   
-																					
-																				
-																									 
-																				  
-																						 
-																									  
-																			   
-																				
-																									  
-																				
-																								 
-																								
-																						 
-																			   
-																								
-																								   
-																			   
-																				
-																				 
-																				 
-
 -----------------------------------------------------------
 
 --
@@ -1579,22 +1081,7 @@ CREATE TABLE `oc_customer_search` (
 -- Table structure for table `oc_customer_wishlist`
 --
 
-													  
-															
-								 
-							  
-							  
-								  
-								 
-										 
-									 
-
-														   
-
-  
 DROP TABLE IF EXISTS `oc_customer_wishlist`;
-  
-
 CREATE TABLE `oc_customer_wishlist` (
   `customer_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
@@ -1603,14 +1090,6 @@ CREATE TABLE `oc_customer_wishlist` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -----------------------------------------------------------
-															  
-  
-
-																					 
-							   
-							   
-
-														   
 
 --
 -- Table structure for table `oc_custom_field`
@@ -1736,134 +1215,51 @@ CREATE TABLE `oc_event` (
 --
 
 INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(1, 'activity_customer_add', 'catalog/model/account/customer/addCustomer/after', 'event/activity/addCustomer', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(2, 'activity_customer_edit', 'catalog/model/account/customer/editCustomer/after', 'event/activity/editCustomer', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(3, 'activity_customer_password', 'catalog/model/account/customer/editPassword/after', 'event/activity/editPassword', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(4, 'activity_customer_forgotten', 'catalog/model/account/customer/editCode/after', 'event/activity/forgotten', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(5, 'activity_transaction', 'catalog/model/account/customer/addTransaction/after', 'event/activity/addTransaction', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(6, 'activity_customer_login', 'catalog/model/account/customer/deleteLoginAttempts/after', 'event/activity/login', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(7, 'activity_address_add', 'catalog/model/account/address/addAddress/after', 'event/activity/addAddress', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(8, 'activity_address_edit', 'catalog/model/account/address/editAddress/after', 'event/activity/editAddress', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(9, 'activity_address_delete', 'catalog/model/account/address/deleteAddress/after', 'event/activity/deleteAddress', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(10, 'activity_affiliate_add', 'catalog/model/account/customer/addAffiliate/after', 'event/activity/addAffiliate', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(11, 'activity_affiliate_edit', 'catalog/model/account/customer/editAffiliate/after', 'event/activity/editAffiliate', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(12, 'activity_order_add', 'catalog/model/checkout/order/addOrderHistory/before', 'event/activity/addOrderHistory', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(13, 'activity_return_add', 'catalog/model/account/return/addReturn/after', 'event/activity/addReturn', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(14, 'mail_transaction', 'catalog/model/account/customer/addTransaction/after', 'mail/transaction', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(15, 'mail_forgotten', 'catalog/model/account/customer/editCode/after', 'mail/forgotten', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(16, 'mail_customer_add', 'catalog/model/account/customer/addCustomer/after', 'mail/register', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(17, 'mail_customer_alert', 'catalog/model/account/customer/addCustomer/after', 'mail/register/alert', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(18, 'mail_affiliate_add', 'catalog/model/account/customer/addAffiliate/after', 'mail/affiliate', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(19, 'mail_affiliate_alert', 'catalog/model/account/customer/addAffiliate/after', 'mail/affiliate/alert', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(20, 'mail_voucher', 'catalog/model/checkout/order/addOrderHistory/after', 'extension/total/voucher/send', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(21, 'mail_order_add', 'catalog/model/checkout/order/addOrderHistory/before', 'mail/order', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(22, 'mail_order_alert', 'catalog/model/checkout/order/addOrderHistory/before', 'mail/order/alert', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(23, 'statistics_review_add', 'catalog/model/catalog/review/addReview/after', 'event/statistics/addReview', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(24, 'statistics_return_add', 'catalog/model/account/return/addReturn/after', 'event/statistics/addReturn', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(25, 'statistics_order_history', 'catalog/model/checkout/order/addOrderHistory/after', 'event/statistics/addOrderHistory', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(26, 'admin_mail_affiliate_approve', 'admin/model/customer/customer_approval/approveAffiliate/after', 'mail/affiliate/approve', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(27, 'admin_mail_affiliate_deny', 'admin/model/customer/customer_approval/denyAffiliate/after', 'mail/affiliate/deny', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(28, 'admin_mail_customer_approve', 'admin/model/customer/customer_approval/approveCustomer/after', 'mail/customer/approve', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(29, 'admin_mail_customer_deny', 'admin/model/customer/customer_approval/denyCustomer/after', 'mail/customer/deny', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(30, 'admin_mail_reward', 'admin/model/customer/customer/addReward/after', 'mail/reward', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(31, 'admin_mail_transaction', 'admin/model/customer/customer/addTransaction/after', 'mail/transaction', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(32, 'admin_mail_return', 'admin/model/sale/return/addReturnHistory/after', 'mail/return', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`) VALUES
-(33, 'admin_mail_forgotten', 'admin/model/user/user/editCode/after', 'mail/forgotten', 1);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(34, 'advertise_google', 'admin/model/catalog/product/deleteProduct/after', 'extension/advertise/google/deleteProduct', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(35, 'advertise_google', 'admin/model/catalog/product/copyProduct/after', 'extension/advertise/google/copyProduct', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(36, 'advertise_google', 'admin/view/common/column_left/before', 'extension/advertise/google/admin_link', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(37, 'advertise_google', 'admin/model/catalog/product/addProduct/after', 'extension/advertise/google/addProduct', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(38, 'advertise_google', 'catalog/controller/checkout/success/before', 'extension/advertise/google/before_checkout_success', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(39, 'advertise_google', 'catalog/view/common/header/after', 'extension/advertise/google/google_global_site_tag', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(40, 'advertise_google', 'catalog/view/common/success/after', 'extension/advertise/google/google_dynamic_remarketing_purchase', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(41, 'advertise_google', 'catalog/view/product/product/after', 'extension/advertise/google/google_dynamic_remarketing_product', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-																																							
-																																								
-																																									 
-																																							 
-																																								  
-																																								 
-																																					  
-																																						  
-																																								  
-																																								 
-																																									 
-																																								  
-																																				  
-																																			 
-																																										  
-																																												  
-																																				 
-																																		  
-																																					 
-																																					  
-																																											 
-																																			 
-																																						
-																																						
-																																											
-																																												  
-																																									  
-																																											  
-																																								  
-																																										  
-																																					
-																																											
-																							 
-																																										
-																																								  
-																												
-																																								
-																																											  
-																														
-(42, 'advertise_google', 'catalog/view/product/search/after', 'extension/advertise/google/google_dynamic_remarketing_searchresults', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(43, 'advertise_google', 'catalog/view/product/category/after', 'extension/advertise/google/google_dynamic_remarketing_category', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(44, 'advertise_google', 'catalog/view/common/home/after', 'extension/advertise/google/google_dynamic_remarketing_home', 1, 0);
-INSERT INTO `oc_event` (`event_id`, `code`, `trigger`, `action`, `status`, `sort_order`) VALUES
-(45, 'advertise_google', 'catalog/view/checkout/cart/after', 'extension/advertise/google/google_dynamic_remarketing_cart', 1, 0);
+(1, 'activity_customer_add', 'catalog/model/account/customer/addCustomer/after', 'event/activity/addCustomer', 1),
+(2, 'activity_customer_edit', 'catalog/model/account/customer/editCustomer/after', 'event/activity/editCustomer', 1),
+(3, 'activity_customer_password', 'catalog/model/account/customer/editPassword/after', 'event/activity/editPassword', 1),
+(4, 'activity_customer_forgotten', 'catalog/model/account/customer/editCode/after', 'event/activity/forgotten', 1),
+(5, 'activity_transaction', 'catalog/model/account/customer/addTransaction/after', 'event/activity/addTransaction', 1),
+(6, 'activity_customer_login', 'catalog/model/account/customer/deleteLoginAttempts/after', 'event/activity/login', 1),
+(7, 'activity_address_add', 'catalog/model/account/address/addAddress/after', 'event/activity/addAddress', 1),
+(8, 'activity_address_edit', 'catalog/model/account/address/editAddress/after', 'event/activity/editAddress', 1),
+(9, 'activity_address_delete', 'catalog/model/account/address/deleteAddress/after', 'event/activity/deleteAddress', 1),
+(10, 'activity_affiliate_add', 'catalog/model/account/customer/addAffiliate/after', 'event/activity/addAffiliate', 1),
+(11, 'activity_affiliate_edit', 'catalog/model/account/customer/editAffiliate/after', 'event/activity/editAffiliate', 1),
+(12, 'activity_order_add', 'catalog/model/checkout/order/addOrderHistory/before', 'event/activity/addOrderHistory', 1),
+(13, 'activity_return_add', 'catalog/model/account/return/addReturn/after', 'event/activity/addReturn', 1),
+(14, 'mail_transaction', 'catalog/model/account/customer/addTransaction/after', 'mail/transaction', 1),
+(15, 'mail_forgotten', 'catalog/model/account/customer/editCode/after', 'mail/forgotten', 1),
+(16, 'mail_customer_add', 'catalog/model/account/customer/addCustomer/after', 'mail/register', 1),
+(17, 'mail_customer_alert', 'catalog/model/account/customer/addCustomer/after', 'mail/register/alert', 1),
+(18, 'mail_affiliate_add', 'catalog/model/account/customer/addAffiliate/after', 'mail/affiliate', 1),
+(19, 'mail_affiliate_alert', 'catalog/model/account/customer/addAffiliate/after', 'mail/affiliate/alert', 1),
+(20, 'mail_voucher', 'catalog/model/checkout/order/addOrderHistory/after', 'extension/total/voucher/send', 1),
+(21, 'mail_order_add', 'catalog/model/checkout/order/addOrderHistory/before', 'mail/order', 1),
+(22, 'mail_order_alert', 'catalog/model/checkout/order/addOrderHistory/before', 'mail/order/alert', 1),
+(23, 'statistics_review_add', 'catalog/model/catalog/review/addReview/after', 'event/statistics/addReview', 1),
+(24, 'statistics_return_add', 'catalog/model/account/return/addReturn/after', 'event/statistics/addReturn', 1),
+(25, 'statistics_order_history', 'catalog/model/checkout/order/addOrderHistory/after', 'event/statistics/addOrderHistory', 1),
+(26, 'admin_mail_affiliate_approve', 'admin/model/customer/customer_approval/approveAffiliate/after', 'mail/affiliate/approve', 1),
+(27, 'admin_mail_affiliate_deny', 'admin/model/customer/customer_approval/denyAffiliate/after', 'mail/affiliate/deny', 1),
+(28, 'admin_mail_customer_approve', 'admin/model/customer/customer_approval/approveCustomer/after', 'mail/customer/approve', 1),
+(29, 'admin_mail_customer_deny', 'admin/model/customer/customer_approval/denyCustomer/after', 'mail/customer/deny', 1),
+(30, 'admin_mail_reward', 'admin/model/customer/customer/addReward/after', 'mail/reward', 1),
+(31, 'admin_mail_transaction', 'admin/model/customer/customer/addTransaction/after', 'mail/transaction', 1),
+(32, 'admin_mail_return', 'admin/model/sale/return/addReturnHistory/after', 'mail/return', 1),
+(33, 'admin_mail_forgotten', 'admin/model/user/user/editCode/after', 'mail/forgotten', 1),
+(34, 'advertise_google', 'admin/model/catalog/product/deleteProduct/after', 'extension/advertise/google/deleteProduct', 1),
+(35, 'advertise_google', 'admin/model/catalog/product/copyProduct/after', 'extension/advertise/google/copyProduct', 1),
+(36, 'advertise_google', 'admin/view/common/column_left/before', 'extension/advertise/google/admin_link', 1),
+(37, 'advertise_google', 'admin/model/catalog/product/addProduct/after', 'extension/advertise/google/addProduct', 1),
+(38, 'advertise_google', 'catalog/controller/checkout/success/before', 'extension/advertise/google/before_checkout_success', 1),
+(39, 'advertise_google', 'catalog/view/common/header/after', 'extension/advertise/google/google_global_site_tag', 1),
+(40, 'advertise_google', 'catalog/view/common/success/after', 'extension/advertise/google/google_dynamic_remarketing_purchase', 1),
+(41, 'advertise_google', 'catalog/view/product/product/after', 'extension/advertise/google/google_dynamic_remarketing_product', 1),																										
+(42, 'advertise_google', 'catalog/view/product/search/after', 'extension/advertise/google/google_dynamic_remarketing_searchresults', 1),
+(43, 'advertise_google', 'catalog/view/product/category/after', 'extension/advertise/google/google_dynamic_remarketing_category', 1),
+(44, 'advertise_google', 'catalog/view/common/home/after', 'extension/advertise/google/google_dynamic_remarketing_home', 1),
+(45, 'advertise_google', 'catalog/view/checkout/cart/after', 'extension/advertise/google/google_dynamic_remarketing_cart', 1);
 
 -----------------------------------------------------------
 
@@ -1932,15 +1328,8 @@ INSERT INTO `oc_extension` (`extension_id`, `type`, `code`) VALUES
 (47, 'module', 'featured_product'),
 (48, 'currency', 'cbr'),
 (49, 'currency', 'ecb'),
-(50, 'currency', 'nbu'),
-						 
-						  
-						 
+(50, 'currency', 'nbu'),				 
 (51, 'dashboard', 'chart_by_country_and_region');
-							
-							   
-							 
-									
 
 -----------------------------------------------------------
 
@@ -1960,14 +1349,6 @@ CREATE TABLE `oc_extension_install` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -----------------------------------------------------------
-															  
-  
-
-																													 
-														
-														 
-
-														   
 
 --
 -- Table structure for table `oc_extension_path`
@@ -1985,444 +1366,6 @@ CREATE TABLE `oc_extension_path` (
 
 -----------------------------------------------------------
 														   
-  
-
-																										  
-												   
-																   
-														
-															 
-															   
-														 
-															  
-															   
-																	  
-																  
-																	   
-																 
-																	   
-																	   
-																	  
-																	  
-																	  
-																				 
-																			   
-																			   
-																			   
-																						  
-																			
-																		 
-																		 
-																		 
-																		 
-																		 
-																		 
-																																													 
-																			 
-																																						  
-																																					 
-																		 
-																				  
-																				 
-																				   
-																				  
-																			
-																		  
-																		  
-																				  
-																		
-																				
-																				
-																				
-																				
-																				
-																						 
-																				   
-																				
-																				
-																		  
-																		  
-																					
-																				
-																		   
-																		 
-																			 
-																					 
-																		
-																		  
-																		 
-																				   
-																	  
-																			 
-																				
-																			  
-																		  
-																	  
-																		
-																		 
-																			  
-																				   
-																				
-																		
-																			
-																			   
-																				 
-																			   
-																		 
-																		   
-																			 
-																			
-																				 
-																			
-																			   
-																		   
-																		   
-																			 
-																			 
-																			
-																			  
-																			 
-																		  
-																			   
-																			   
-																			   
-																			 
-																			
-																				 
-																			
-																						   
-																			
-																					
-																																												 
-																						 
-																			  
-																		   
-																	   
-																		 
-																		 
-																		   
-																		   
-																		
-																	  
-																		   
-																		 
-																	 
-																	  
-																	  
-																	  
-																	  
-																	  
-																	  
-																	  
-																	  
-																	  
-																	 
-																	 
-																	 
-																	 
-																	 
-																	 
-																	 
-																																												  
-																																													 
-																																												 
-																			
-																		  
-																							
-																			   
-																			   
-																			   
-																				 
-																				 
-																				  
-																				  
-																				  
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				   
-																				 
-																				   
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																				 
-																					
-																			 
-																			  
-																		  
-																				
-																				
-																				
-																				
-																																		  
-																																												
-																			 
-																			  
-																			  
-																			  
-																				 
-																		
-																																												
-																																												
-																						  
-																				 
-																			   
-																					
-																			
-																							 
-																							 
-																							 
-																				  
-																				
-																				
-																				  
-																				  
-																				  
-																							 
-																					  
-																				 
-																				  
-																					 
-																					 
-																				  
-																				  
-																				  
-																				  
-																					  
-																			   
-																			   
-																				 
-																						  
-																					 
-																						
-																						
-																						
-																					  
-																						
-																						 
-																																												
-																	   
-																		
-																				
-																																												
-																		   
-																																		  
-																																												
-																																		  
-																																		  
-																			
-																				   
-																				   
-																				   
-																				   
-																				 
-																	   
-																		
-																		
-																		   
-																		   
-																		  
-																		   
-																						   
-																																			  
-																			 
-																			 
-																				
-																			 
-																			 
-																			 
-																																		  
-																			
-																			
-																			
-																		 
-																		   
-																		  
-																																		  
-																																										
-																																										
-																																										
-																			 
-																			  
-																					
-																				
-																			  
-																					  
-																		   
-																					   
-																					 
-																					 
-																				   
-																					  
-																					  
-																					  
-
-														   
-
 --
 -- Table structure for table `oc_filter`
 --
@@ -2499,8 +1442,8 @@ CREATE TABLE `oc_geo_zone` (
 --
 
 INSERT INTO `oc_geo_zone` (`geo_zone_id`, `name`, `description`, `date_modified`, `date_added`) VALUES
-(3, 'UK VAT Zone', 'UK VAT', '2010-02-26 22:33:24', '2009-01-06 23:26:25'),
-(4, 'UK Shipping', 'UK Shipping Zones', '2010-12-15 15:18:13', '2009-06-23 01:14:53');
+(3, 'Тестовая гео зона 1', 'Тестовая гео зона 1', '2010-02-26 22:33:24', '2009-01-06 23:26:25'),
+(4, 'Тестовая гео зона 2', 'Тестовая гео зона 2', '2010-12-15 15:18:13', '2009-06-23 01:14:53');
 
 -----------------------------------------------------------
 
@@ -2508,127 +1451,7 @@ INSERT INTO `oc_geo_zone` (`geo_zone_id`, `name`, `description`, `date_modified`
 -- Table structure for table `oc_information`
 --
 
-														 
-												 
-										  
-								 
-													 
-													   
-									 
-
-														   
-
-  
-																
-  
-
-														
-																		 
-									
-										  
-									   
-																						   
-											 
-										
-											 
-												 
-															 
-													 
-															
-								  
-								   
-									  
-																			 
-							   
-													   
-																					  
-																						   
-							  
-												
-											  
-															
-									 
-
-														   
-
-  
-									
-  
-
 DROP TABLE IF EXISTS `oc_information`;
-											
-										  
-														 
-									   
-									  
-									
-														
-															  
-									 
-
-														   
-
-  
-									
-  
-
-															   
-								
-										  
-														 
-														 
-									 
-
-														   
-
-  
-															   
-  
-
-													   
-														 
-										  
-												   
-										   
-												   
-						
-															 
-								 
-									  
-											 
-							 
-									 
-
-														   
-
-  
-															  
-  
-
-													  
-															
-							   
-										 
-									 
-
-														   
-
-  
-									 
-  
-
-																  
-											 
-								 
-													   
-									 
-
-														   
-
-  
-													 
-  
-
 CREATE TABLE `oc_information` (
   `information_id` int(11) NOT NULL AUTO_INCREMENT,
   `bottom` int(1) NOT NULL DEFAULT '0',
@@ -2647,8 +1470,7 @@ INSERT INTO `oc_information` (`information_id`, `bottom`, `sort_order`, `status`
 (4, 1, 1, 1, 0),
 (5, 1, 4, 1, 1),
 (6, 1, 2, 1, 1);
-				
-
+	
 -- --------------------------------------------------------
 
 --
@@ -2687,7 +1509,6 @@ INSERT INTO `oc_information_description` (`information_id`, `language_id`, `titl
 (7, 1, 'Политика cookie', 'Мы используем файлы cookie для улучшения работы сайта, анализа его использования и предоставления пользователям персонализированного контента. Мы также используем файлы cookie для рекламы и маркетинга. Вы можете изменить настройки браузера и отказаться от использования файлов cookie. Если вы не согласны с использованием файлов cookie, вы можете прекратить использование нашего сайта. Более подробная информация о файлах cookie и их использовании приведена в &lt;a href=&quot;/privacy&quot; target=&quot;_blank&quot;&gt;нашей политике конфиденциальности&lt;/a&gt;.', '', '', '', ''),
 (7, 2, 'Cookie Policy', ' We use cookies to improve website performance, analyze its usage, and provide personalized content to users. We also use cookies for advertising and marketing purposes. You can change your browser settings to refuse the use of cookies. If you do not agree with the use of cookies, you may stop using our website. More detailed information about cookies and how we use them is available in our &lt;a href=&quot;/privacy&quot; target=&quot;_blank&quot;&gt;Privacy Policy&lt;/a&gt;.', '', '', '', '');
 
-
 -- --------------------------------------------------------
 
 --
@@ -2704,14 +1525,6 @@ CREATE TABLE `oc_information_to_layout` (
 
 -----------------------------------------------------------
 																						 
-		  
-
-
-														   
-
-  
-															  
-  
 --
 -- Table structure for table `oc_information_to_store`
 --
@@ -2732,7 +1545,6 @@ INSERT INTO `oc_information_to_store` (`information_id`, `store_id`) VALUES
 (4, 0),
 (5, 0),
 (6, 0);
-
 
 -----------------------------------------------------------
 
@@ -2837,19 +1649,13 @@ INSERT INTO `oc_layout_module` (`layout_module_id`, `layout_id`, `code`, `positi
 (78, 15, 'blog_latest.32', 'column_left', 1),
 (79, 15, 'blog_featured.33', 'content_bottom', 0),
 (80, 16, 'blog_category', 'column_left', 0),
-(81, 16, 'blog_featured.33', 'column_left', 1),
-												 
-												  
+(81, 16, 'blog_featured.33', 'column_left', 1),											  
 (84, 3, 'featured_article.34', 'column_left', 2),
 (85, 3, 'featured_product.35', 'column_left', 3),
 (86, 17, 'featured_article.34', 'column_left', 0),
 (87, 17, 'featured_product.35', 'column_left', 1),
 (88, 2, 'featured_article.34', 'content_bottom', 0);
 										
-
-														   
-
-
 -----------------------------------------------------------
 
 --
@@ -2877,17 +1683,13 @@ INSERT INTO `oc_layout_route` (`layout_route_id`, `layout_id`, `store_id`, `rout
 (42, 1, 0, 'common/home'),
 (20, 2, 0, 'product/product'),
 (24, 11, 0, 'information/information'),
-(23, 7, 0, 'checkout/%'),
-			   
+(23, 7, 0, 'checkout/%'),	   
 (31, 8, 0, 'information/contact'),
 (32, 9, 0, 'information/sitemap'),
-(34, 4, 0, ''),
-							   
-							  
+(34, 4, 0, ''),				  
 (45, 5, 0, 'product/manufacturer'),
 (52, 12, 0, 'product/compare'),
-(53, 13, 0, 'product/search'),
-										 
+(53, 13, 0, 'product/search'),			 
 (57, 14, 0, 'blog/latest'),
 (58, 15, 0, 'blog/category'),
 (56, 16, 0, 'blog/article'),
@@ -3066,19 +1868,7 @@ CREATE TABLE `oc_manufacturer_to_layout` (
   `layout_id` int(11) NOT NULL,
   PRIMARY KEY (`manufacturer_id`,`store_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-  
-
-																			 
-	   
-	   
-	   
-	   
-	   
-		
-
-														   
-
-
+ 
 -- --------------------------------------------------------
 
 --
@@ -3117,8 +1907,6 @@ CREATE TABLE `oc_modification` (
   PRIMARY KEY (`modification_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
-															 
-  
 --
 -- Table structure for table `oc_modification_backup`
 --
@@ -3157,14 +1945,12 @@ INSERT INTO `oc_module` (`module_id`, `name`, `code`, `setting`) VALUES
 (30, 'Category', 'banner', '{"name":"Category","banner_id":"6","width":"182","height":"182","status":"1"}'),
 (29, 'Home Page', 'carousel', '{"name":"Home Page","banner_id":"8","width":"130","height":"100","status":"1"}'),
 (28, 'Home Page', 'featured', '{"name":"Home Page","product":["43","40","42","30"],"limit":"4","width":"200","height":"200","status":"1"}'),
-(27, 'Home Page', 'slideshow', '{"name":"Home Page","banner_id":"7","width":"1140","height":"380","status":"1"}'),
-																																																																																									
+(27, 'Home Page', 'slideshow', '{"name":"Home Page","banner_id":"7","width":"1350","height":"380","status":"1"}'),																																																																																								
 (31, 'Banner 1', 'banner', '{"name":"Banner 1","banner_id":"6","width":"182","height":"182","status":"1"}'),
 (32, 'Последние статьи', 'blog_latest', '{"name":"\\u041f\\u043e\\u0441\\u043b\\u0435\\u0434\\u043d\\u0438\\u0435 \\u0441\\u0442\\u0430\\u0442\\u044c\\u0438","limit":"4","width":"200","height":"200","status":"1"}'),
 (33, 'Рекомендуемые статьи', 'blog_featured', '{"name":"\\u0420\\u0435\\u043a\\u043e\\u043c\\u0435\\u043d\\u0434\\u0443\\u0435\\u043c\\u044b\\u0435 \\u0441\\u0442\\u0430\\u0442\\u044c\\u0438","article_name":"","article":["120","123","125","124"],"limit":"4","width":"200","height":"200","status":"1"}'),
 (34, 'Рекомендуемые статьи в товаре, категории и производителе', 'featured_article', '{"name":"\\u0420\\u0435\\u043a\\u043e\\u043c\\u0435\\u043d\\u0434\\u0443\\u0435\\u043c\\u044b\\u0435 \\u0441\\u0442\\u0430\\u0442\\u044c\\u0438 \\u0432 \\u0442\\u043e\\u0432\\u0430\\u0440\\u0435, \\u043a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u0438 \\u0438 \\u043f\\u0440\\u043e\\u0438\\u0437\\u0432\\u043e\\u0434\\u0438\\u0442\\u0435\\u043b\\u0435","limit":"4","width":"200","height":"200","status":"1"}'),
 (35, 'Рекомендуемые товары в категории и производителе', 'featured_product', '{"name":"\\u0420\\u0435\\u043a\\u043e\\u043c\\u0435\\u043d\\u0434\\u0443\\u0435\\u043c\\u044b\\u0435 \\u0442\\u043e\\u0432\\u0430\\u0440\\u044b \\u0432 \\u043a\\u0430\\u0442\\u0435\\u0433\\u043e\\u0440\\u0438\\u0438 \\u0438 \\u043f\\u0440\\u043e\\u0438\\u0437\\u0432\\u043e\\u0434\\u0438\\u0442\\u0435\\u043b\\u0435","limit":"4","width":"200","height":"200","status":"1"}');
-
 
 -----------------------------------------------------------
 
@@ -3401,17 +2187,6 @@ CREATE TABLE `oc_order` (
 
 -----------------------------------------------------------
 																																																																																																																																																																																																																																																																																																											
-																																																																																																																																																																																																									
-
-																																																																																																																																																																																																																																																																							 
-																																																																																																																																																																																																			 
-																																																																																																																																																																																																																								 
-
-														   
-
-  
-													   
-  
 --
 -- Table structure for table `oc_order_history`
 --
@@ -3431,21 +2206,6 @@ CREATE TABLE `oc_order_history` (
 
 -----------------------------------------------------------
 																															
-										
-										
-										
-										
-										
-										
-										
-										
-										
-
-														   
-
-  
-													  
-
 --
 -- Table structure for table `oc_order_option`
 --
@@ -3490,17 +2250,6 @@ CREATE TABLE `oc_order_product` (
 
 -----------------------------------------------------------
 																																					
-																	  
-
-																			
-																	  
-																	  
-
-														   
-
-  
-														 
-  
 --
 -- Table structure for table `oc_order_recurring`
 --
@@ -3608,23 +2357,14 @@ CREATE TABLE `oc_order_status` (
 -- Dumping data for table `oc_order_status`
 --
 
-INSERT INTO `oc_order_status` (`order_status_id`, `language_id`, `name`) VALUES
-					 
-							   
-(2, 1, 'В обработке'),
-										  
+INSERT INTO `oc_order_status` (`order_status_id`, `language_id`, `name`) VALUES			   
+(2, 1, 'В обработке'),					  
 (3, 1, 'Доставлено'),
 (7, 1, 'Отменено'),
-(5, 1, 'Сделка завершена'),
-						 
-				 
-													 
-(8, 1, 'Возврат'),
-								  
-(9, 1, 'Отмена и аннулирование'),
-								  
+(5, 1, 'Сделка завершена'),						 
+(8, 1, 'Возврат'),				  
+(9, 1, 'Отмена и аннулирование'),					  
 (10, 1, 'Неудавшийся'),
-			
 (11, 1, 'Возмещенный'),
 (12, 1, 'Полностью измененный'),
 (13, 1, 'Полный возврат'),
@@ -3639,13 +2379,10 @@ INSERT INTO `oc_order_status` (`order_status_id`, `language_id`, `name`) VALUES
 (1, 2, 'Pending'),
 (9, 2, 'Canceled Reversal'),
 (7, 2, 'Canceled'),
-(12, 2, 'Reversed'),
-				   
+(12, 2, 'Reversed'),   
 (13, 2, 'Chargeback'),
 (5, 2, 'Complete'),
 (14, 2, 'Expired'),
-				  
-	  
 (16, 1, 'Анулированный'),
 (16, 2, 'Voided'),
 (15, 2, 'Processed');
@@ -3670,32 +2407,6 @@ CREATE TABLE `oc_order_total` (
 
 -----------------------------------------------------------
 																										  
-											   
-												   
-										  
-										   
-											   
-												   
-										  
-										   
-											   
-																									  
-										   
-											
-												
-																									  
-										   
-											
-												
-																									  
-										   
-											
-
-														   
-
-  
-													   
-
 --
 -- Table structure for table `oc_order_voucher`
 --
@@ -3735,6 +2446,7 @@ CREATE TABLE `oc_product` (
   `isbn` varchar(17) NOT NULL,
   `mpn` varchar(64) NOT NULL,
   `location` varchar(128) NOT NULL,
+  `certification_link` varchar(512) NOT NULL DEFAULT '',
   `quantity` int(4) NOT NULL DEFAULT '0',
   `stock_status_id` int(11) NOT NULL,
   `image` varchar(255) DEFAULT NULL,
@@ -4153,77 +2865,9 @@ INSERT INTO `oc_product_related` (`product_id`, `related_id`) VALUES
 
 --
 -- Table structure for table `oc_product_reward`
---
-
-										 
-									 
-
-  
-																	
-  
-
-																			
-		  
-		  
-		  
-		  
-		  
-		  
-		  
-
-														   
-
-  
-															
-  
-
-													
-								
+--				
 									
-DROP TABLE IF EXISTS `oc_product_reward`;
-
-  
-															   
-  
-
-																			
-		
-		
-		
-		
-
-														   
-
-  
-															
-  
-
-													
-								
-								
-									 
-
-  
-															   
-  
-
-																		
-		 
-		 
-		 
-		 
-		 
-		 
-
-														   
-
-  
-														
-  
-
-												
-													  
-											
+DROP TABLE IF EXISTS `oc_product_reward`;										
 CREATE TABLE `oc_product_reward` (
   `product_reward_id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) NOT NULL DEFAULT '0',
@@ -4369,32 +3013,7 @@ CREATE TABLE `oc_product_to_layout` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -----------------------------------------------------------
-																				 
-		   
-
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-		   
-
-														   
-
-  
-														  
-  
+	
 --
 -- Table structure for table `oc_product_to_store`
 --
@@ -4519,10 +3138,8 @@ CREATE TABLE `oc_return_action` (
 --
 
 INSERT INTO `oc_return_action` (`return_action_id`, `language_id`, `name`) VALUES
-(1, 1, 'Возмещенный'),
-											
-(2, 1, 'Возврат средств'),
-						   
+(1, 1, 'Возмещенный'),							
+(2, 1, 'Возврат средств'),			   
 (3, 1, 'Отправлена замена'),
 (1, 2, 'Refunded'),
 (3, 2, 'Replacement Sent'),
@@ -4597,10 +3214,8 @@ INSERT INTO `oc_return_status` (`return_status_id`, `language_id`, `name`) VALUE
 (1, 1, 'В ожидании'),
 (3, 1, 'Выполнен'),
 (2, 1, 'Ожидание товара'),
-(1, 2, 'Pending'),
-				   
-(2, 2, 'Awaiting Products'),
-														   
+(1, 2, 'Pending'),		   
+(2, 2, 'Awaiting Products'),													   
 (3, 2, 'Complete');
 
 -- --------------------------------------------------------
@@ -4719,6 +3334,7 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'config', 'config_product_count', '0', 0),
 (0, 'config', 'config_limit_admin', '25', 0),
 (0, 'config', 'config_limit_autocomplete', '5', 0),
+(0, 'config', 'config_limit_filemanager', '16', 0),
 (0, 'config', 'config_review_status', '1', 0),
 (0, 'config', 'config_review_guest', '1', 0),
 (0, 'config', 'config_voucher_min', '1', 0),
@@ -4926,8 +3542,7 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'module_blog_category', 'module_blog_category_status', '1', 0),
 (0, 'dashboard_chart_by_country_and_region', 'dashboard_chart_by_country_and_region_width', '6', '0'),
 (0, 'dashboard_chart_by_country_and_region', 'dashboard_chart_by_country_and_region_status', '1', '0'),
-(0, 'dashboard_chart_by_country_and_region', 
-'dashboard_chart_by_country_and_region_sort_order', '5', 0),
+(0, 'dashboard_chart_by_country_and_region', 'dashboard_chart_by_country_and_region_sort_order', '5', 0),
 (0, 'config', 'config_seo_pro', '1', 0),
 (0, 'config', 'config_seo_url_include_path', '0', 0),
 (0, 'config', 'config_seo_url_cache', '0', 0),
@@ -4940,9 +3555,8 @@ INSERT INTO `oc_setting` (`store_id`, `code`, `key`, `value`, `serialized`) VALU
 (0, 'config', 'config_canonical_self', '1', 0),
 (0, 'config', 'config_add_prevnext', '0', 0),
 (0, 'config', 'config_noindex_status', '1', 0),
-(0, 'config', 'config_noindex_disallow_params', '', 0);															  
-
-
+(0, 'config', 'config_noindex_disallow_params', '', 0),
+(0, 'config', 'config_certification_link_status', '0', 0);														  
 
 -----------------------------------------------------------
 
@@ -5033,7 +3647,7 @@ CREATE TABLE `oc_tax_rate` (
 --
 
 INSERT INTO `oc_tax_rate` (`tax_rate_id`, `geo_zone_id`, `name`, `rate`, `type`, `date_added`, `date_modified`) VALUES
-(86, 3, 'НДС (20%)', 20.0000, 'P', '2011-03-09 21:17:10', '2022-03-15 10:09:29');
+(86, 3, 'НДС (22%)', 22.0000, 'P', '2011-03-09 21:17:10', '2022-03-15 10:09:29');
 
 -----------------------------------------------------------
 
@@ -5117,18 +3731,6 @@ CREATE TABLE `oc_translation` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -----------------------------------------------------------
-					   
-						   
-										   
-															   
-																  
-									
-								 
-													   
-
-  
-														   
-  
 
 --
 -- Table structure for table `oc_upload`
@@ -5382,891 +3984,14 @@ INSERT INTO `oc_seo_url` (`seo_url_id`, `store_id`, `language_id`, `query`, `key
 (1254, 0, 1, 'product_id=28', 'electric-kettle'),
 (1255, 0, 2, 'product_id=28', 'en_electric-kettle');
 
-  
-
 -- --------------------------------------------------------
 
 --
 -- Table structure for table `oc_user`
 --
 
-DROP TABLE IF EXISTS `oc_user`;
-									 
-
-  
-													
-  
-
-																
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																																						
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																									 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																									   
-																																		 
-																																																						
-																																		 
-																																							 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-															
-																																		 
-															
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-															
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																																					
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																																						
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-															
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																																																																																																																																																																																																																																																																																																																																										  
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-															
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-																																		 
-
-														   
-
-  
-												 
-  
-
-										 
-											   
-										  
-							   
-							  
-						
-								   
-							
-														 
-
-  
-													
-  
-
-																								
-																		 
-																				  
-																			 
-														 
-														
-															   
-														   
-													  
-																
-																  
-															  
-												  
-														  
-													  
-													  
-															
-														
-															
-														
-															
-															   
-															
-														
-															  
-														  
-															  
-															
-																  
-																				
-																	   
-																		
-																	   
-																		
-																		 
-																		  
-																			 
-																			  
-																		 
-																		  
-																		   
-																			
-																		 
-																		  
-																		
-																		 
-																		 
-																		  
-																	  
-																	 
-																		  
-																		  
-																   
-														  
-																	
-																		
-															
-														   
-															  
-															 
-																	
-																   
-																
-															   
-																  
-															  
-															 
-																
-																		
-																	
-																  
-																
-																	
-																   
-															   
-																				
-																					
-																		  
-																			  
-																			
-																				
-																				
-																			
-																					  
-																								 
-															  
-																  
-																		
-																			
-																	
-																		
-																  
-																	  
-																	
-																		
-																		  
-																			   
-																				
-																					 
-																
-																	 
-												 
-												
-														 
-																												   
-																													  
-																															
-																														
-														   
-															
-																		  
-														  
-													   
-															  
-														   
-														  
-														 
-																   
-																	
-																   
-																	
-																   
-																	
-														
-														
-														
-															
-																		
-														   
-																
-															   
-														  
-															  
-														  
-																										 
-																										  
-																											  
-														 
-														  
-															  
-																  
-																	 
-									  
-												  
-												  
-												
-															   
-																
-													   
-											 
-														 
-														
-										 
-										   
-										  
-											 
-												   
-												 
-												 
-												   
-														 
-												 
-													
-														
-													  
-													  
-													
-												   
-														 
-													
-												   
-												  
-													 
-										  
-														 
-														  
-													  
-														
-													  
-														
-																   
-													 
-													 
-												 
-												
-															   
-												  
-													 
-												  
-													  
-																					   
-																  
-													   
-											 
-													
-													
-													 
-														 
-														 
-													 
-														   
-												   
-												
-													   
-											 
-																											
-														  
-														  
-													 
-													
-														
-														
-														
-													  
-														
-													  
-												  
-											  
-																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																															  
-												  
-											 
-											   
-											 
-																																																																																																																																																																																																																																																																																											   
-														 
-																																																										
-																																																																																																																																																													 
-													
-												
-															 
-											  
-														   
-													
-													  
-													   
-												  
-														
-																																																																																							  
-													   
-													 
-												   
-													 
-																 
-
-														   
-
-  
-														  
-  
-
-												  
-										 
-														   
-														   
-									 
-									 
-
-  
-															 
-  
-
-																												  
-				  
-					  
-				  
-								
-											
-								 
-
-														   
-
-  
-													
-  
-
-											
-												  
-							  
-								 
-							   
-													  
-
-  
-													   
-  
-
-																	 
-							 
-								
-							  
-						   
-					   
-					   
-					  
-
-														   
-
-  
-													  
-  
-
-											  
-													
-								 
-							  
-											   
-													  
-
-  
-														 
-  
-
-																			   
-								   
-					   
-									  
-				   
-							
-				   
-							 
-					
-
-														   
-
-  
-											   
-  
-
-									   
-											 
-							  
-							  
-							  
-						  
-									 
-
-														   
-
-  
-												   
-  
-
-										   
-												 
-							   
-									  
-								 
-									
-							  
-													   
-
-  
-													  
-  
-
-																										 
-								   
-
-														   
-
-  
-												  
-  
-
-										  
-												
-											 
-							  
-CREATE TABLE `oc_user` (
-						  
-								 
-									
-							 
-													   
-
-  
-													 
-  
-
-																													  
-																					
-
-														   
-
-  
-																	
-  
-
-															
-								 
-									   
-												 
-									 
-
-  
-									
-  
-
-																					   
-		
-		
-
-														   
-
-  
-												  
-  
-
-										  
-												
-								  
-								 
-							   
-										 
-							 
-														
-
-  
-													 
-  
-
-																									
-						 
-
-														   
-
-  
-											   
-  
-
-									   
-											 
-							  
-							   
-							   
-							 
-								 
-						  
-									 
-
-														   
-
-  
-													 
-  
-
-											 
-												   
-							  
-								 
-							   
-							 
-						
-								 
-								
-									 
-
-														   
-
-  
-												
-  
-
-										
-											  
-							   
-								   
-							   
-								 
-						   
-									 
-
-														   
-
-  
-											  
-  
-
-									  
-											
-								   
-								  
-								  
+DROP TABLE IF EXISTS `oc_user`;					  
+CREATE TABLE `oc_user` (				  
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_group_id` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
@@ -6285,14 +4010,6 @@ CREATE TABLE `oc_user` (
 
 -----------------------------------------------------------
 																																								
-																																														
-
-														   
-
-  
-													
-  
-
 --
 -- Table structure for table `oc_user_group`
 --
@@ -6310,7 +4027,7 @@ CREATE TABLE `oc_user_group` (
 --
 
 INSERT INTO `oc_user_group` (`user_group_id`, `name`, `permission`) VALUES
-(1, 'Administrator', '{"access":["blog\/article","blog\/category","blog\/review","blog\/setting","catalog\/attribute","catalog\/attribute_group","catalog\/category","catalog\/download","catalog\/filter","catalog\/information","catalog\/manufacturer","catalog\/option","catalog\/product","catalog\/recurring","catalog\/review","common\/column_left","common\/developer","common\/filemanager","common\/profile","common\/security","customer\/custom_field","customer\/customer","customer\/customer_approval","customer\/customer_group","design\/banner","design\/layout","design\/seo_url","design\/theme","design\/translation","event\/language","event\/statistics","event\/theme","extension\/advertise\/google","extension\/analytics\/google","extension\/captcha\/basic","extension\/captcha\/google","extension\/currency\/cbr","extension\/currency\/ecb","extension\/currency\/fixer","extension\/currency\/nbu","extension\/dashboard\/activity","extension\/dashboard\/chart","extension\/dashboard\/chart_by_country_and_region","extension\/dashboard\/customer","extension\/dashboard\/map","extension\/dashboard\/online","extension\/dashboard\/order","extension\/dashboard\/recent","extension\/dashboard\/sale","extension\/extension\/advertise","extension\/extension\/analytics","extension\/extension\/captcha","extension\/extension\/currency","extension\/extension\/dashboard","extension\/extension\/feed","extension\/extension\/fraud","extension\/extension\/menu","extension\/extension\/module","extension\/extension\/payment","extension\/extension\/promotion","extension\/extension\/report","extension\/extension\/shipping","extension\/extension\/theme","extension\/extension\/total","extension\/feed\/google_base","extension\/feed\/google_sitemap","extension\/feed\/yandex_market","extension\/feed\/yandex_turbo","extension\/fraud\/fraudlabspro","extension\/fraud\/ip","extension\/fraud\/maxmind","extension\/module\/account","extension\/module\/amazon_login","extension\/module\/amazon_pay","extension\/module\/banner","extension\/module\/bestseller","extension\/module\/blog_category","extension\/module\/blog_featured","extension\/module\/blog_latest","extension\/module\/carousel","extension\/module\/category","extension\/module\/divido_calculator","extension\/module\/featured","extension\/module\/featured_article","extension\/module\/featured_product","extension\/module\/filter","extension\/module\/google_hangouts","extension\/module\/html","extension\/module\/information","extension\/module\/klarna_checkout_module","extension\/module\/latest","extension\/module\/laybuy_layout","extension\/module\/paypal_smart_button","extension\/module\/slideshow","extension\/module\/special","extension\/module\/store","extension\/payment\/alipay","extension\/payment\/alipay_cross","extension\/payment\/amazon_login_pay","extension\/payment\/authorizenet_aim","extension\/payment\/authorizenet_sim","extension\/payment\/bank_transfer","extension\/payment\/bluepay_hosted","extension\/payment\/bluepay_redirect","extension\/payment\/cardconnect","extension\/payment\/cardinity","extension\/payment\/cheque","extension\/payment\/cod","extension\/payment\/divido","extension\/payment\/eway","extension\/payment\/firstdata","extension\/payment\/firstdata_remote","extension\/payment\/free_checkout","extension\/payment\/g2apay","extension\/payment\/globalpay","extension\/payment\/globalpay_remote","extension\/payment\/klarna_account","extension\/payment\/klarna_checkout","extension\/payment\/klarna_invoice","extension\/payment\/laybuy","extension\/payment\/liqpay","extension\/payment\/nochex","extension\/payment\/ocstore_w1","extension\/payment\/paymate","extension\/payment\/paypal","extension\/payment\/paypoint","extension\/payment\/perpetual_payments","extension\/payment\/pilibaba","extension\/payment\/pp_express","extension\/payment\/pp_payflow","extension\/payment\/pp_payflow_iframe","extension\/payment\/pp_pro","extension\/payment\/pp_pro_iframe","extension\/payment\/pp_standard","extension\/payment\/securetrading_pp","extension\/payment\/securetrading_ws","extension\/payment\/skrill","extension\/payment\/web_payment_software","extension\/payment\/webmoney_wmb","extension\/payment\/webmoney_wme","extension\/payment\/webmoney_wmk","extension\/payment\/webmoney_wmr","extension\/payment\/webmoney_wmu","extension\/payment\/webmoney_wmv","extension\/payment\/webmoney_wmz","extension\/payment\/wechat_pay","extension\/payment\/worldpay","extension\/report\/customer_activity","extension\/report\/customer_order","extension\/report\/customer_reward","extension\/report\/customer_search","extension\/report\/customer_transaction","extension\/report\/marketing","extension\/report\/product_purchased","extension\/report\/product_viewed","extension\/report\/sale_coupon","extension\/report\/sale_order","extension\/report\/sale_return","extension\/report\/sale_shipping","extension\/report\/sale_tax","extension\/shipping\/auspost","extension\/shipping\/ec_ship","extension\/shipping\/fedex","extension\/shipping\/flat","extension\/shipping\/free","extension\/shipping\/item","extension\/shipping\/parcelforce_48","extension\/shipping\/pickup","extension\/shipping\/royal_mail","extension\/shipping\/ups","extension\/shipping\/usps","extension\/shipping\/weight","extension\/theme\/default","extension\/total\/coupon","extension\/total\/credit","extension\/total\/handling","extension\/total\/klarna_fee","extension\/total\/low_order_fee","extension\/total\/reward","extension\/total\/shipping","extension\/total\/sub_total","extension\/total\/tax","extension\/total\/total","extension\/total\/voucher","localisation\/country","localisation\/currency","localisation\/geo_zone","localisation\/language","localisation\/length_class","localisation\/location","localisation\/order_status","localisation\/return_action","localisation\/return_reason","localisation\/return_status","localisation\/stock_status","localisation\/tax_class","localisation\/tax_rate","localisation\/weight_class","localisation\/zone","mail\/affiliate","mail\/customer","mail\/forgotten","mail\/return","mail\/reward","mail\/transaction","marketing\/contact","marketing\/coupon","marketing\/marketing","marketplace\/api","marketplace\/event","marketplace\/extension","marketplace\/install","marketplace\/installer","marketplace\/marketplace","marketplace\/modification","marketplace\/opencartforum","report\/online","report\/report","report\/statistics","sale\/order","sale\/recurring","sale\/return","sale\/voucher","sale\/voucher_theme","search\/search","setting\/setting","setting\/store","startup\/error","startup\/event","startup\/login","startup\/permission","startup\/router","startup\/sass","startup\/startup","tool\/backup","tool\/log","tool\/upload","user\/api","user\/user","user\/user_permission"],"modify":["blog\/article","blog\/category","blog\/review","blog\/setting","catalog\/attribute","catalog\/attribute_group","catalog\/category","catalog\/download","catalog\/filter","catalog\/information","catalog\/manufacturer","catalog\/option","catalog\/product","catalog\/recurring","catalog\/review","common\/column_left","common\/developer","common\/filemanager","common\/profile","common\/security","customer\/custom_field","customer\/customer","customer\/customer_approval","customer\/customer_group","design\/banner","design\/layout","design\/seo_url","design\/theme","design\/translation","event\/language","event\/statistics","event\/theme","extension\/advertise\/google","extension\/analytics\/google","extension\/captcha\/basic","extension\/captcha\/google","extension\/currency\/cbr","extension\/currency\/ecb","extension\/currency\/fixer","extension\/currency\/nbu","extension\/dashboard\/activity","extension\/dashboard\/chart","extension\/dashboard\/chart_by_country_and_region","extension\/dashboard\/customer","extension\/dashboard\/map","extension\/dashboard\/online","extension\/dashboard\/order","extension\/dashboard\/recent","extension\/dashboard\/sale","extension\/extension\/advertise","extension\/extension\/analytics","extension\/extension\/captcha","extension\/extension\/currency","extension\/extension\/dashboard","extension\/extension\/feed","extension\/extension\/fraud","extension\/extension\/menu","extension\/extension\/module","extension\/extension\/payment","extension\/extension\/promotion","extension\/extension\/report","extension\/extension\/shipping","extension\/extension\/theme","extension\/extension\/total","extension\/feed\/google_base","extension\/feed\/google_sitemap","extension\/feed\/yandex_market","extension\/feed\/yandex_turbo","extension\/fraud\/fraudlabspro","extension\/fraud\/ip","extension\/fraud\/maxmind","extension\/module\/account","extension\/module\/amazon_login","extension\/module\/amazon_pay","extension\/module\/banner","extension\/module\/bestseller","extension\/module\/blog_category","extension\/module\/blog_featured","extension\/module\/blog_latest","extension\/module\/carousel","extension\/module\/category","extension\/module\/divido_calculator","extension\/module\/featured","extension\/module\/featured_article","extension\/module\/featured_product","extension\/module\/filter","extension\/module\/google_hangouts","extension\/module\/html","extension\/module\/information","extension\/module\/klarna_checkout_module","extension\/module\/latest","extension\/module\/laybuy_layout","extension\/module\/paypal_smart_button","extension\/module\/slideshow","extension\/module\/special","extension\/module\/store","extension\/payment\/alipay","extension\/payment\/authorizenet_aim","extension\/payment\/authorizenet_sim","extension\/payment\/bank_transfer","extension\/payment\/bluepay_hosted","extension\/payment\/bluepay_redirect","extension\/payment\/cardconnect","extension\/payment\/cardinity","extension\/payment\/cheque","extension\/payment\/cod","extension\/payment\/divido","extension\/payment\/eway","extension\/payment\/firstdata","extension\/payment\/firstdata_remote","extension\/payment\/free_checkout","extension\/payment\/g2apay","extension\/payment\/globalpay","extension\/payment\/globalpay_remote","extension\/payment\/klarna_account","extension\/payment\/klarna_checkout","extension\/payment\/klarna_invoice","extension\/payment\/laybuy","extension\/payment\/liqpay","extension\/payment\/nochex","extension\/payment\/ocstore_w1","extension\/payment\/paymate","extension\/payment\/paypal","extension\/payment\/paypoint","extension\/payment\/payza","extension\/payment\/perpetual_payments","extension\/payment\/pilibaba","extension\/payment\/pp_braintree","extension\/payment\/pp_express","extension\/payment\/pp_payflow","extension\/payment\/pp_payflow_iframe","extension\/payment\/pp_pro","extension\/payment\/pp_pro_iframe","extension\/payment\/pp_standard","extension\/payment\/securetrading_pp","extension\/payment\/securetrading_ws","extension\/payment\/skrill","extension\/payment\/squareup","extension\/payment\/twocheckout","extension\/payment\/web_payment_software","extension\/payment\/webmoney_wmb","extension\/payment\/webmoney_wme","extension\/payment\/webmoney_wmk","extension\/payment\/webmoney_wmr","extension\/payment\/webmoney_wmu","extension\/payment\/webmoney_wmv","extension\/payment\/webmoney_wmz","extension\/payment\/wechat_pay","extension\/payment\/worldpay","extension\/report\/customer_activity","extension\/report\/customer_order","extension\/report\/customer_reward","extension\/report\/customer_search","extension\/report\/customer_transaction","extension\/report\/marketing","extension\/report\/product_purchased","extension\/report\/product_viewed","extension\/report\/sale_coupon","extension\/report\/sale_order","extension\/report\/sale_return","extension\/report\/sale_shipping","extension\/report\/sale_tax","extension\/shipping\/auspost","extension\/shipping\/ec_ship","extension\/shipping\/fedex","extension\/shipping\/flat","extension\/shipping\/free","extension\/shipping\/item","extension\/shipping\/parcelforce_48","extension\/shipping\/pickup","extension\/shipping\/royal_mail","extension\/shipping\/ups","extension\/shipping\/usps","extension\/shipping\/weight","extension\/theme\/default","extension\/total\/coupon","extension\/total\/credit","extension\/total\/handling","extension\/total\/klarna_fee","extension\/total\/low_order_fee","extension\/total\/reward","extension\/total\/shipping","extension\/total\/sub_total","extension\/total\/tax","extension\/total\/total","extension\/total\/voucher","localisation\/country","localisation\/currency","localisation\/geo_zone","localisation\/language","localisation\/length_class","localisation\/location","localisation\/order_status","localisation\/return_action","localisation\/return_reason","localisation\/return_status","localisation\/stock_status","localisation\/tax_class","localisation\/tax_rate","localisation\/weight_class","localisation\/zone","mail\/affiliate","mail\/customer","mail\/forgotten","mail\/return","mail\/reward","mail\/transaction","marketing\/contact","marketing\/coupon","marketing\/marketing","marketplace\/api","marketplace\/event","marketplace\/extension","marketplace\/install","marketplace\/installer","marketplace\/marketplace","marketplace\/modification","marketplace\/opencartforum","report\/online","report\/report","report\/statistics","sale\/order","sale\/recurring","sale\/return","sale\/voucher","sale\/voucher_theme","search\/search","setting\/setting","setting\/store","startup\/error","startup\/event","startup\/login","startup\/permission","startup\/router","startup\/sass","startup\/startup","tool\/backup","tool\/log","tool\/upload","user\/api","user\/user","user\/user_permission"]}'),
+(1, 'Administrator', '{"access":["blog\/article","blog\/category","blog\/review","blog\/setting","catalog\/attribute","catalog\/attribute_group","catalog\/category","catalog\/download","catalog\/filter","catalog\/information","catalog\/manufacturer","catalog\/option","catalog\/product","catalog\/recurring","catalog\/review","common\/column_left","common\/developer","common\/filemanager","common\/profile","common\/security","customer\/custom_field","customer\/customer","customer\/customer_approval","customer\/customer_group","design\/banner","design\/layout","design\/seo_url","design\/theme","design\/translation","event\/language","event\/statistics","event\/theme","extension\/advertise\/google","extension\/analytics\/google","extension\/captcha\/basic","extension\/captcha\/google","extension\/currency\/cbr","extension\/currency\/ecb","extension\/currency\/fixer","extension\/currency\/nbu","extension\/dashboard\/activity","extension\/dashboard\/chart","extension\/dashboard\/chart_by_country_and_region","extension\/dashboard\/customer","extension\/dashboard\/map","extension\/dashboard\/online","extension\/dashboard\/order","extension\/dashboard\/recent","extension\/dashboard\/sale","extension\/extension\/advertise","extension\/extension\/analytics","extension\/extension\/captcha","extension\/extension\/currency","extension\/extension\/dashboard","extension\/extension\/feed","extension\/extension\/fraud","extension\/extension\/menu","extension\/extension\/module","extension\/extension\/payment","extension\/extension\/promotion","extension\/extension\/report","extension\/extension\/shipping","extension\/extension\/theme","extension\/extension\/total","extension\/feed\/google_base","extension\/feed\/google_sitemap","extension\/feed\/yandex_market","extension\/fraud\/fraudlabspro","extension\/fraud\/ip","extension\/fraud\/maxmind","extension\/module\/account","extension\/module\/banner","extension\/module\/bestseller","extension\/module\/blog_category","extension\/module\/blog_featured","extension\/module\/blog_latest","extension\/module\/carousel","extension\/module\/category","extension\/module\/featured","extension\/module\/featured_article","extension\/module\/featured_product","extension\/module\/filter","extension\/module\/html","extension\/module\/information","extension\/module\/latest","extension\/module\/slideshow","extension\/module\/special","extension\/module\/store","extension\/payment\/bank_transfer","extension\/payment\/cheque","extension\/payment\/cod","extension\/payment\/free_checkout","extension\/report\/customer_activity","extension\/report\/customer_order","extension\/report\/customer_reward","extension\/report\/customer_search","extension\/report\/customer_transaction","extension\/report\/marketing","extension\/report\/product_purchased","extension\/report\/product_viewed","extension\/report\/sale_coupon","extension\/report\/sale_order","extension\/report\/sale_return","extension\/report\/sale_shipping","extension\/report\/sale_tax","extension\/shipping\/flat","extension\/shipping\/free","extension\/shipping\/item","extension\/shipping\/pickup","extension\/shipping\/weight","extension\/theme\/default","extension\/total\/coupon","extension\/total\/credit","extension\/total\/handling","extension\/total\/low_order_fee","extension\/total\/reward","extension\/total\/shipping","extension\/total\/sub_total","extension\/total\/tax","extension\/total\/total","extension\/total\/voucher","localisation\/country","localisation\/currency","localisation\/geo_zone","localisation\/language","localisation\/length_class","localisation\/location","localisation\/order_status","localisation\/return_action","localisation\/return_reason","localisation\/return_status","localisation\/stock_status","localisation\/tax_class","localisation\/tax_rate","localisation\/weight_class","localisation\/zone","mail\/affiliate","mail\/customer","mail\/forgotten","mail\/return","mail\/reward","mail\/transaction","marketing\/contact","marketing\/coupon","marketing\/marketing","marketplace\/api","marketplace\/event","marketplace\/extension","marketplace\/install","marketplace\/installer","marketplace\/marketplace","marketplace\/modification","report\/online","report\/report","report\/statistics","sale\/order","sale\/recurring","sale\/return","sale\/voucher","sale\/voucher_theme","search\/search","setting\/setting","setting\/store","startup\/error","startup\/event","startup\/login","startup\/permission","startup\/router","startup\/sass","startup\/startup","tool\/backup","tool\/log","tool\/upload","user\/api","user\/user","user\/user_permission"],"modify":["blog\/article","blog\/category","blog\/review","blog\/setting","catalog\/attribute","catalog\/attribute_group","catalog\/category","catalog\/download","catalog\/filter","catalog\/information","catalog\/manufacturer","catalog\/option","catalog\/product","catalog\/recurring","catalog\/review","common\/column_left","common\/developer","common\/filemanager","common\/profile","common\/security","customer\/custom_field","customer\/customer","customer\/customer_approval","customer\/customer_group","design\/banner","design\/layout","design\/seo_url","design\/theme","design\/translation","event\/language","event\/statistics","event\/theme","extension\/advertise\/google","extension\/analytics\/google","extension\/captcha\/basic","extension\/captcha\/google","extension\/currency\/cbr","extension\/currency\/ecb","extension\/currency\/fixer","extension\/currency\/nbu","extension\/dashboard\/activity","extension\/dashboard\/chart","extension\/dashboard\/chart_by_country_and_region","extension\/dashboard\/customer","extension\/dashboard\/map","extension\/dashboard\/online","extension\/dashboard\/order","extension\/dashboard\/recent","extension\/dashboard\/sale","extension\/extension\/advertise","extension\/extension\/analytics","extension\/extension\/captcha","extension\/extension\/currency","extension\/extension\/dashboard","extension\/extension\/feed","extension\/extension\/fraud","extension\/extension\/menu","extension\/extension\/module","extension\/extension\/payment","extension\/extension\/promotion","extension\/extension\/report","extension\/extension\/shipping","extension\/extension\/theme","extension\/extension\/total","extension\/feed\/google_base","extension\/feed\/google_sitemap","extension\/feed\/yandex_market","extension\/fraud\/fraudlabspro","extension\/fraud\/ip","extension\/fraud\/maxmind","extension\/module\/account","extension\/module\/banner","extension\/module\/bestseller","extension\/module\/blog_category","extension\/module\/blog_featured","extension\/module\/blog_latest","extension\/module\/carousel","extension\/module\/category","extension\/module\/featured","extension\/module\/featured_article","extension\/module\/featured_product","extension\/module\/filter","extension\/module\/html","extension\/module\/information","extension\/module\/latest","extension\/module\/slideshow","extension\/module\/special","extension\/module\/store","extension\/payment\/bank_transfer","extension\/payment\/cheque","extension\/payment\/cod","extension\/payment\/free_checkout","extension\/report\/customer_activity","extension\/report\/customer_order","extension\/report\/customer_reward","extension\/report\/customer_search","extension\/report\/customer_transaction","extension\/report\/marketing","extension\/report\/product_purchased","extension\/report\/product_viewed","extension\/report\/sale_coupon","extension\/report\/sale_order","extension\/report\/sale_return","extension\/report\/sale_shipping","extension\/report\/sale_tax","extension\/shipping\/flat","extension\/shipping\/free","extension\/shipping\/item","extension\/shipping\/pickup","extension\/shipping\/weight","extension\/theme\/default","extension\/total\/coupon","extension\/total\/credit","extension\/total\/handling","extension\/total\/low_order_fee","extension\/total\/reward","extension\/total\/shipping","extension\/total\/sub_total","extension\/total\/tax","extension\/total\/total","extension\/total\/voucher","localisation\/country","localisation\/currency","localisation\/geo_zone","localisation\/language","localisation\/length_class","localisation\/location","localisation\/order_status","localisation\/return_action","localisation\/return_reason","localisation\/return_status","localisation\/stock_status","localisation\/tax_class","localisation\/tax_rate","localisation\/weight_class","localisation\/zone","mail\/affiliate","mail\/customer","mail\/forgotten","mail\/return","mail\/reward","mail\/transaction","marketing\/contact","marketing\/coupon","marketing\/marketing","marketplace\/api","marketplace\/event","marketplace\/extension","marketplace\/install","marketplace\/installer","marketplace\/marketplace","marketplace\/modification","report\/online","report\/report","report\/statistics","sale\/order","sale\/recurring","sale\/return","sale\/voucher","sale\/voucher_theme","search\/search","setting\/setting","setting\/store","startup\/error","startup\/event","startup\/login","startup\/permission","startup\/router","startup\/sass","startup\/startup","tool\/backup","tool\/log","tool\/upload","user\/api","user\/user","user\/user_permission"]}'),
 (10, 'Demonstration', '');
 
 -----------------------------------------------------------
@@ -6565,19 +4282,7 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (340, 20, 'Гродно', 'HR', 1),
 (341, 20, 'Могилев', 'MA', 1),
 (342, 20, 'Минская область', 'MI', 1),
-(343, 20, 'Витебск', 'VI', 1),
-							   
-							   
-									
-										 
-														
-											  
-										  
-									
-															  
-											
-															  
-															  
+(343, 20, 'Витебск', 'VI', 1),							  
 (1716, 109, 'Алматинская область', 'AL', 1),
 (1717, 109, 'Алматы', 'ALA', 1),
 (1718, 109, 'Акмолинская область', 'AM', 1),
@@ -6602,18 +4307,7 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (1797, 115, 'Naryn', 'N', 1),
 (1798, 115, 'Osh', 'O', 1),
 (1799, 115, 'Talas', 'T', 1),
-(1800, 115, 'Ysyk-Kol', 'Y', 1),
-							   
-								
-							  
-							   
-								
-								
-										   
-															
-															 
-												 
-																   
+(1800, 115, 'Ysyk-Kol', 'Y', 1),					   
 (2721, 176, 'Республика Хакасия', 'KK', 1),
 (2722, 176, 'Забайкальский край', 'ZAB', 1),
 (2723, 176, 'Чукотский АО', 'CHU', 1),
@@ -6700,40 +4394,30 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (2805, 176, 'Республика  Саха / Якутия', 'SA', 1),
 (2806, 176, 'Ярославская область', 'YAR', 1),
 (2807, 176, 'Свердловская область', 'SVE', 1),
-(2808, 176, 'Республика Марий Эл', 'ME', 1),
-									   
-										  
-									  
-									 
-															
-																
-															  
-													  
+(2808, 176, 'Республика Марий Эл', 'ME', 1),	  
 (3480, 220, 'Черкасская область', '71', 1),
 (3481, 220, 'Черниговская область', '74', 1),
-(3482, 220, 'Черновицкая область', '77', 1),			
-															
+(3482, 220, 'Черновицкая область', '77', 1),													
 (3484, 220, 'Днепропетровская область', '12', 1),
-(3485, 220, 'Донецкая область', '14', 1),
+(3485, 176, 'Донецкая область', '14', 1),
 (3486, 220, 'Ивано-Франковская область', '26', 1),
-(3487, 220, 'Херсонская область', '65', 1),
+(3487, 176, 'Херсонская область', '65', 1),
 (3488, 220, 'Хмельницкая область', '68', 1),
 (3489, 220, 'Кировоградская область', '35', 1),
 (3490, 220, 'Киев', '30', 1),
 (3491, 220, 'Киевская область', '32', 1),
-(3492, 220, 'Луганская область', '09', 1),
+(3492, 176, 'Луганская область', '09', 1),
 (3493, 220, 'Львовская область', '46', 1),
 (3494, 220, 'Николаевская область', '48', 1),
 (3495, 220, 'Одесская область', '51', 1),
 (3496, 220, 'Полтавская область', '53', 1),
-(3497, 220, 'Ровненская область', '56', 1),
-														  
+(3497, 220, 'Ровненская область', '56', 1),									  
 (3499, 220, 'Сумская область', '59', 1),
 (3500, 220, 'Тернопольская область', '61', 1),
 (3501, 220, 'Винницкая область', '05', 1),
 (3502, 220, 'Волынская область', '07', 1),
 (3503, 220, 'Закарпатская область', '21', 1),
-(3504, 220, 'Запорожская область', '23', 1),
+(3504, 176, 'Запорожская область', '23', 1),
 (3505, 220, 'Житомирская область', '18', 1),
 (3706, 226, 'Andijon', 'AN', 1),
 (3707, 226, 'Buxoro', 'BU', 1),
@@ -6755,7 +4439,6 @@ INSERT INTO `oc_zone` (`zone_id`, `country_id`, `name`, `code`, `status`) VALUES
 (4236, 109, 'Улытауская область', 'UL', 1),
 (4237, 109, 'Шымкент', 'SHY', 1),
 (4238, 176, 'Сахалинская область', 'SAK', 1);
-
 
 -- --------------------------------------------------------
 
@@ -7007,7 +4690,6 @@ INSERT INTO `oc_article_description` (`article_id`, `language_id`, `name`, `desc
 (124, 2, 'Важная статья', '&lt;p&gt;Это очень важная статья которую нужно прочитать всем важным людям про важные события важных людей :-)&lt;br&gt;&lt;/p&gt;', '', '', '', '', ''),
 (125, 1, 'Открытие нашего магазина: всё, что нужно - в одном месте!', '&lt;p&gt;Рады сообщить об открытии нашего универсального интернет-магазина! Теперь вам не нужно тратить время на поиски товаров на разных сайтах - мы собрали всё необходимое в одном удобном пространстве. Одежда и обувь, товары для дома, электроника, подарки, косметика и многое другое - доступно в пару кликов.&lt;/p&gt;\r\n&lt;p&gt;Мы делаем ставку на честные цены, быструю доставку и дружелюбный сервис. Удобная навигация, подробные описания и регулярные акции сделают шопинг не только простым, но и приятным. Присоединяйтесь - добро пожаловать в магазин, где каждый найдёт что-то для себя!&lt;/p&gt;&lt;p&gt;&lt;/p&gt;', '', '', '', '', ''),
 (125, 2, 'Открытие нашего магазина: всё, что нужно - в одном месте!', '&lt;p&gt;Это первая новость всем новостям новость :-)&lt;br&gt;&lt;/p&gt;', '', '', '', '', '');
-
 
 -- --------------------------------------------------------
 

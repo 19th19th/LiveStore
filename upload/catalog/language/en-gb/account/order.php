@@ -23,6 +23,7 @@ $_['text_error']            = 'The order you requested could not be found!';
 $_['column_order_id']       = 'Order ID';
 $_['column_customer']       = 'Customer';
 $_['column_product']        = 'No. of Products';
+$_['column_image'] 			= 'Image';
 $_['column_name']           = 'Product Name';
 $_['column_model']          = 'Model';
 $_['column_quantity']       = 'Quantity';

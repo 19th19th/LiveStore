@@ -1,12 +1,9 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Heading
 $_['heading_title']    = 'Sitemap';
 
 // Text
-$_['text_extension']   = 'Расширения';
+$_['text_extension']   = 'Каналы продвижения';
 $_['text_feed']        = 'Каналы продвижения';
 $_['text_success']     = 'Настройки успешно изменены!';
 $_['text_edit']        = 'Редактирование';

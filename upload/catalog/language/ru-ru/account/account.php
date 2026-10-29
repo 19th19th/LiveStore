@@ -1,8 +1,4 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
-// Heading
 $_['heading_title']      = 'Личный кабинет';
 
 // Text
@@ -12,16 +8,16 @@ $_['text_my_orders']     = 'Мои заказы';
 $_['text_my_affiliate']  = 'Партнерcкий раздел';
 $_['text_my_newsletter'] = 'Подписка';
 $_['text_edit']          = 'Изменить контактную информацию';
-$_['text_password']      = 'Изменить свой пароль';
-$_['text_address']       = 'Изменить мои адреса';
+$_['text_password']      = 'Изменить пароль';
+$_['text_address']       = 'Изменить адреса';
 $_['text_credit_card']   = 'Управление сохраненными кредитными картами';
-$_['text_wishlist']      = 'Изменить закладки';
+$_['text_wishlist']      = 'Изменить избранное';
 $_['text_order']         = 'История заказов';
 $_['text_download']      = 'Файлы для скачивания';
 $_['text_reward']        = 'Бонусные баллы';
 $_['text_return']        = 'Запросы на возврат';
 $_['text_transaction']   = 'История фин. операций';
-$_['text_newsletter']    = 'Подписаться или отказаться от подписки на рассылку новостей';
+$_['text_newsletter']    = 'Подписка на новостную рассылку';
 $_['text_recurring']     = 'Регулярные платежи';
 $_['text_transactions']  = 'Операции';
 $_['text_affiliate_add']  = 'Зарегистрировать партнерский аккаунт';

@@ -11,7 +11,7 @@
 <meta name="keywords" content="{{ keywords }}" />
 {% endif %}
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-<script type="text/javascript" src="view/javascript/jquery/jquery-3.7.0.min.js"></script>
+<script type="text/javascript" src="view/javascript/jquery/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="view/javascript/bootstrap/js/bootstrap.min.js"></script>
 <link href="view/stylesheet/bootstrap.css" type="text/css" rel="stylesheet" />
 <link href="view/javascript/font-awesome/css/font-awesome.min.css" type="text/css" rel="stylesheet" />
@@ -53,6 +53,7 @@
       {{ search }}
     </div>
     <ul class="nav navbar-nav navbar-right">
+	  <li{% if maintenance %} class="bg-danger"{% endif %}><a href="{{ maintenance_url }}" id="button-maintenance" title="{{ text_maintenance }}: {% if maintenance %}{{ text_enabled }}{% else %}{{ text_disabled }}{% endif %}"><i class="fa fa-wrench"></i></a></li>
       <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{{ image }}" alt="{{ firstname }} {{ lastname }}" title="{{ username }}" id="user-profile" class="img-circle" />{{ firstname }} {{ lastname }} <i class="fa fa-caret-down fa-fw"></i></a>
         <ul class="dropdown-menu dropdown-menu-right">
           <li><a href="{{ profile }}"><i class="fa fa-user-circle-o fa-fw"></i> {{ text_profile }}</a></li>
@@ -63,18 +64,20 @@
           {% endfor %}
           <li role="separator" class="divider"></li>
           <li class="dropdown-header">liveopencart.ru</li>
-		  <li><a href="https://liveopencart.ru/?utm_source=ocstore3&utm_medium=admin&utm_campaign=3042" target="_blank"><i class="fa fa-opencart fa-fw"></i> {{ text_homepage }}</a></li>
-          <li><a href="https://liveopencart.ru/docs-opencart3/?utm_source=ocstore3&utm_medium=admin&utm_campaign=3042" target="_blank"><i class="fa fa-file-text-o fa-fw"></i> {{ text_documentation }}</a></li>
-          <li><a href="https://forum.liveopencart.ru/?utm_source=ocstore3&utm_medium=admin&utm_campaign=3042" target="_blank"><i class="fa fa-comments-o fa-fw"></i> {{ text_support }}</a></li>
-		  <!--
-		  <li class="dropdown-header">{{ text_help }}</li>
-          <li><a href="https://ocstore.com/?utm_source=ocstore3" target="_blank"><i class="fa fa-opencart fa-fw"></i> {{ text_homepage }}</a></li>
-          <li><a href="https://docs.ocstore.com/?utm_source=ocstore3" target="_blank"><i class="fa fa-file-text-o fa-fw"></i> {{ text_documentation }}</a></li>
-          <li><a href="https://opencartforum.com/?utm_source=ocstore3" target="_blank"><i class="fa fa-comments-o fa-fw"></i> {{ text_support }}</a></li>
-		  -->
+		      <li><a href="https://liveopencart.ru/?utm_source=ocstore3&utm_medium=admin&utm_campaign=3046" target="_blank"><i class="fa fa-opencart fa-fw"></i> {{ text_homepage }}</a></li>
+          <li><a href="https://liveopencart.ru/docs-opencart3/?utm_source=ocstore3&utm_medium=admin&utm_campaign=3046" target="_blank"><i class="fa fa-file-text-o fa-fw"></i> {{ text_documentation }}</a></li>
+          <li><a href="https://forum.liveopencart.ru/?utm_source=ocstore3&utm_medium=admin&utm_campaign=3046" target="_blank"><i class="fa fa-comments-o fa-fw"></i> {{ text_support }}</a></li>
         </ul>
       </li>
       <li><a href="{{ logout }}"><i class="fa fa-sign-out"></i> <span class="hidden-xs hidden-sm hidden-md">{{ text_logout }}</span></a></li>
     </ul>
     {% endif %}</div>
 </header>
+<script type="text/javascript"><!--
+$('#button-maintenance').on('click', function(e) {
+	e.preventDefault();
+	$.getJSON(this.href, function(json) {
+		if (json.success) location.reload();
+	});
+});
+//--></script>

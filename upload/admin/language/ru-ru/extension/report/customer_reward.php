@@ -1,11 +1,9 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Heading
 $_['heading_title']         = 'Отчет по бонусным баллам покупателя';
 
 // Text
+$_['text_extension'] 		= 'Отчёты';
 $_['text_list']             = 'Список бонусных баллов';
 $_['text_filter']       	= 'Фильтр';
 

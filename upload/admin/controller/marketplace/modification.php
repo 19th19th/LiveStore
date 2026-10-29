@@ -119,8 +119,9 @@ class ControllerMarketplaceModification extends Controller {
 
     public function restore() {
         $this->load->language('marketplace/extension');
+		$this->load->language('marketplace/modification');
 
-        $this->load->model('setting/modification');
+		$this->load->model('setting/modification');
 		
 		$this->document->setTitle($this->language->get('heading_title'));
 		
@@ -147,6 +148,8 @@ class ControllerMarketplaceModification extends Controller {
 
 				$this->model_setting_modification->editModification($modification_id, $data);
             }
+			
+			$this->session->data['success'] = $this->language->get('text_success');
 			
 			$this->response->redirect($this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $this->request->get['modification_id'], true));
         }
@@ -272,7 +275,7 @@ class ControllerMarketplaceModification extends Controller {
             $json['error'] = $this->language->get('error_permission');
         }
 		
-		if ($modification) {
+		if($modification) {
 			$file = DIR_UPLOAD . $path . '/install.xml';
 
 			if (!is_file($file) || substr(str_replace('\\', '/', realpath($file)), 0, strlen(DIR_UPLOAD)) != DIR_UPLOAD) {
@@ -289,16 +292,16 @@ class ControllerMarketplaceModification extends Controller {
 					try {
 						$dom = new DOMDocument('1.0', 'UTF-8');
                     
-						if ($dom->loadXml($xml)) {
+						if($dom->loadXml($xml)) {
 							$name = $dom->getElementsByTagName('name')->item(0);
 
-							if ($name) {
+							if($name) {
 								$name = $name->nodeValue;
 						
-								if ($name) {
+								if($name) {
 									$exists = $this->model_setting_modification->getModificationByName($name);
 		
-									if ($exists && $exists['modification_id'] != $modification_id) {
+									if($exists && $exists['modification_id'] != $modification_id) {
 										$json['error'] = $this->language->get('error_name_exists');
 									}
 								} else {
@@ -313,10 +316,10 @@ class ControllerMarketplaceModification extends Controller {
 							if ($code) {
 								$code = $code->nodeValue;
 						
-								if ($code) {
+								if($code) {
 									$exists = $this->model_setting_modification->getModificationByCode($code);
 		
-									if ($exists && $exists['modification_id'] != $modification_id) {
+									if($exists && $exists['modification_id'] != $modification_id) {
 										$json['error'] = $this->language->get('error_code_exists');
 									}
 								} else {
@@ -386,8 +389,8 @@ class ControllerMarketplaceModification extends Controller {
     public function remove($path = '') {
         $this->load->language('marketplace/modification');
 		
-		if (!$path) {
-			if (!empty($this->request->post['path'])) {
+		if(!$path) {
+			if(!empty($this->request->post['path'])) {
 				$path = $this->request->post['path'];
 			}
 		}
@@ -398,7 +401,7 @@ class ControllerMarketplaceModification extends Controller {
             $json['error'] = $this->language->get('error_permission');
         }
 		
-		if ($path) {
+		if($path) {
 			$directory = DIR_UPLOAD . $path;
 
 			if (!is_dir($directory) || substr(str_replace('\\', '/', realpath($directory)), 0, strlen(DIR_UPLOAD)) != DIR_UPLOAD) {
@@ -448,7 +451,6 @@ class ControllerMarketplaceModification extends Controller {
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
-
 
 	public function delete() {
 		$this->load->language('marketplace/modification');
@@ -1147,10 +1149,10 @@ class ControllerMarketplaceModification extends Controller {
 				'status'          => $result['status'] ? $this->language->get('text_enabled') : $this->language->get('text_disabled'),
 				'date_added'      => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
 				'link'            => $result['link'],
-                'edit'            => $this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
+                'edit'            => $this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'] . $url, true),
                 'download'        => $this->url->link('marketplace/modification/download', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
-                'enable'          => $this->url->link('marketplace/modification/enable', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
-				'disable'         => $this->url->link('marketplace/modification/disable', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'], true),
+                'enable'          => $this->url->link('marketplace/modification/enable', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'] . $url, true),
+				'disable'         => $this->url->link('marketplace/modification/disable', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $result['modification_id'] . $url, true),
 				'enabled'         => $result['status']
 			);
 		}
@@ -1228,7 +1230,7 @@ class ControllerMarketplaceModification extends Controller {
 			
 			$log = explode("\n", $data['log']);
 			
-			if ($log) {
+			if($log) {
 				foreach ($log as $key => $line) {
 					if (stripos($line, 'MOD:') !== false) {
 						$mod = $line;
@@ -1269,6 +1271,20 @@ class ControllerMarketplaceModification extends Controller {
 		$this->document->addScript('view/javascript/codemirror/lib/xml.js');
 		$this->document->addScript('view/javascript/codemirror/lib/formatting.js');
 
+		$url = '';
+
+		if (isset($this->request->get['sort'])) {
+			$url .= '&sort=' . $this->request->get['sort'];
+		}
+
+		if (isset($this->request->get['order'])) {
+			$url .= '&order=' . $this->request->get['order'];
+		}
+
+		if (isset($this->request->get['page'])) {
+			$url .= '&page=' . $this->request->get['page'];
+		}
+
 		$data['breadcrumbs'] = [];
 
 		$data['breadcrumbs'][] = [
@@ -1278,7 +1294,7 @@ class ControllerMarketplaceModification extends Controller {
 
 		$data['breadcrumbs'][] = [
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'], true)
+			'href' => $this->url->link('marketplace/modification', 'user_token=' . $this->session->data['user_token'] . $url, true)
 		];
 
 		$data['user_token'] = $this->session->data['user_token'];
@@ -1294,8 +1310,6 @@ class ControllerMarketplaceModification extends Controller {
 
 		$is_create = empty($this->request->get['modification_id']);
 		$modification_id = $is_create ? 0 : (int)$this->request->get['modification_id'];
-
-		$url = '';
 
 		if ($is_create) {
 			$data['action'] = $this->url->link('marketplace/modification/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
@@ -1371,41 +1385,41 @@ class ControllerMarketplaceModification extends Controller {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 		
-		if (!empty($this->request->post['xml'])) {
+		if(!empty($this->request->post['xml'])) {
 			$xml = $this->request->post['xml'];
 		}
 		
-		if ($xml) {
+		if($xml) {
 			$xml  = html_entity_decode($xml, ENT_QUOTES, 'UTF-8');
 			$meta = $this->parseMetaFromXml($xml);
 		
 			$modification_id = isset($this->request->get['modification_id']) ? (int)$this->request->get['modification_id'] : 0;
 		
-			if (empty($meta['name'])) {
+			if(empty($meta['name'])) {
 				$this->error['warning'] = $this->language->get('error_name');
 			} else {
 				$exists = $this->model_setting_modification->getModificationByName($meta['name']);
 		
-				if ($exists && $exists['modification_id'] != $modification_id) {
+				if($exists && $exists['modification_id'] != $modification_id) {
 					$this->error['warning'] = $this->language->get('error_name_exists');
 				}
 			}
 		
-			if (empty($meta['code'])) {
+			if(empty($meta['code'])) {
 				$this->error['warning'] = $this->language->get('error_code');
 			} else {
 				$exists = $this->model_setting_modification->getModificationByCode($meta['code']);
 		
-				if ($exists && $exists['modification_id'] != $modification_id) {
+				if($exists && $exists['modification_id'] != $modification_id) {
 					$this->error['warning'] = $this->language->get('error_code_exists');
 				}
 			}
 		
-			if (empty($meta['version'])) {
+			if(empty($meta['version'])) {
 				$this->error['warning'] = $this->language->get('error_version');
 			}
 			
-			if (!empty($meta['error'])) {
+			if(!empty($meta['error'])) {
 				$this->error['warning'] = $meta['error'];
 			}
 		} else {
@@ -1429,34 +1443,34 @@ class ControllerMarketplaceModification extends Controller {
 		$dom = new DOMDocument('1.0', 'UTF-8');
 		$dom->preserveWhiteSpace = false;
 		
-		if ($dom->loadXml($xml)) {
+		if($dom->loadXml($xml)) {
 			$name = $dom->getElementsByTagName('name')->item(0);
 			
-			if ($name) {
+			if($name) {
 				$meta['name'] = $name->textContent;
 			}
 			
 			$code = $dom->getElementsByTagName('code')->item(0);
 			
-			if ($code) {
+			if($code) {
 				$meta['code'] = $code->textContent;
 			}
 			
 			$author = $dom->getElementsByTagName('author')->item(0);
 			
-			if ($author) {
+			if($author) {
 				$meta['author'] = $author->textContent;
 			}
 			
 			$version = $dom->getElementsByTagName('version')->item(0);
 			
-			if ($version) {
+			if($version) {
 				$meta['version'] = $version->textContent;
 			}
 			
 			$link = $dom->getElementsByTagName('link')->item(0);
 			
-			if ($link) {
+			if($link) {
 				$meta['link'] = $link->textContent;
 			}
 		} else {

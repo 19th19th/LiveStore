@@ -43,13 +43,13 @@ class ModelBlogReview extends Model {
 			$emails = explode(',', $this->config->get('config_alert_email'));
 
 			foreach ($emails as $email) {
-				if ($email && preg_match('/^[^\@]+@.*.[a-z]{2,15}$/i', $email)) {
+				$email = trim($email);
+				if ($email && filter_var($email, FILTER_VALIDATE_EMAIL)) {
 					$mail->setTo($email);
 					$mail->send();
 				}
 			}
 		}
-
 	}
 
 	public function getReviewsByArticleId($article_id, $start = 0, $limit = 20) {

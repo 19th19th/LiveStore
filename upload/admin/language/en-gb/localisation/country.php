@@ -12,6 +12,7 @@ $_['text_edit']               = 'Edit Country';
 $_['column_name']             = 'Country Name';
 $_['column_iso_code_2']       = 'ISO Code (2)';
 $_['column_iso_code_3']       = 'ISO Code (3)';
+$_['column_status']           = 'Status';
 $_['column_action']           = 'Action';
 
 // Entry

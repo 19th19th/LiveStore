@@ -17,8 +17,6 @@ class ControllerBlogMenu extends Controller {
 			$data['text_blog'] = $this->language->get('text_blog');
 		}
 
-		$data['text_all'] = $this->language->get('text_all');
-
 		$data['blog'] = $this->url->link('blog/latest');
 
 		$data['categories'] = array();
@@ -46,8 +44,8 @@ class ControllerBlogMenu extends Controller {
 
 				// Level 1
 				$filter_data = array(
-						'filter_blog_category_id'  => $category['blog_category_id']
-					);
+					'filter_blog_category_id'  => $category['blog_category_id']
+				);
 				
 				$data['categories'][] = array(
 					'name'     => $category['name'] . ($this->config->get('configblog_article_count') ? ' (' . $this->model_blog_article->getTotalArticles($filter_data) . ')' : ''),

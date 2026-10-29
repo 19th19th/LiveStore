@@ -16,10 +16,10 @@ class Pagination {
 	public $limit = 20;
 	public $num_links = 8;
 	public $url = '';
-	public $text_first = '|&lt;';
-	public $text_last = '&gt;|';
-	public $text_next = '&gt;';
-	public $text_prev = '&lt;';
+	public $text_first = '<i class="fa fa-angle-double-left"></i>';
+	public $text_last = '<i class="fa fa-angle-double-right"></i>';
+	public $text_next = '<i class="fa fa-angle-right"></i>';
+	public $text_prev = '<i class="fa fa-angle-left"></i>';
 
 	/**
      * 

@@ -1,11 +1,9 @@
 <?php
-// *	@source		See SOURCE.txt for source and other copyright.
-// *	@license	GNU General Public License version 3; see LICENSE.txt
-
 // Heading
 $_['heading_title']       = 'Поисковые запросы покупателей';
 
 // Text
+$_['text_extension'] 		= 'Отчёты';
 $_['text_list']           = 'Список поисковых запросов покупателей';
 $_['text_guest']          = 'Гость';
 $_['text_customer']       = '<a href="%s">%s</a>';

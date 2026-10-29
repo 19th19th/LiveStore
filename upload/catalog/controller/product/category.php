@@ -381,12 +381,11 @@ class ControllerProductCategory extends Controller {
                     $this->document->addLink($this->url->link('product/category', 'path=' . $category_info['category_id'] . '&page=' . ($page + 1)), 'next');
                 }
             } else {
-
                 if (isset($this->request->server['HTTPS']) && (($this->request->server['HTTPS'] == 'on') || ($this->request->server['HTTPS'] == '1'))) {
                     $server = $this->config->get('config_ssl');
                 } else {
                     $server = $this->config->get('config_url');
-                };
+                }
 
                 $request_url = rtrim($server, '/') . $this->request->server['REQUEST_URI'];
                 $canonical_url = $this->url->link('product/category', 'path=' . $category_info['category_id']);

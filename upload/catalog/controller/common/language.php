@@ -62,8 +62,9 @@ class ControllerCommonLanguage extends Controller {
 	}
 
 	public function language() {
-		if($this->config->get('config_seo_pro'))
+		if($this->config->get('config_seo_pro')) {
 			$this->seo_language();
+		}
 			
 		if (isset($this->request->post['code'])) {
 			$this->session->data['language'] = $this->request->post['code'];
@@ -79,7 +80,9 @@ class ControllerCommonLanguage extends Controller {
 	private function seo_language() {
 		if (isset($this->request->post['code'])) {
 			$this->session->data['language'] = $this->request->post['code'];
+			
 			$languages = $this->model_localisation_language->getLanguages();
+			
 			if (isset($languages[$this->request->post['code']])) {
 				$this->config->set('config_language_id', $languages[$this->request->post['code']]['language_id']);	
 			}
@@ -87,13 +90,17 @@ class ControllerCommonLanguage extends Controller {
 
 		if (isset($this->request->post['redirect'])) {
 			$redirect = $this->request->post['redirect'];
+			
 			$redirect_data = json_decode(base64_decode($redirect), true);
+			
 			extract($redirect_data);
+			
 			if(isset($route)&& isset($url) && isset($protocol)) {
 				$redirect_url = $this->url->link($route, $url, $protocol);
 			} else {
 				$redirect_url = $this->url->link('common/home');
 			}
+			
 			$this->response->redirect($redirect_url);
 		} else {
 			$this->response->redirect($this->url->link('common/home'));
