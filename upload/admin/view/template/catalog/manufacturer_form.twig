@@ -26,14 +26,14 @@
         <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-manufacturer" class="form-horizontal">
           <ul class="nav nav-tabs">
             <li class="active"><a href="#tab-general" data-toggle="tab">{{ tab_general }}</a></li>
-			<li><a href="#tab-data" data-toggle="tab">{{ tab_data }}</a></li>
+			      <li><a href="#tab-data" data-toggle="tab">{{ tab_data }}</a></li>
             <li><a href="#tab-seo" data-toggle="tab">{{ tab_seo }}</a></li>
-			<li><a href="#tab-related" data-toggle="tab">{{ tab_related }}</a></li>
-			<li><a href="#tab-design" data-toggle="tab">{{ tab_design }}</a></li>
+			      <li><a href="#tab-related" data-toggle="tab">{{ tab_related }}</a></li>
+			      <li><a href="#tab-design" data-toggle="tab">{{ tab_design }}</a></li>
           </ul>
 			  <div class="tab-content">
-            <div class="tab-pane active" id="tab-general">
-			<div class="form-group required">
+          <div class="tab-pane active" id="tab-general">
+			      <div class="form-group required">
                 <label class="col-sm-2 control-label" for="input-name">{{ entry_name }}</label>
                 <div class="col-sm-10">
                   <input type="text" name="name" value="{{ name }}" placeholder="{{ entry_name }}" id="input-name" class="form-control" />
@@ -49,7 +49,7 @@
               <div class="tab-content">
                 {% for language in languages %}
                 <div class="tab-pane" id="language{{ language.language_id }}">
-				  <div class="form-group">
+				          <div class="form-group">
                     <label class="col-sm-2 control-label" for="input-meta-h1{{ language.language_id }}">{{ entry_meta_h1 }}</label>
                     <div class="col-sm-10">
                       <input type="text" name="manufacturer_description[{{ language.language_id }}][meta_h1]" value="{{ manufacturer_description[language.language_id] ? manufacturer_description[language.language_id].meta_h1 }}" placeholder="{{ entry_meta_h1 }}" id="input-meta-h1{{ language.language_id }}" class="form-control" />
@@ -73,7 +73,7 @@
                       <textarea name="manufacturer_description[{{ language.language_id }}][meta_keyword]" rows="5" placeholder="{{ entry_meta_keyword }}" id="input-meta-keyword{{ language.language_id }}" class="form-control">{{ manufacturer_description[language.language_id] ? manufacturer_description[language.language_id].meta_keyword }}</textarea>
                     </div>
                   </div>
-				  <div class="form-group">
+				          <div class="form-group">
                     <label class="col-sm-2 control-label" for="input-description{{ language.language_id }}">{{ entry_description }}</label>
                     <div class="col-sm-10">
                       <textarea name="manufacturer_description[{{ language.language_id }}][description]" placeholder="{{ entry_description }}" id="input-description{{ language.language_id }}" data-toggle="summernote" data-lang="{{ summernote }}" class="form-control">{{ manufacturer_description[language.language_id] ? manufacturer_description[language.language_id].description }}</textarea>
@@ -83,9 +83,9 @@
                 {% endfor %}
               </div>
             </div>
-			  <div class="tab-pane" id="tab-data">
+			      <div class="tab-pane" id="tab-data">
               <div class="form-group">
-				<label class="col-sm-2 control-label">{{ entry_store }}</label>
+				        <label class="col-sm-2 control-label">{{ entry_store }}</label>
                 <div class="col-sm-10">
                   <div class="well well-sm" style="height: 150px; overflow: auto;"> {% for store in stores %}
                     <div class="checkbox">
@@ -140,7 +140,7 @@
                   </tbody>
                 </table>
               </div>
-			  <div class="form-group">
+			        <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-noindex">{{ entry_noindex }}</label>
                 <div class="col-sm-10">
                   <select name="noindex" id="input-noindex" class="form-control">
@@ -153,10 +153,10 @@
                     {% endif %}
                   </select>
                 </div>
-				</div>
+				      </div>
             </div>
-			<div class="tab-pane" id="tab-related">
-			   <div class="form-group">
+			    <div class="tab-pane" id="tab-related">
+			        <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-product-related"><span data-toggle="tooltip" title="{{ help_related }}">{{ entry_related_mn }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="product_related_input" value="" placeholder="{{ entry_related_mn }}" id="input-product-related" class="form-control" />
@@ -166,8 +166,8 @@
                     </div>
                     {% endfor %}</div>
                 </div>
-               </div>
-			   <div class="form-group">
+              </div>
+			        <div class="form-group">
                 <label class="col-sm-2 control-label" for="input-article-related"><span data-toggle="tooltip" title="{{ help_related }}">{{ entry_related_article }}</span></label>
                 <div class="col-sm-10">
                   <input type="text" name="article_related_input" value="" placeholder="{{ entry_related_article }}" id="input-article-related" class="form-control" />
@@ -179,7 +179,7 @@
                 </div>
                </div>
             </div>
-          <div class="tab-pane" id="tab-design">
+            <div class="tab-pane" id="tab-design">
               <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                   <thead>
@@ -189,7 +189,6 @@
                     </tr>
                   </thead>
                   <tbody>
-
                     {% for store in stores %}
                     <tr>
                       <td class="text-left">{{ store.name }}</td>
