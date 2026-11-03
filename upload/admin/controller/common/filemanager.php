@@ -34,7 +34,6 @@ class ControllerCommonFileManager extends Controller {
 
 		$data['heading_title'] = $this->language->get('heading_title') . ' - ' . $path;
 
-
 		if (isset($this->request->get['page'])) {
 			$page = $this->request->get['page'];
 		} else {
@@ -50,29 +49,44 @@ class ControllerCommonFileManager extends Controller {
 
 		if (utf8_substr(str_replace('\\', '/', realpath($directory) . '/' . $filter_name), 0, utf8_strlen(DIR_IMAGE . 'catalog')) == str_replace('\\', '/', DIR_IMAGE . 'catalog')) {
 			// Get directories
-			$directories = glob($directory . '/' . $filter_name . '*', GLOB_ONLYDIR);
+			$directories = glob($directory . '/*', GLOB_ONLYDIR);
 
 			if (!$directories) {
 				$directories = array();
 			}
 
 			// Get files
-			$files = glob($directory . '/' . $filter_name . '*.{jpg,jpeg,png,gif,webp,JPG,JPEG,PNG,GIF,WEBP}', GLOB_BRACE);
+			$files = glob($directory . '/*.{jpg,jpeg,png,gif,webp,JPG,JPEG,PNG,GIF,WEBP}', GLOB_BRACE);
 
 			if (!$files) {
 				$files = array();
 			}
+
+			if ($filter_name) {
+				$filter_case = 0;
+
+				$pattern = '~' . str_replace(array('\*', '\?'), array('.*', '.'), preg_quote($filter_name, '~')) . '~' . ($filter_case ? '' : 'i');
+
+				$directories = array_values(array_filter($directories, function($directory) use ($pattern) {
+					return preg_match($pattern, basename($directory));
+				}));
+
+				$files = array_values(array_filter($files, function($file) use ($pattern) {
+					return preg_match($pattern, basename($file));
+				}));
+			}
 		}
 
-		// Merge directories and files
-		$images = array_merge($directories, $files);
-
 		// Get total number of files and directories
-		$image_total = count($images);
+		$image_total = count($files);
 
 		$limit = $this->config->get('config_limit_filemanager') ? $this->config->get('config_limit_filemanager') : 16;
+		
 		// Split the array based on current page number and max number of items per page of 10
-		$images = array_splice($images, ($page - 1) * $limit, $limit);
+		$files = array_splice($files, ($page - 1) * $limit, $limit);
+		
+		// Merge directories and files
+		$images = array_merge($directories, $files);
 
 		foreach ($images as $image) {
 			$name = $this->basename_fixed($image);
@@ -197,7 +211,10 @@ class ControllerCommonFileManager extends Controller {
 		$pagination->url = $this->url->link('common/filemanager', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
 		$data['pagination'] = $pagination->render();
-
+		$data['results'] = sprintf($this->language->get('text_pagination'), ($image_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($image_total - $limit)) ? $image_total : ((($page - 1) * $limit) + $limit), $image_total, ceil($image_total / $limit));
+		
+		$data['image_total'] = $image_total;
+		
 		$this->response->setOutput($this->load->view('common/filemanager', $data));
 	}
 
