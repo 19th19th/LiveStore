@@ -19,51 +19,7 @@ class ControllerBlogSetting extends Controller {
 
 			$this->response->redirect($this->url->link('blog/setting', 'user_token=' . $this->session->data['user_token'], true));
 		}
-
-		$data['heading_title'] = $this->language->get('heading_title');
-
-		$data['text_edit'] = $this->language->get('text_edit');
-		$data['text_yes'] = $this->language->get('text_yes');
-		$data['text_no'] = $this->language->get('text_no');
-		$data['text_article'] = $this->language->get('text_article');
-		$data['text_review'] = $this->language->get('text_review');
-		$data['entry_article_limit'] = $this->language->get('entry_article_limit');
-		$data['entry_article_description_length'] = $this->language->get('entry_article_description_length');
-		$data['entry_limit_admin'] = $this->language->get('entry_limit_admin');
-		$data['entry_article_count'] = $this->language->get('entry_article_count');
-		$data['entry_blog_menu'] = $this->language->get('entry_blog_menu');
-		$data['entry_article_download'] = $this->language->get('entry_article_download');
-		$data['entry_review'] = $this->language->get('entry_review');
-		$data['entry_review_guest'] = $this->language->get('entry_review_guest');
-		$data['entry_review_mail'] = $this->language->get('entry_review_mail');
-		$data['entry_image_category'] = $this->language->get('entry_image_category');
-		$data['entry_image_article'] = $this->language->get('entry_image_article');
-		$data['entry_image_related'] = $this->language->get('entry_image_related');
-		$data['entry_width'] = $this->language->get('entry_width');
-		$data['entry_height'] = $this->language->get('entry_height');
-		$data['entry_name'] = $this->language->get('entry_name');
-		$data['entry_html_h1'] = $this->language->get('entry_html_h1');
-		$data['entry_meta_title'] = $this->language->get('entry_meta_title');
-		$data['entry_meta_description'] = $this->language->get('entry_meta_description');
-		$data['entry_meta_keyword'] = $this->language->get('entry_meta_keyword');
-
-		$data['help_comment'] = $this->language->get('help_comment');
-		$data['help_article_limit'] = $this->language->get('help_article_limit');
-		$data['help_article_description_length'] = $this->language->get('help_article_description_length');
-		$data['help_limit_admin'] = $this->language->get('help_limit_admin');
-		$data['help_article_count'] = $this->language->get('help_article_count');
-		$data['help_blog_menu'] = $this->language->get('help_blog_menu');
-		$data['help_review'] = $this->language->get('help_review');
-		$data['help_review_guest'] = $this->language->get('help_review_guest');
-		$data['help_review_mail'] = $this->language->get('help_review_mail');
-
-		$data['button_save'] = $this->language->get('button_save');
-		$data['button_cancel'] = $this->language->get('button_cancel');
-
-		$data['tab_general'] = $this->language->get('tab_general');
-		$data['tab_option'] = $this->language->get('tab_option');
-		$data['tab_image'] = $this->language->get('tab_image');
-
+	
 		if (isset($this->error['warning'])) {
 			$data['error_warning'] = $this->error['warning'];
 		} else {

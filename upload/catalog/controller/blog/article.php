@@ -64,12 +64,7 @@ class ControllerBlogArticle extends Controller {
 						
 			if (isset($this->request->get['filter_description'])) {
 				$url .= '&filter_description=' . $this->request->get['filter_description'];
-			}
-			
-			if (isset($this->request->get['filter_news_id'])) {
-				$url .= '&filter_news_id=' . $this->request->get['filter_news_id'];
 			}	
-						
 		}
 		
 		if (isset($this->request->get['article_id'])) {
@@ -100,10 +95,6 @@ class ControllerBlogArticle extends Controller {
 			if (isset($this->request->get['filter_description'])) {
 				$url .= '&filter_description=' . $this->request->get['filter_description'];
 			}	
-						
-			if (isset($this->request->get['filter_news_id'])) {
-				$url .= '&filter_news_id=' . $this->request->get['filter_news_id'];
-			}
 			
 			$data['breadcrumbs'][] = array(
 				'text' => $article_info['name'],
@@ -136,7 +127,7 @@ class ControllerBlogArticle extends Controller {
 			
 			$this->load->model('blog/review');
 			
-			$data['article_id'] = $this->request->get['article_id'];
+			$data['article_id'] = (int)$this->request->get['article_id'];
 			
 			$data['review_status'] = $this->config->get('configblog_review_status');
 			
@@ -165,6 +156,19 @@ class ControllerBlogArticle extends Controller {
 			$data['gstatus'] = (int)$article_info['gstatus'];
 			$data['description'] = html_entity_decode($article_info['description'], ENT_QUOTES, 'UTF-8');
 			
+			$data['tags'] = array();
+
+			if ($article_info['tag']) {
+				$tags = explode(',', $article_info['tag']);
+
+				foreach ($tags as $tag) {
+					$data['tags'][] = array(
+						'tag'  => trim($tag),
+						'href' => $this->url->link('blog/search', 'tag=' . trim($tag))
+					);
+				}
+			}
+
 			$data['articles'] = array();
 			
 			$data['button_more'] = $this->language->get('button_more');
@@ -352,14 +356,10 @@ class ControllerBlogArticle extends Controller {
 			if (isset($this->request->get['filter_description'])) {
 				$url .= '&filter_description=' . $this->request->get['filter_description'];
 			}
-					
-			if (isset($this->request->get['filter_news_id'])) {
-				$url .= '&filter_news_id=' . $this->request->get['filter_news_id'];
-			}
-								
-				$data['breadcrumbs'][] = array(
+
+			$data['breadcrumbs'][] = array(
 				'text' => $this->language->get('text_error'),
-				'href' => $this->url->link('product/product', $url . '&product_id=' . $article_id)
+				'href' => $this->url->link('blog/article', $url . '&article_id=' . $article_id)
 			);
 
 			$this->document->setTitle($this->language->get('text_error'));
@@ -466,7 +466,6 @@ class ControllerBlogArticle extends Controller {
 		$data['results'] = sprintf($this->language->get('text_pagination'), ($review_total) ? (($page - 1) * $limit) + 1 : 0, ((($page - 1) * $limit) > ($review_total - $limit)) ? $review_total : ((($page - 1) * $limit) + $limit), $review_total, ceil($review_total / $limit));
 
 		$this->response->setOutput($this->load->view('blog/review', $data));
-		
 	}
 	
 	public function write() {

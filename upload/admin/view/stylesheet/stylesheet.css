@@ -260,7 +260,7 @@ input[type="checkbox"]:checked::after, .checkbox input[type="checkbox"]:checked:
 #oc-search ul li a span {margin-left:8px}
 #oc-search ul li a{cursor:pointer}
 #oc-search-div{padding-left:1px !important;padding-right:0 !important;padding-top:8px !important}
-#oc-search-result {display:none;position:absolute;margin:2px 0 0;background-color:#fff;border-radius:var(--border-radius-1);box-shadow:0 6px 12px rgba(0, 0, 0, 0.3);background-clip:padding-box;z-index:999;}
+#oc-search-result {display:none;position:absolute;margin:2px 0 0;background-color:#fff;border-radius:var(--border-radius-1);box-shadow:0 6px 12px rgba(0, 0, 0, 0.3);background-clip:padding-box;z-index:999;min-width:100%}
 #oc-search-result ul {margin:0 15px 10px;padding:0}
 #oc-search-result ul .result-header {margin:15px 0;font-weight:700;white-space:nowrap}
 #oc-search-result ul li {list-style:none}

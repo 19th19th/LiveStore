@@ -50,9 +50,6 @@ class ControllerDesignLayout extends Controller {
 	public function edit() {
 		$this->load->language('design/layout');
 
-        $this->document->addScript('view/javascript/jquery/Sortable.js');
-        $this->document->addScript('view/javascript/jquery/jquery-sortable.js');
-
 		$this->document->setTitle($this->language->get('heading_title'));
 
 		$this->load->model('design/layout');
@@ -393,6 +390,9 @@ class ControllerDesignLayout extends Controller {
 			}
 		}
 
+		$this->document->addScript('view/javascript/jquery/Sortable.js');
+        $this->document->addScript('view/javascript/jquery/jquery-sortable.js');
+
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
@@ -422,6 +422,8 @@ class ControllerDesignLayout extends Controller {
 		$this->load->model('catalog/category');
 		$this->load->model('catalog/information');
 		$this->load->model('catalog/manufacturer');
+		$this->load->model('blog/category');
+		$this->load->model('blog/article');
 
 		foreach ($this->request->post['selected'] as $layout_id) {
 			if ($this->config->get('config_layout_id') == $layout_id) {
@@ -456,6 +458,18 @@ class ControllerDesignLayout extends Controller {
 
 			if ($information_total) {
 				$this->error['warning'] = sprintf($this->language->get('error_information'), $information_total);
+			}
+
+			$blog_category_total = $this->model_blog_category->getTotalCategoriesByLayoutId($layout_id);
+
+			if ($blog_category_total) {
+				$this->error['warning'] = sprintf($this->language->get('error_blog_category'), $blog_category_total);
+			}
+
+			$blog_article_total = $this->model_blog_article->getTotalArticlesByLayoutId($layout_id);
+
+			if ($blog_article_total) {
+				$this->error['warning'] = sprintf($this->language->get('error_blog_article'), $blog_article_total);
 			}
 		}
 

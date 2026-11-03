@@ -286,5 +286,4 @@ $(function() {
 	$('.open-close-filter').on('click', function() {
 		$('#filter-product').toggleClass('show')
 	});
-	
 });
