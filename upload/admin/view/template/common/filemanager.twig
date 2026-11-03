@@ -28,28 +28,42 @@
 					<input type="checkbox" id="check-all">
 					{{ text_select_all|default('Выделить всё') }}
 				</label>
+				<hr>
 			</div>
 			<div id="filemanager-images">
-				{% for image in images|batch(4) %}
-					<div class="row">
-						{% for image in image %}
-							<div class="col-sm-3 col-xs-6 text-center">
-								{% if image.type == 'directory' %}
-									<div class="text-center"><a href="{{ image.href }}" class="directory" style="vertical-align:middle"><i class="fa fa-folder fa-5x"></i></a></div>
-									<label><input type="checkbox" name="path[]" value="{{ image.path }}" /> {{ image.name }}</label>
-								{% endif %}
-								{% if image.type == 'image' %}
-									<a href="{{ image.href }}" class="thumbnail"><img src="{{ image.thumb }}" alt="{{ image.name }}" title="{{ image.name }}" /></a>
-									<label><input type="checkbox" name="path[]" value="{{ image.path }}" /> {{ image.name }}</label>
-								{% endif %}
+				<div class="row filemanager-directories" style="display:flex;flex-wrap:wrap">
+					{% for image in images %}
+						{% if image.type == 'directory' %}
+							<div class="{{ image.type }} col-md-2 col-sm-3 col-xs-6 text-center">
+								<div class="text-center"><a href="{{ image.href }}" class="directory" style="vertical-align:middle"><i class="fa fa-folder fa-4x"></i></a></div>
+								<label style="word-wrap:break-word"><input type="checkbox" name="path[]" value="{{ image.path }}" /><br>{{ image.name }}</label>
+								<div style="height:15px"></div>
 							</div>
-						{% endfor %}
-					</div>
-					<br/>
-				{% endfor %}
+						{% endif %}
+					{% endfor %}
+				</div>
+				<br>
+				<div class="row filemanager-images" style="display:flex;flex-wrap:wrap">
+					{% for image in images %}
+						{% if image.type == 'image' %}
+							<div class="{{ image.type }} col-md-3 col-sm-3 col-xs-6 text-center">
+								<a href="{{ image.href }}" class="thumbnail"><img src="{{ image.thumb }}" alt="{{ image.name }}" title="{{ image.name }}" /></a>
+								<label style="word-wrap:break-word"><input type="checkbox" name="path[]" value="{{ image.path }}" /><br>{{ image.name }}</label>
+								<div style="height:15px"></div>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
 			</div>
 		</div>
-		<div class="modal-footer">{{ pagination }}</div>
+		{% if image_total %}
+			<div class="modal-footer">
+				{% if pagination %}
+					<div style="margin:0 0 10px">{{ pagination }}</div>
+				{% endif %}
+				<div style="font-size:.9em">{{ results }}</div>
+			</div>
+		{% endif %}
 	</div>
 </div>
 <script>
@@ -90,9 +104,15 @@
 
 		$('#modal-image').load($(this).attr('href'));
 	});
+	
+	var timer = '';
 
 	$('input[name=\'search\']').on('keyup', function(e) {
-		$('#button-search').trigger('click');
+		clearTimeout(timer);
+			
+		timer = setTimeout(() => {
+			$('#button-search').trigger('click');
+		}, 250);
 	});
 
 	$('#button-search').on('click', function(e) {
