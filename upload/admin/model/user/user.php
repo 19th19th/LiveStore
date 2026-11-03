@@ -94,6 +94,12 @@ class ModelUserUser extends Model {
 		return $query->row['total'];
 	}
 
+	public function getTotalUsersByStatus($status) {
+		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "user` WHERE status = '" . (int)$status . "'");
+
+		return $query->row['total'];
+	}
+
 	public function getTotalUsersByGroupId($user_group_id) {
 		$query = $this->db->query("SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "user` WHERE user_group_id = '" . (int)$user_group_id . "'");
 
