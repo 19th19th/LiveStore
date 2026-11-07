@@ -393,6 +393,9 @@ class ControllerCommonFileManager extends Controller {
 
 		// Loop through each path to run validations
 		foreach ($paths as $path) {
+			// Convert any html encoded characters.
+			$path = html_entity_decode($path, ENT_QUOTES, 'UTF-8');
+
 			// Check path exsists
 			if ($path == DIR_IMAGE . 'catalog' || utf8_substr(str_replace('\\', '/', realpath(DIR_IMAGE . $path)), 0, utf8_strlen(DIR_IMAGE . 'catalog')) != str_replace('\\', '/', DIR_IMAGE . 'catalog')) {
 				$json['error'] = $this->language->get('error_delete');
@@ -404,7 +407,7 @@ class ControllerCommonFileManager extends Controller {
 		if (!$json) {
 			// Loop through each path
 			foreach ($paths as $path) {
-				$path = rtrim(DIR_IMAGE . $path, '/');
+				$path = rtrim(DIR_IMAGE . html_entity_decode($path, ENT_QUOTES, 'UTF-8'), '/');
 
 				// If path is just a file delete it
 				if (is_file($path)) {
