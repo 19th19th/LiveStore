@@ -11,14 +11,14 @@ class ControllerCommonFileManager extends Controller {
 		}
 
 		if (isset($this->request->get['filter_name'])) {
-			$filter_name = rtrim(str_replace(array('*', '/', '\\'), '', $this->request->get['filter_name']), '/');
+			$filter_name = rtrim(str_replace(array('*', '/', '\\'), '', html_entity_decode($this->request->get['filter_name'], ENT_QUOTES, 'UTF-8')), '/');
 		} else {
 			$filter_name = '';
 		}
 
 		// Make sure we have the correct directory
 		if (isset($this->request->get['directory'])) {
-            $directory = rtrim(DIR_IMAGE . 'catalog/' . trim(str_replace('*', '', $this->request->get['directory']), '/'), '/');
+            $directory = rtrim(DIR_IMAGE . 'catalog/' . trim(str_replace('*', '', html_entity_decode($this->request->get['directory'], ENT_QUOTES, 'UTF-8')), '/'), '/');
 		} else if (!empty($this->session->data['file_manager_directory'])) {
 			$directory = $this->session->data['file_manager_directory'];
 		} else {
@@ -152,7 +152,7 @@ class ControllerCommonFileManager extends Controller {
 		$url = '';
 
 		if (isset($this->request->get['directory'])) {
-			$dir_part = explode('/', $this->request->get['directory']);
+			$dir_part = explode('/', html_entity_decode($this->request->get['directory'], ENT_QUOTES, 'UTF-8'));
 
 			array_pop($dir_part);
 
@@ -173,7 +173,7 @@ class ControllerCommonFileManager extends Controller {
 		$url = '';
 
 		if (isset($this->request->get['directory'])) {
-			$url .= '&directory=' . urlencode($this->request->get['directory']);
+			$url .= '&directory=' . urlencode(html_entity_decode($this->request->get['directory'], ENT_QUOTES, 'UTF-8'));
 		}
 
 		if (isset($this->request->get['target'])) {
@@ -236,7 +236,7 @@ class ControllerCommonFileManager extends Controller {
 
 		// Make sure we have the correct directory
 		if (isset($this->request->get['directory'])) {
-			$directory = rtrim(DIR_IMAGE . 'catalog/' . $this->request->get['directory'], '/');
+			$directory = rtrim(DIR_IMAGE . 'catalog/' . html_entity_decode($this->request->get['directory'], ENT_QUOTES, 'UTF-8'), '/');
 		} else {
 			$directory = DIR_IMAGE . 'catalog';
 		}
@@ -337,7 +337,7 @@ class ControllerCommonFileManager extends Controller {
 
 		// Make sure we have the correct directory
 		if (isset($this->request->get['directory'])) {
-			$directory = rtrim(DIR_IMAGE . 'catalog/' . $this->request->get['directory'], '/');
+			$directory = rtrim(DIR_IMAGE . 'catalog/' . html_entity_decode($this->request->get['directory'], ENT_QUOTES, 'UTF-8'), '/');
 		} else {
 			$directory = DIR_IMAGE . 'catalog';
 		}
