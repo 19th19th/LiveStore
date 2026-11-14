@@ -80,7 +80,7 @@ class ControllerCommonDashboard extends Controller {
     		$data['rows'][] = $column;
 		}
 
-		if (DIR_STORAGE == DIR_SYSTEM . 'storage/') {
+		if (DIR_STORAGE == DIR_SYSTEM . 'storage/' && $this->user->hasPermission('modify', 'common/security')) {
 			$data['security'] = $this->load->controller('common/security');
 		} else {
 			$data['security'] = '';
