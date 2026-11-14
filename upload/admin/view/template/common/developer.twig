@@ -62,15 +62,15 @@
               {% endif %}</div></td>
           <td class="text-right"><button type="button" value="sass" data-toggle="tooltip" title="{{ button_refresh }}" class="btn btn-warning"><i class="fa fa-refresh"></i></button></td>
         </tr>
-		 <tr>
+		    <tr>
           <td colspan="2">{{ entry_systemcache }}</td>
           <td class="text-right"><button type="button" value="systemcache" data-toggle="tooltip" title="{{ button_refresh }}" class="btn btn-warning"><i class="fa fa-refresh"></i></button></td>
         </tr>
-		<tr>
+		    <tr>
           <td colspan="2">{{ entry_imgcache }}</td>
           <td class="text-right"><button type="button" value="imgcache" data-toggle="tooltip" title="{{ button_refresh }}" class="btn btn-warning"><i class="fa fa-refresh"></i></button></td>
         </tr>
-		<tr>
+		    <tr>
           <td colspan="2">{{ entry_allcache }}</td>
           <td class="text-right"><button type="button" value="allcache" data-toggle="tooltip" title="{{ button_refresh }}" class="btn btn-warning"><i class="fa fa-refresh"></i></button></td>
         </tr>
@@ -83,7 +83,7 @@ $('input[name=\'developer_theme\'], input[name=\'developer_sass\']').on('change'
 	$.ajax({
 		url: 'index.php?route=common/developer/edit&user_token={{ user_token }}',		
 		type: 'post',
-        data: $('input[name=\'developer_theme\']:checked, input[name=\'developer_sass\']:checked'),
+    data: $('input[name=\'developer_theme\']:checked, input[name=\'developer_sass\']:checked'),
 		dataType: 'json',
 		beforeSend: function() {
 			$('input[name=\'developer_theme\'], input[name=\'developer_sass\']').prop('disabled', true);
@@ -92,13 +92,13 @@ $('input[name=\'developer_theme\'], input[name=\'developer_sass\']').on('change'
 			$('input[name=\'developer_theme\'], input[name=\'developer_sass\']').prop('disabled', false);
 		},
 		success: function(json) {
-            $('.alert-dismissible').remove();
+      $('.alert-dismissible').remove();
 
-            if (json['error']) {
-                $('#modal-developer .modal-body').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-            }
+      if (json['error']) {
+        $('#modal-developer .modal-body').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+      }
 
-            if (json['success']) {
+      if (json['success']) {
 				$('#modal-developer .modal-body').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 			}			
 		},
@@ -121,13 +121,13 @@ $('#modal-developer table button').on('click', function() {
 			$(element).button('reset');
 		},
 		success: function(json) {
-            $('.alert-dismissible').remove();
+      $('.alert-dismissible').remove();
 
-            if (json['error']) {
-                $('#modal-developer .modal-body').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error']['warning'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
-            }
+      if (json['error']) {
+        $('#modal-developer .modal-body').prepend('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+      }
 
-            if (json['success']) {
+      if (json['success']) {
 				$('#modal-developer .modal-body').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
 			}			
 		},
