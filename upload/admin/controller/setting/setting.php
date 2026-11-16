@@ -16,7 +16,6 @@ class ControllerSettingSetting extends Controller {
 			$this->model_setting_setting->editSetting('config', $this->request->post);
 
 			if ($this->config->get('config_currency_auto')) {
-				$this->load->model('localisation/currency');
                 $this->load->controller('extension/currency/' . $this->config->get('config_currency_engine')."/currency" , $this->config->get('config_currency'));
 			}
 
@@ -326,9 +325,9 @@ class ControllerSettingSetting extends Controller {
 		$data['countries'] = $this->model_localisation_country->getCountries();
 
 		if (isset($this->request->post['config_zone_id'])) {
-			$data['config_zone_id'] = $this->request->post['config_zone_id'];
+			$data['config_zone_id'] = (int)$this->request->post['config_zone_id'];
 		} else {
-			$data['config_zone_id'] = $this->config->get('config_zone_id');
+			$data['config_zone_id'] = (int)$this->config->get('config_zone_id');
 		}
 
 		if (isset($this->request->post['config_timezone'])) {
@@ -385,14 +384,13 @@ class ControllerSettingSetting extends Controller {
         $extensions = $this->model_setting_extension->getInstalled('currency');
 
         foreach ($extensions as $code) {
-
             if ($this->config->get('currency_' . $code . '_status')) {
-            $this->load->language('extension/currency/' . $code, 'currency');
+				$this->load->language('extension/currency/' . $code, 'currency');
 
-            $data['currency_engines'][] = array(
-                'text'  => $this->language->get('currency')->get('heading_title'),
-                'value' => $code
-            );
+				$data['currency_engines'][] = array(
+					'text'  => $this->language->get('currency')->get('heading_title'),
+					'value' => $code
+				);
             }
         }
 
