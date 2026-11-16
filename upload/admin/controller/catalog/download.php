@@ -385,6 +385,7 @@ class ControllerCatalogDownload extends Controller {
 		}
 
 		$this->load->model('catalog/product');
+		$this->load->model('blog/article');
 
 		foreach ($this->request->post['selected'] as $download_id) {
 			$product_total = $this->model_catalog_product->getTotalProductsByDownloadId($download_id);
@@ -392,8 +393,14 @@ class ControllerCatalogDownload extends Controller {
 			if ($product_total) {
 				$this->error['warning'] = sprintf($this->language->get('error_product'), $product_total);
 			}
-		}
 
+			$article_total = $this->model_blog_article->getTotalArticlesByDownloadId($download_id);
+
+			if ($article_total) {
+				$this->error['warning'] = sprintf($this->language->get('error_article'), $article_total);
+			}
+		}
+		
 		return !$this->error;
 	}
 
