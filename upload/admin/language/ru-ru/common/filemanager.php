@@ -9,6 +9,8 @@ $_['heading_title']    = 'Менеджер изображений';
 $_['text_uploaded']    = 'Файл загружен!';
 $_['text_directory']   = 'Директория создана!';
 $_['text_delete']      = 'Файл или директория удалена!';
+$_['text_show_all_directories'] = 'Показать все папки';
+$_['text_no_results'] = 'В этой папке пусто';
 
 // Entry
 $_['entry_search']     = 'Поиск..';

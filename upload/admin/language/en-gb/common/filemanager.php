@@ -6,6 +6,8 @@ $_['heading_title']    = 'Image Manager';
 $_['text_uploaded']    = 'Success: Your file has been uploaded!';
 $_['text_directory']   = 'Success: Directory created!';
 $_['text_delete']      = 'Success: Your file or directory has been deleted!';
+$_['text_show_all_directories'] = 'Show all directories';
+$_['text_no_results'] = 'This folder is empty';
 
 // Entry
 $_['entry_search']     = 'Search..';

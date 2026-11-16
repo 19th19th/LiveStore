@@ -22,39 +22,43 @@
 					</div>
 				</div>
 			</div>
-			<hr />
-			<div class="checkbox" style="margin:6px 0 10px;">
-				<label>
-					<input type="checkbox" id="check-all">
+			<hr>
+			{% if images %}
+				<div class="checkbox" style="margin:6px 0 10px;">
+					<label>
+						<input type="checkbox" id="check-all">
 					{{ text_select_all|default('Выделить всё') }}
-				</label>
-				<hr>
-			</div>
-			<div id="filemanager-images">
-				<div class="row filemanager-directories" style="display:flex;flex-wrap:wrap">
-					{% for image in images %}
-						{% if image.type == 'directory' %}
-							<div class="{{ image.type }} col-md-2 col-sm-3 col-xs-6 text-center">
-								<div class="text-center"><a href="{{ image.href }}" class="directory" style="vertical-align:middle"><i class="fa fa-folder fa-4x"></i></a></div>
-								<label style="word-wrap:break-word"><input type="checkbox" name="path[]" value="{{ image.path }}" /><br>{{ image.name }}</label>
-								<div style="height:15px"></div>
-							</div>
-						{% endif %}
-					{% endfor %}
+					</label>
+					<hr>
 				</div>
-				<br>
-				<div class="row filemanager-images" style="display:flex;flex-wrap:wrap">
-					{% for image in images %}
-						{% if image.type == 'image' %}
-							<div class="{{ image.type }} col-md-3 col-sm-3 col-xs-6 text-center">
-								<a href="{{ image.href }}" class="thumbnail"><img src="{{ image.thumb }}" alt="{{ image.name }}" title="{{ image.name }}" /></a>
-								<label style="word-wrap:break-word"><input type="checkbox" name="path[]" value="{{ image.path }}" /><br>{{ image.name }}</label>
-								<div style="height:15px"></div>
-							</div>
-						{% endif %}
-					{% endfor %}
+				<div id="filemanager-images">
+					<div class="row filemanager-directories" style="display:flex;flex-wrap:wrap;overflow-y:hidden">
+						{% for image in images %}
+							{% if image.type == 'directory' %}
+								<div class="{{ image.type }} col-md-2 col-sm-3 col-xs-4 text-center">
+									<div class="text-center"><a href="{{ image.href }}" class="directory" style="vertical-align:middle"><i class="fa fa-folder fa-4x"></i></a></div>
+									<label style="word-wrap:break-word"><input type="checkbox" name="path[]" value="{{ image.path }}" /><br>{{ image.name }}</label>
+									<div style="height:15px"></div>
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
+					<br>
+					<div class="row filemanager-images" style="display:flex;flex-wrap:wrap">
+						{% for image in images %}
+							{% if image.type == 'image' %}
+								<div class="{{ image.type }} col-md-3 col-sm-3 col-xs-6 text-center">
+									<a href="{{ image.href }}" class="thumbnail"><img src="{{ image.thumb }}" alt="{{ image.name }}" title="{{ image.name }}" /></a>
+									<label style="word-wrap:break-word"><input type="checkbox" name="path[]" value="{{ image.path }}" /><br>{{ image.name }}</label>
+									<div style="height:15px"></div>
+								</div>
+							{% endif %}
+						{% endfor %}
+					</div>
 				</div>
-			</div>
+			{% else %}
+				<div class="text-center">{{ text_no_results }}</div>
+			{% endif %}
 		</div>
 		{% if image_total %}
 			<div class="modal-footer">
@@ -281,4 +285,36 @@
 			$('#modal-image').modal('hide');
 		}
 	});
+	
+	$(document).on('click', '.show-all-directories .btn', function() {
+		$('.filemanager-directories').css('height', 'auto');
+		$(this).parent().remove();
+	});
+
+	function ShowAllDirectories() {
+		const parent_div = $('.filemanager-directories'), 
+			  num_of_dir = parent_div.children().length,
+			  has_mages = $('.filemanager-images').children().length,
+			  limit = 12, 
+			  height = 220;
+		
+		let showBtn;
+
+		if (has_mages && (num_of_dir > limit)) {
+			showBtn = true;
+		} else {
+			parent_div.parent().css({'max-height': 1200, 'overflow-x': 'hidden', 'overflow-y': 'auto'});
+		}
+
+		if (showBtn) {
+			parent_div.height(height);
+			parent_div.after('<div class="show-all-directories text-center"><button type="button" class="btn btn-sm btn-default">{{ text_show_all_directories }} (' + num_of_dir + ')</button><hr></div>');
+		}
+	}
+	
+	ShowAllDirectories();
 </script>
+<style>
+	.show-all-directories{position:relative}
+	.show-all-directories:before{content:'';position:absolute;top:-40px;left:0;width:100%;height:40px;background:linear-gradient(0deg,#fff 0%,transparent 100%)}
+</style>
