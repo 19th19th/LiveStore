@@ -476,12 +476,18 @@ class ControllerUserUser extends Controller {
 			}
 		}
 
-		$total_users = $this->model_user_user->getTotalUsers();
+		if (isset($this->request->get['user_id']) && isset($this->request->post['status']) && $this->request->post['status'] == 0) {
+			$user_info = $this->model_user_user->getUser($this->request->get['user_id']);
 
-		if ($total_users <= 1 && isset($this->request->post['status']) && $this->request->post['status'] == 0) {
-			$this->error['warning'] = $this->language->get('error_single_user');
+			if ($user_info && $user_info['status'] == 1) {
+				$total_users = $this->model_user_user->getTotalUsersByStatus(1);
+
+				if ($total_users <= 1) {
+					$this->error['warning'] = $this->language->get('error_single_user');
+				}
+			}
 		}
-
+		
 		return !$this->error;
 	}
 
