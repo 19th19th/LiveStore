@@ -80,10 +80,16 @@ class ControllerCommonDashboard extends Controller {
     		$data['rows'][] = $column;
 		}
 
-		if (DIR_STORAGE == DIR_SYSTEM . 'storage/') {
+		if (DIR_STORAGE == DIR_SYSTEM . 'storage/' && $this->user->hasPermission('modify', 'common/security')) {
 			$data['security'] = $this->load->controller('common/security');
 		} else {
 			$data['security'] = '';
+		}
+
+		if ($this->user->hasPermission('access', 'common/developer')) {
+			$data['developer'] = true;
+		} else {
+			$data['developer'] = false;
 		}
 
 		$data['header'] = $this->load->controller('common/header');

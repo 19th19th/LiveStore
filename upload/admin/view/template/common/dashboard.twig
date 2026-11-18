@@ -3,7 +3,7 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
-        <button type="button" id="button-developer" title="{{ button_developer  }}" data-loading-text="{{ text_loading }}" class="btn btn-info"><i class="fa fa-cog"></i></button>
+        {% if developer %}<button type="button" id="button-developer" title="{{ button_developer }}" data-loading-text="{{ text_loading }}" class="btn btn-info"><i class="fa fa-cog"></i></button>{% endif %}
       </div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
@@ -30,6 +30,7 @@
       {% endfor %}</div>
     {% endfor %}</div>
     {{ security }}
+{% if developer %}
   <script type="text/javascript"><!--
 $('#button-developer').on('click', function() {
 	$.ajax({
@@ -53,6 +54,7 @@ $('#button-developer').on('click', function() {
 		}
 	});	
 });	
-//--></script> 
+//--></script>
+{% endif %}
 </div>
 {{ footer }}
