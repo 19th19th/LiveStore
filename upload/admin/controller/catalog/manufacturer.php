@@ -322,6 +322,11 @@ class ControllerCatalogManufacturer extends Controller {
 			$manufacturer_info = $this->model_catalog_manufacturer->getManufacturer($this->request->get['manufacturer_id']);
 		}
 
+		if (isset($this->request->get['manufacturer_id'])) {
+			$data['manufacturer_id'] = $this->request->get['manufacturer_id'];
+			$data['href_shop'] = HTTP_CATALOG . 'index.php?route=product/manufacturer/info&manufacturer_id=' . $this->request->get['manufacturer_id'];
+		}
+		
 		$data['user_token'] = $this->session->data['user_token'];
 		
 		$this->load->model('localisation/language');

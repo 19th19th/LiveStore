@@ -320,6 +320,11 @@ class ControllerCatalogCategory extends Controller {
 		if (isset($this->request->get['category_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
 			$category_info = $this->model_catalog_category->getCategory($this->request->get['category_id']);
 		}
+		
+		if (isset($this->request->get['category_id'])) {
+			$data['category_id'] = $this->request->get['category_id'];
+			$data['href_shop'] = HTTP_CATALOG . 'index.php?route=product/category&path=' . $this->request->get['category_id'];
+		}
 
 		$data['user_token'] = $this->session->data['user_token'];
 
