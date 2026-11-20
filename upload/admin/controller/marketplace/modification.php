@@ -1379,6 +1379,7 @@ class ControllerMarketplaceModification extends Controller {
 						'backup_id'  => $backup['backup_id'],
 						'code'       => $backup['code'],
 						'date_added' => $backup['date_added'],
+						'filename'   => $modification['code'] . "_" . $backup['backup_id'] . ".ocmod.xml",
 						'restore'    => $this->url->link('marketplace/modification/restore', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $modification_id . '&backup_id=' . (int)$backup['backup_id'] . $url, true),
 						'download'   => $this->url->link('marketplace/modification/download', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $modification_id . '&backup_id=' . (int)$backup['backup_id'], true)
 					];
