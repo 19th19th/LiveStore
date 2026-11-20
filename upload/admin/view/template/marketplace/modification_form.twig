@@ -67,7 +67,7 @@
 													<td class="text-left">{{ backup['backup_id'] }}</td>
 													<td class="text-left">{{ backup['code'] }}</td>
 													<td class="text-left">{{ backup['date_added'] }}</td>
-													<td class="text-right"><a href="{{ backup['restore'] }}" onclick="return confirm('{{ text_confirm }}');" data-toggle="tooltip" title="{{ button_restore }}" class="btn btn-primary"><i class="fa fa-share-square"></i></a></td>
+													<td class="text-right"><a href="{{ backup['restore'] }}" onclick="return confirm('{{ text_confirm }}');" data-toggle="tooltip" title="{{ button_restore }}" class="btn btn-primary"><i class="fa fa-share-square"></i></a> <a href="{{ backup['download'] }}" data-toggle="tooltip" title="{{ button_download }}" class="btn btn-primary"><i class="fa fa-download"></i></a></td>
 												</tr>
 											{% endfor %}
 										{% else %}
