@@ -118,107 +118,134 @@ class ControllerMarketplaceModification extends Controller {
 	}
 
     public function restore() {
-        $this->load->language('marketplace/extension');
-		$this->load->language('marketplace/modification');
+        $this->load->language('marketplace/modification');
 
-		$this->load->model('setting/modification');
-		
-		$this->document->setTitle($this->language->get('heading_title'));
-		
-		$modification_id = isset($this->request->get['modification_id']) ? (int)$this->request->get['modification_id'] : 0;
-		$backup_id = isset($this->request->get['backup_id']) ? (int)$this->request->get['backup_id'] : 0;
-
-        if ($modification_id && $backup_id) {
-            $backup = $this->model_setting_modification->getModificationBackup($modification_id, $backup_id);
-
-            if ($backup) {
-                $xml  = $backup['xml'];
-				$meta = $this->parseMetaFromXml($xml);
-				$cur  = $this->model_setting_modification->getModification($modification_id);
-
-				$data = array(
-					'name'    => $meta['name']    ?: $cur['name'],
-					'code'    => $meta['code']    ?: $cur['code'],
-					'author'  => $meta['author']  ?: $cur['author'],
-					'version' => $meta['version'] ?: $cur['version'],
-					'link'    => $meta['link']    ?: $cur['link'],
-					'xml'     => $xml,
-					'status'  => (int)$cur['status']
-				);
-
-				$this->model_setting_modification->editModification($modification_id, $data);
-            }
-			
-			$this->session->data['success'] = $this->language->get('text_success');
-
-			$url = '';
-
-            if (isset($this->request->get['sort'])) {
-                $url .= '&sort=' . $this->request->get['sort'];
-            }
-
-            if (isset($this->request->get['order'])) {
-                $url .= '&order=' . $this->request->get['order'];
-            }
-
-            if (isset($this->request->get['page'])) {
-                $url .= '&page=' . $this->request->get['page'];
-            }
-			
-			$this->response->redirect($this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $this->request->get['modification_id'] . $url, true));
+        if (!$this->validateBackupRequest()) {
+            return;
         }
 
-        $this->getForm();
+        $this->load->model('setting/modification');
+        $modification_id = (int)($this->request->get['modification_id'] ?? 0);
+        $backup_id = (int)($this->request->get['backup_id'] ?? 0);
+        $cur = $this->model_setting_modification->getModification($modification_id);
+        $backup = $this->model_setting_modification->getModificationBackup($modification_id, $backup_id);
+
+        if ($modification_id <= 0 || $backup_id <= 0 || !$cur || !$backup) {
+            $this->backupError('404 Not Found', 'error_file');
+            return;
+        }
+
+        $xml = $backup['xml'];
+        $meta = $this->parseMetaFromXml($xml);
+
+        if (!empty($meta['error'])) {
+            $this->backupError('400 Bad Request', 'error_syntaxis');
+            return;
+        }
+
+        $data = array(
+            'name'    => $meta['name'] ?: $cur['name'],
+            'code'    => $meta['code'] ?: $cur['code'],
+            'author'  => $meta['author'] ?: $cur['author'],
+            'version' => $meta['version'] ?: $cur['version'],
+            'link'    => $meta['link'] ?: $cur['link'],
+            'xml'     => $xml,
+            'status'  => (int)$cur['status']
+        );
+
+        $this->model_setting_modification->editModification($modification_id, $data);
+        $this->session->data['success'] = $this->language->get('text_success');
+        $this->redirectAfterBackupAction($modification_id);
     }
 
     public function clearBackups() {
-        if (!$this->user->hasPermission('modify', 'marketplace/modification')) {
-            $json['error'] = $this->language->get('error_permission');
+        $this->load->language('marketplace/modification');
+
+        if (!$this->validateBackupRequest()) {
+            return;
         }
 
         $this->load->model('setting/modification');
-        $this->model_setting_modification->deleteModificationBackups($this->request->get['modification_id']);
+        $modification_id = (int)($this->request->get['modification_id'] ?? 0);
 
-		$url = '';
+        if ($modification_id <= 0 || !$this->model_setting_modification->getModification($modification_id)) {
+            $this->backupError('404 Not Found', 'error_id_not_found');
+            return;
+        }
 
-		if (isset($this->request->get['sort'])) {
-			$url .= '&sort=' . $this->request->get['sort'];
-		}
+        $this->model_setting_modification->deleteModificationBackups($modification_id);
+        $this->redirectAfterBackupAction($modification_id);
+    }
 
-		if (isset($this->request->get['order'])) {
-			$url .= '&order=' . $this->request->get['order'];
-		}
+    private function validateBackupRequest() {
+        if (!$this->user->hasPermission('modify', 'marketplace/modification')) {
+            $this->backupError('403 Forbidden', 'error_permission');
+            return false;
+        }
 
-		if (isset($this->request->get['page'])) {
-			$url .= '&page=' . $this->request->get['page'];
-		}
+        if ($this->request->server['REQUEST_METHOD'] !== 'POST') {
+            $this->response->addHeader('Allow: POST');
+            $this->backupError('405 Method Not Allowed', 'error_warning');
+            return false;
+        }
 
-        $this->response->redirect($this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $this->request->get['modification_id'] . $url, true));
+        $token = $this->request->post['user_token'] ?? null;
+        $expected = $this->session->data['user_token'] ?? null;
+
+        if (!is_string($token) || !is_string($expected) || $expected === '' || !hash_equals($expected, $token)) {
+            $this->backupError('403 Forbidden', 'error_permission');
+            return false;
+        }
+
+        return true;
+    }
+
+    private function backupError($status, $key) {
+        $this->response->addHeader('HTTP/1.1 ' . $status);
+        $this->response->addHeader('Content-Type: text/plain; charset=utf-8');
+        $this->response->setOutput($this->language->get($key));
+    }
+
+    private function redirectAfterBackupAction($modification_id) {
+        $url = '';
+
+        foreach (array('sort', 'order', 'page') as $key) {
+            if (isset($this->request->get[$key]) && is_scalar($this->request->get[$key])) {
+                $url .= '&' . $key . '=' . rawurlencode((string)$this->request->get[$key]);
+            }
+        }
+
+        $this->response->redirect($this->url->link('marketplace/modification/edit', 'user_token=' . $this->session->data['user_token'] . '&modification_id=' . $modification_id . $url, true));
     }
 
     public function download() {
+        $this->load->language('marketplace/modification');
         $this->load->model('setting/modification');
 
-		$modification_id = isset($this->request->get['modification_id']) ? (int)$this->request->get['modification_id'] : 0;
-		$backup_id = isset($this->request->get['backup_id']) ? (int)$this->request->get['backup_id'] : 0;
-		
-		$xml = '';
+        $modification_id = (int)($this->request->get['modification_id'] ?? 0);
+        $modification = $this->model_setting_modification->getModification($modification_id);
 
-        if ($modification_id && $backup_id) {
+        if ($modification_id <= 0 || !$modification) {
+            $this->backupError('404 Not Found', 'error_id_not_found');
+            return;
+        }
+
+        if (isset($this->request->get['backup_id'])) {
+            $backup_id = (int)$this->request->get['backup_id'];
             $backup = $this->model_setting_modification->getModificationBackup($modification_id, $backup_id);
 
-            if ($backup) {
-				$xml = $backup['xml'];
-			}
-		} else {
-			$modification = $this->model_setting_modification->getModification($modification_id);
+            if ($backup_id <= 0 || !$backup) {
+                $this->backupError('404 Not Found', 'error_file');
+                return;
+            }
 
-			if ($modification) {
-				$xml = $modification['xml'];
-			}
-		}
+            $xml = $backup['xml'];
+        } else {
+            $xml = $modification['xml'];
+        }
 
         $this->response->addHeader('Content-Type: application/xml');
+        $this->response->addHeader('X-Content-Type-Options: nosniff');
         $this->response->setOutput($xml);
     }
 

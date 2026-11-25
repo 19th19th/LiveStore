@@ -57,7 +57,7 @@
 											<td class="text-left">{{ column_id }}</td>
 											<td class="text-left">{{ column_code }}</td>
 											<td class="text-left">{{ column_date_added }}</td>
-											<td class="text-right">{{ column_restore }} {% if backups %}<a type="button" href="{{ history }}" onclick="return confirm('{{ text_confirm }}');" data-toggle="tooltip" title="{{ button_history }}" class="btn btn-default"><i class="fa fa-trash"></i></a>{% endif %}</td>
+											<td class="text-right">{{ column_restore }} {% if backups %}<button type="button" data-backup-action="{{ history }}" data-toggle="tooltip" title="{{ button_history }}" class="btn btn-default"><i class="fa fa-trash"></i></button>{% endif %}</td>
 										</tr>
 									</thead>
 									<tbody>
@@ -68,7 +68,7 @@
 													<td class="text-left">{{ backup['code'] }}</td>
 													<td class="text-left">{{ backup['date_added'] }}</td>
 													<td class="text-right">
-														<a href="{{ backup['restore'] }}" onclick="return confirm('{{ text_confirm }}');" data-toggle="tooltip" title="{{ button_restore }}" class="btn btn-primary"><i class="fa fa-share-square"></i></a> 
+														<button type="button" data-backup-action="{{ backup['restore'] }}" data-toggle="tooltip" title="{{ button_restore }}" class="btn btn-primary"><i class="fa fa-share-square"></i></button> 
 														<a href="{{ backup['download'] }}" data-toggle="tooltip" title="{{ button_download }}" class="btn btn-success" download="{{ backup['filename'] }}"><i class="fa fa-download"></i></a>
 													</td>
 												</tr>
@@ -89,6 +89,16 @@
 	</div>
 </div>
 <script>
+  $('[data-backup-action]').on('click', function () {
+      if (!confirm({{ text_confirm|json_encode|raw }})) {
+          return;
+      }
+
+      var form = $('<form>', {method: 'post', action: $(this).attr('data-backup-action')});
+      form.append($('<input>', {type: 'hidden', name: 'user_token', value: {{ user_token|json_encode|raw }}}));
+      form.appendTo(document.body).submit();
+  });
+
   // Initialize codemirrror
   var editor = CodeMirror.fromTextArea(document.querySelector('.CodeMirror'), {
     mode: 'xml',
